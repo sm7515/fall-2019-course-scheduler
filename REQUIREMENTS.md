@@ -49,7 +49,7 @@
    - Precondition: user is logged in to their mobile ID account.
 
 ### Use case Diagram
-![use case diagram](https://github.com/nyu-software-engineering/fall-2019-mobile-nyu-id/requirement_pics/use_case.png)
+![use case diagram](./requirement_pics/use_case.png)
 
 ## Domain Modeling
-![domain modeling](https://github.com/nyu-software-engineering/fall-2019-mobile-nyu-id/requirement_pics/domain_modeling.png)
+![domain modeling](./requirement_pics/domain_modeling.png)
