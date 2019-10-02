@@ -1,6 +1,6 @@
-# Requirements
+# Requirements  
 ---
-## End User Observation
+## End User Observation  
 ---
 Mia Karnstein  
 Age:18  
