@@ -5,7 +5,6 @@
 ### Mia Karnstein
 Age:18  
 Address: 20 W 34th St, New York, NY 10001  
-
 Background story: Grew up in NYC, doesn't like technologies. Firmly believes that she is a vampire  
 School: NYU  
 Occupation: Student  
@@ -29,8 +28,6 @@ School: NYU
 Occupation: Student  
 Goal: wants an easier alternative to the existing NYU campus cash, where she has to get her id card out of backpack and then put it back  
 Solution: Integrate Campus Cash with phone app so students can tap their phones instead  
-
-
 ## Use cases
 ---
 1. Sign up/Register
