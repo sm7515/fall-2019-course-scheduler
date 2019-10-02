@@ -2,7 +2,7 @@
 ---
 ## End User Observation
 ---
-### Mia Karnstein
+### Mia Karnstein  
 Age:18  
 Address: 20 W 34th St, New York, NY 10001  
 Background story: Grew up in NYC, doesn't like technologies. Firmly believes that she is a vampire  
