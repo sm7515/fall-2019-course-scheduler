@@ -2,6 +2,7 @@ Product Backlog
 =========================================================
 
 **User Stories**
+
 1. As an NYU student/faculty, I want to register into the system so that I can upload my physical NYU card onto my phone.
 
 2. As an NYU student/faculty, I want to login into the system, so that I can access my virtual NYU card.
@@ -35,13 +36,19 @@ Product Backlog
 System of Rank: 1-100. 1 Easy and 100 Hard
 
 1. Register Function 
+
     Difficulty: 60
+
     Reason: Setup database, backend server, register page. When an NYU student wants to register, we present a page and write their information to the database. Then, we would want to verify their email. Finally, take their physical card and upload it to their account.
 2. Login Function
+
     Difficulty: 10
+
     Reason: When login, pull information from info from database
 3. Swiping 
+
     Difficulty: 45
+
     Reason: When a NYU student/faculty taps into a building, the program converts the chip from the physical card into a magnetic waves that the building reader can read. When swiping we would have to convert their card information to magnetic waves.
 
     
