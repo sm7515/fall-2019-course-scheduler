@@ -10,10 +10,9 @@
 #### School: NYU Occupation: Student 
 #### Challenges: Wants to use a phone app to tap into buildings but she is an Anti-internet activist, doesn't want his mobile Id to be online
 #### Solution: Provide an offline version of the app that allows Mia to tap into buildings offline
-
+---
 
 ### Eva Roux
----
 #### Age 21
 #### Address: 1600 Pennsylvania Ave NW, Washington, DC 20500
 #### Background story: Grew up in Washington DC, wants a career in business
