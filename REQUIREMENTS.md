@@ -8,7 +8,7 @@ Address: 20 W 34th St, New York, NY 10001
 Background story: Grew up in NYC, doesn't like technologies. Firmly believes that she is a vampire  
 School: NYU  
 Occupation: Student  
-Challenges: She has a busy schedule, she would like to have a schedule that she can modify so she knows which timeslot works for her.
+Challenges: She has a busy schedule, she would like to have a schedule that she can modify so she knows which timeslot works for her.  
 Solution: Allow users to block out sections of the schedule so they have easier visualization on which timeslot works for them. 
   
 ### Eva Roux  
@@ -17,7 +17,7 @@ Address: 1600 Pennsylvania Ave NW, Washington, DC 20500
 Background story: Grew up in Washington DC, wants a career in business  
 School: NYU Stern  
 Occupation: Student  
-Goal: She doesn't want to be picking for sections that are already full.
+Goal: She doesn't want to be picking for sections that are already full.  
 Solution: Have a special indicator that indicates which class is full/closed and how long is the waitlist.
   
 ### Emily Sue  
@@ -26,8 +26,8 @@ Address: 110 E 14th St, New York, NY 10003
 Background Story: Grew uo in new york,dormed at NYU and is forced to get a meal plan that she can not use up  
 School: NYU  
 Occupation: Student  
-Goal: NYU has too many courses that she simply does not care about, she wants a cleaner catalog
-Solution: Include a filiter so users are allowed to exclude certain school,subjects from her catalog
+Goal: NYU has too many courses that she simply does not care about, she wants a cleaner catalog  
+Solution: Include a filiter so users are allowed to exclude certain school,subjects from her catalog  
 
 ### Io 
 Age 18
@@ -35,7 +35,7 @@ Address: 1 E 2nd St, New York, NY 10003
 Background Story: Grew uo in Oklahoma, dormed at NYU, freshman  
 School: NYU  
 Occupation: Student  
-Goal: She wants to major in math but never made past algebra 1 in high school, knows there is a lot of class that will have pre-requisit, want to know them ahead of time so she doesn't try to enroll in one.
+Goal: She wants to major in math but never made past algebra 1 in high school, knows there is a lot of class that will have pre-requisit, want to know them ahead of time so she doesn't try to enroll in one.  
 Solution: If a requirement is not met, a warning message will display
   
 
