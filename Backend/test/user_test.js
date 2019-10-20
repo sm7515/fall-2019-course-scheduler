@@ -1,7 +1,6 @@
 const assert = require('chai').assert;
-const User = require('../schema/User.class'); //imports the user model.
-
-const userData = { name: 'Rob', gender: 'Male', school: 'CAS', year: 'junior', dateCreated:new Date()};
+const User = require('../schema/user_schema'); //imports the user model.
+const userData = { name: 'Rob', gender: 'Male', school: 'CAS', year: 'Junior', dateCreated:new Date()};
 
 describe('create & save user successfully', () => {
     const validUser = new User(userData);
@@ -120,6 +119,6 @@ describe('validate user fields', () => {
         } catch (error) {
             err = error
         }
-        assert.exists(err, "should create user with required fields");
+        assert.isDefined(err,"invaid object can't be stored. ");
     });
 });
