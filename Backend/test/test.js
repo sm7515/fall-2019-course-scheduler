@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const User = require('../schema/User.class'); //imports the user model.
 
-const userData = { name: 'Rob', gender: 'Male', school: 'CAS', year: 'Junior', dateCreated:new Date()};
+const userData = { name: 'Rob', gender: 'Male', school: 'CAS', year: 'junior', dateCreated:new Date()};
 
 describe('create & save user successfully', () => {
     const validUser = new User(userData);
@@ -67,7 +67,7 @@ describe('validate user fields', () => {
     });
 
     it('name length should be at least 3', (done) => {
-        assert.isAtLeast(validUser.name.length, 3);
+        assert.isAtLeast(validUser.name.length, 3,'name length should be at least 3');
         done();
     });
 
@@ -87,12 +87,17 @@ describe('validate user fields', () => {
     });
 
     it('school name should not be an empty string', (done) => {
-        assert.isAbove(validUser.school.length,0);
+        assert.isAbove(validUser.school.length,0,'school name is empty');
         done();
     });
 
     it('year should not be null or undefined', (done) => {
         assert.exists(validUser.year, 'year is not defined or null');
+        done();
+    });
+
+    it('year should not be an empty string', (done) => {
+        assert.isAbove(validUser.year.length,0, 'year is empty');
         done();
     });
 
@@ -107,6 +112,7 @@ describe('validate user fields', () => {
     });
 
     it('create user without required field should failed', async () => {
+        // should fail
         const userWithoutRequiredField = new User({ name: 'TekLoon' });
         let err;
         try {
@@ -115,6 +121,6 @@ describe('validate user fields', () => {
         } catch (error) {
             err = error
         }
-        assert.isUndefined(err,err);
+        assert.isUndefined(err,"should create user with required fields");
     });
 });
