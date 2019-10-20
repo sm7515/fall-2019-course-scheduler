@@ -112,7 +112,6 @@ describe('validate user fields', () => {
     });
 
     it('create user without required field should failed', async () => {
-        // should fail
         const userWithoutRequiredField = new User({ name: 'TekLoon' });
         let err;
         try {
@@ -121,6 +120,6 @@ describe('validate user fields', () => {
         } catch (error) {
             err = error
         }
-        assert.isUndefined(err,"should create user with required fields");
+        assert.exists(err, "should create user with required fields");
     });
 });
