@@ -1,6 +1,5 @@
 const assert = require('chai').assert;
 const User = require('../schema/user_schema'); //imports the user model.
-console.log(User)
 const userData = { name: 'Rob', gender: 'Male', school: 'CAS', year: 'Junior', dateCreated:new Date()};
 
 describe('create & save user successfully', () => {
