@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Course = require('../schema/school_schema');
+const Course = require('../schema/course_schema');
 
 describe("course_schema test:", ()=>{
 
