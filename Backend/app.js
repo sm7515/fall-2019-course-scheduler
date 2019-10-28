@@ -5,11 +5,34 @@ const path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
+
+//=============================================================
+/**
+ * Endpoint routes
+ */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require("./routes/login");
 var databaseRouter = require('./routes/database');
+//=============================================================
+
+//=============================================================
+/**
+ * Database connection
+ */
+const dbURI = process.env.ATLAS_URI
+
+mongoose.connect(dbURI, {useNewUrlParser: true, useCreateIndex: true}, function(error){
+  //Errors here
+});
+
+mongoose.connection.once('open', ()=>{
+
+  console.log("MongoDB database connection suceeded");
+});
+//=============================================================
 
 var app = express();
 

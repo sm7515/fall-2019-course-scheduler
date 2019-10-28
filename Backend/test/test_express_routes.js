@@ -88,7 +88,7 @@ describe('Test Routes Of Express Server', () => {
             .get('/database/fetchData')
             .end((err,res) => {
                 (res).should.have.status(200);
-                expect(res.text).to.equal('Fetch data');
+                (res.body).should.be.a('object');
                 done();
             });
     })
