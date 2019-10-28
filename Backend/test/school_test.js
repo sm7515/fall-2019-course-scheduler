@@ -31,6 +31,16 @@ describe('Data entry validation',()=> {
         done();
     });
     
+    it('CourseLimit not be 0', (done) => {
+        assert.notEqual(school.course_limit, 0,'courseLimit can not be zero');
+        done();
+    });
+    
+    it('CourseAmount not be 0', (done) => {
+        assert.notEqual(school.course_number,0, 'courseAmount can not be zero');
+        done();
+    });
+    
     it('name should not be null', (done) => {
         assert.exists(school.name, 'username is not defined or null');
         done();
