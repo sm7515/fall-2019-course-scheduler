@@ -42,17 +42,17 @@ describe('Data entry validation',()=> {
     });
     
     it('name should not be null', (done) => {
-        assert.exists(school.name, 'username is not defined or null');
+        assert.exists(school.name, 'name is not defined or null');
         done();
     });
     
     it('location should not be null', (done) => {
-        assert.exists(school.name, 'username is not defined or null');
+        assert.exists(school.name, 'location is not defined or null');
         done();
     });
     
     it('department should not be null', (done) => {
-        assert.exists(school.name, 'username is not defined or null');
+        assert.exists(school.name, 'department is not defined or null');
         done();
     });
 
@@ -62,23 +62,27 @@ describe('Data entry validation',()=> {
     });
     
     it('name should not be empty', (done) => {
-        assert.notEqual(school.name, '','username is not defined or null');
+        assert.notEqual(school.name, '','name is not supposed to be empty');
         done();
     });
     
     it('location should not be empty', (done) => {
-        assert.notEqual(school.name, '','username is not defined or null');
+        assert.notEqual(school.name, '','location is not supposed to be empty');
         done();
     });
-    
+    it('descrption should not be empty', (done) => {
+        assert.notEqual(school.description, '','description is not supposed to be empty');
+        done();
+    });
     it('department should not be empty', (done) => {
-        assert.notEqual(school.name, '','username is not defined or null');
+        assert.notEqual(school.name, '','department is not supposed to be empty');
         done();
     });
     it('year should not be empty', (done) => {
-        assert.notEqual(school.year, '','username is not defined or null');
+        assert.notEqual(school.year, '','year is not supposed to be empty');
         done();
     });
+    
     it('year should not be null', (done) => {
         assert.isNotNull(school.year, 'year is not defined or null');
         done();
