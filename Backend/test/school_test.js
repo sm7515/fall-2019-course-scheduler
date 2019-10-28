@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-const School = require('../schema/course_schema'); //imports the user model.
+const School = require('../schema/school_schema'); //imports the user model.
 
 const userData = { name: 'CAS',
     location: 'NYC',
