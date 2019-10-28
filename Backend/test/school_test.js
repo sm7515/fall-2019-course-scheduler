@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const School = require('C:\\Users\\zheyu\\IdeaProjects\\School\\school_schema.js'); //imports the user model.
+const School = require('../schema/course_schema'); //imports the user model.
 const userData = { name: 'CAS',
     location: 'NYC',
     department: ['Math Department'],
