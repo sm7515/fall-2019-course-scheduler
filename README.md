@@ -1,4 +1,4 @@
-# NYU Scheduler
+# NYU Scheduler  
 [![Build Status](https://travis-ci.com/nyu-software-engineering/fall-2019-course-scheduler.svg?branch=master)](https://travis-ci.com/nyu-software-engineering/fall-2019-course-scheduler)
 **Description**
 
