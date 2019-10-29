@@ -15,7 +15,7 @@ const schoolData = { name: 'CAS',
 
 };
 
-describe('Data entry validation',()=> {
+describe('school data entry validation',()=> {
     const school = new School(schoolData);
 
     it('Dean name should not be null',function (done) {
