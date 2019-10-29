@@ -19,6 +19,7 @@
   "dependencies": {
     "crawler": "^1.2.1",
     "express": "^4.17.1",
+    "mongoose": "^5.7.5",
     "mongodb": "^3.3.3"
   }
 }
