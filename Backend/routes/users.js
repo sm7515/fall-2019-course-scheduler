@@ -61,6 +61,22 @@ router.post('/userExists', function (req, res, next) {
         res.json("User does not exist")
       }
       else {
+router.post('/userExists', function(req,res,next){
+  const name = req.body.username;
+
+  User.findOne({"name": name}, function(err,user){
+    if(err)
+    {
+      console.log(err);
+    }
+    else
+    {
+      if(user == null)
+      {
+        res.json("User does not exist")
+      }
+      else
+      {
         res.json("User exists");
       }
     }
@@ -96,5 +112,29 @@ router.post('/add', function (req, res, next) {
   })
 
 });
+  const newUser = new User({ name,password,email,gender,school,year,dateCreated });
+
+  // console.log(newUser);
+
+  //Check if new user is valid
+  User.findOne({"name": name}, function(err,user){
+    if(err)
+    {
+      console.log(err);
+    }
+    
+    if(user != null)
+    {
+      res.json("User Exists. Cannot register");
+    }
+    else
+    {
+      newUser.save()
+      .then(() => res.json('User added!'))
+      .catch(err => res.status(400).json('Error: ' + err)); 
+    }
+  })
+
+  });
 
 module.exports = router;
