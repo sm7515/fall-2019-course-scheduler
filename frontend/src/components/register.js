@@ -84,18 +84,19 @@ export default class Register extends Component {
 
         axios.post('http://localhost:5000/register', user)
             .then(res => {
-                // if (res.data ==='User Exists. Cannot register'){
-                //     this.setState({
-                //         name: '',
-                //         password: '',
-                //         gender: '',
-                //         school: '',
-                //         year: '',
-                //         email: '',
-                //     })
-                //     alert('name already exists. please reenter.')
-                // }
-               // else{
+              console.log(res);
+                if (res.data.length != 0){
+                    this.setState({
+                        name: '',
+                        password: '',
+                        gender: '',
+                        school: '',
+                        year: '',
+                        email: '',
+                    })
+                    alert(res.data);
+                }
+                else{
                     window.location = '/courses';
                // }
             })
