@@ -61,8 +61,8 @@ export default class Login extends Component {
                     <span className="highlight"></span>
                     <span className="bar"></span>
                     <label className='form-label'>Password </label>
-                    <input type="submit" value="Log in" />
                 </div>
+                <input type="submit" value="Log in" />
             </form>
         </div>
     )}
