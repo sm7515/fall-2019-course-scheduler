@@ -57,7 +57,7 @@ export default class Register extends Component {
         this.setState({
             year: e.target.value
         })
-        console.log(this.state.year)
+        console.log(e.target.value)
     }
 
     onChangeEmail(e) {
@@ -98,7 +98,7 @@ export default class Register extends Component {
                 }
                 else{
                     window.location = '/courses';
-               }
+                }
             })
             .catch(err => console.log(err))
 
@@ -212,8 +212,8 @@ export default class Register extends Component {
                     <label className='form-label'>Password </label>
                 </div>
 
-                <input type="submit" value="Register"/>
-                <div className='login'>
+                <div className='reg-log'>
+                    <input type="submit" value="Register"/>
                     <a href='/login'>login</a>
                 </div>
             </form>

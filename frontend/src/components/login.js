@@ -32,40 +32,32 @@ export default class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-                window.location = '/courses';
-
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
 
         const user = {
             name: this.state.name,
             password:this.state.password,
         }
 
-        console.log(user);
-
+        //console.log(user);
         axios.post('http://localhost:5000/login', user)
             .then(res => {
-              console.log(res);
-                if (res.data.length != 0){
+                console.log(res);
+                if (res.data.length != 0) {
                     this.setState({
                         name: '',
                         password: '',
                     })
                     alert(res.data);
                 }
-                else{
+                else {
                     window.location = '/courses';
-               }
+                }
             })
             .catch(err => console.log(err))
-
     }
     render(){
     return(
-        <div className='form-container'>
+        <div className='form-container-login'>
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
@@ -89,7 +81,10 @@ export default class Login extends Component {
                     <span className="bar"></span>
                     <label className='form-label'>Password </label>
                 </div>
-                <input type="submit" value="Log in" />
+                <div className='reg-log'>
+                    <input type="submit" value="Log in" />
+                    <a href='/register'>register</a>
+                </div>
             </form>
         </div>
     )}
