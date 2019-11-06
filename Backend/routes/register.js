@@ -9,18 +9,19 @@ router.post("/", function (req, res, next) {
   var error = [];
   const user = req.body;
   validation(user,error);
-        console.log("flag");
   if(error.length === 0){
     const user_doc = new User(user);
     user_doc.save( function(err){
       if(err){
-        error.push("Failed to save to database. ");
+        error.push("Field missing. Registration failed.");
       }
-
-      res.json({error});
+    //  console.log(error);
+      res.json(error);
     } );
-  };
-  //res.send(s)
+  }
+  else{
+    res.json(error);
+  }
 });
 
 function validation(user,error){
@@ -28,7 +29,6 @@ function validation(user,error){
   if(user.password.length < 6){
     error.push("Password is not long enough. The min length is 6");
   }
-  console.log(error);
   User.countDocuments({name: user.name}, function(err, count){
 
     if(err){
@@ -38,8 +38,5 @@ function validation(user,error){
       error.push("Username exists. Please use another one.");
     }
   });
-  //check if the password has at least 6 digits
-
-  console.log("pass test");
 }
 module.exports = router;
