@@ -1,20 +1,28 @@
 var express = require('express');
 var router = express.Router();
+const User = require('../schema/user_schema');
 
 /* GET users listing. */
-router.post('/login', function(req, res, next) {
+router.post('/', function(req, res, next) {
   if(req.session.name){
-    res.send("already logged in.");
+    res.send();
   }
-  User.find({name:req.body.name}, (err, user)=>{
-    if(user == null){
-      res.json({error:"User don't exist. "});
+  User.findOne({name:req.body.name}, (err, user)=>{
+    if(err){
+      console.log(err);
+    }
+    console.log(user);
+    if(!user){
+      console.log("flag");
+      res.json(["User don't exist. "]);
     }
     else if(user.password !== req.body.password){
-      res.json({error:"Wrong password"});
+      res.json(["Wrong password"]);
+    }else{
+      req.session.name = user.name;
+      res.send();
     }
-    req.session.name = user.name;
-    res.send("Successfully logged in!");
+
   })
 });
 
