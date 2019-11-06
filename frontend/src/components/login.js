@@ -32,7 +32,17 @@ export default class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        const user = {
+            name: this.state.name,
+            password: this.state.password,
+        }
+        
+        axios.post('http://localhost:5000/login',user)
+            .then(res=>{
+                console.log(res)
                 window.location = '/courses';
+            })
+            .catch(err=>{console.log(err)})
 
     }
 
@@ -63,6 +73,7 @@ export default class Login extends Component {
                     <label className='form-label'>Password </label>
                 </div>
                 <input type="submit" value="Log in" />
+                <a href='/register'>register</a>
             </form>
         </div>
     )}

@@ -98,7 +98,7 @@ export default class Register extends Component {
                 }
                 else{
                     window.location = '/courses';
-               // }
+                }
             })
             .catch(err => console.log(err))
 
