@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const School = require('../schema/school_schema'); 
+const School = require('../schema/school_schema');
 const Course = require('../schema/course_schema');
 const User = require('../schema/user_schema'); //imports the user model.
 const userData = { name: 'Rob', password:'1234567',email:'sij@gmail.com',gender: 'Male', school: 'CAS', year: 'Junior', dateCreated:new Date()};
@@ -22,37 +22,37 @@ describe('school data entry validation',()=> {
         assert.isNotNull(school.Dean,"Dean should not be null");
         done();
     });
-    
+
     it('CourseLimit not be null', (done) => {
         assert.isNotNull(school.course_limit, 'courseLimit is not defined or null');
         done();
     });
-    
+
     it('CourseAmount not be null', (done) => {
         assert.isNotNull(school.course_number, 'courseLimit is not defined or null');
         done();
     });
-    
+
     it('CourseLimit not be 0', (done) => {
         assert.notEqual(school.course_limit, 0,'courseLimit can not be zero');
         done();
     });
-    
+
     it('CourseAmount not be 0', (done) => {
         assert.notEqual(school.course_number,0, 'courseAmount can not be zero');
         done();
     });
-    
+
     it('name should not be null', (done) => {
         assert.exists(school.name, 'name is not defined or null');
         done();
     });
-    
+
     it('location should not be null', (done) => {
         assert.exists(school.name, 'location is not defined or null');
         done();
     });
-    
+
     it('department should not be null', (done) => {
         assert.exists(school.name, 'department is not defined or null');
         done();
@@ -62,12 +62,12 @@ describe('school data entry validation',()=> {
         assert.notEqual(school.Dean,'',"Dean should not be null");
         done();
     });
-    
+
     it('name should not be empty', (done) => {
         assert.notEqual(school.name, '','name is not supposed to be empty');
         done();
     });
-    
+
     it('location should not be empty', (done) => {
         assert.notEqual(school.name, '','location is not supposed to be empty');
         done();
@@ -84,7 +84,7 @@ describe('school data entry validation',()=> {
         assert.notEqual(school.year, '','year is not supposed to be empty');
         done();
     });
-    
+
     it('year should not be null', (done) => {
         assert.isNotNull(school.year, 'year is not defined or null');
         done();
@@ -105,7 +105,7 @@ describe("course_schema test:", ()=>{
       });
     }
     catch(err){
-      
+
     }
   });
 
@@ -250,11 +250,6 @@ describe('create & save user successfully', () => {
 
     it('username should match', function (done) {
         assert.equal(validUser.name, userData.name, 'username doesn\'t match');
-        done();
-    });
-
-    it('gender should match', function (done) {
-        assert.equal(validUser.gender, userData.gender, 'gender doesn\'t match');
         done();
     });
 

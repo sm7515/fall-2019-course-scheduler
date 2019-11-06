@@ -4,8 +4,6 @@ const User = require('../schema/user_schema'); //imports the user model.
 
 
 router.post("/", function (req, res, next) {
-  //1. Check if register username, password, and email are valid
-  //2. If step 1 is true, post to database
   var error = [];
   const user = req.body;
   validation(user,error);
@@ -15,7 +13,6 @@ router.post("/", function (req, res, next) {
       if(err){
         error.push("Field missing. Registration failed.");
       }
-    //  console.log(error);
       res.json(error);
     } );
   }
