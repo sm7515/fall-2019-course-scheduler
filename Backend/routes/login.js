@@ -10,7 +10,7 @@ router.post('/login', function(req, res, next) {
     if(user == null){
       res.json({error:"User don't exist. "});
     }
-    else if(user.password != req.body.password){
+    else if(user.password !== req.body.password){
       res.json({error:"Wrong password"});
     }
     req.session.name = user.name;
