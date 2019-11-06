@@ -8,21 +8,29 @@ router.post("/", function (req, res, next) {
   //2. If step 1 is true, post to database
   var error = [];
   const user = req.body;
-  validation(user);
+  validation(user,error);
+        console.log("flag");
   if(error.length === 0){
     const user_doc = new User(user);
     user_doc.save( function(err){
       if(err){
         error.push("Failed to save to database. ");
       }
+
       res.json({error});
     } );
   };
+  //res.send(s)
 });
 
-function validation(user){
+function validation(user,error){
   //check if user exists
+  if(user.password.length < 6){
+    error.push("Password is not long enough. The min length is 6");
+  }
+  console.log(error);
   User.countDocuments({name: user.name}, function(err, count){
+
     if(err){
       console.log(err);
     }
@@ -31,8 +39,7 @@ function validation(user){
     }
   });
   //check if the password has at least 6 digits
-  if(user.password.length < 6){
-    error.push("Password is not long enough. The min length is 6");
-  }
+
+  console.log("pass test");
 }
 module.exports = router;

@@ -82,7 +82,7 @@ export default class Register extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('http://localhost:5000/register', user)
             .then(res => {
                 if (res.data ==='User Exists. Cannot register'){
                     this.setState({
