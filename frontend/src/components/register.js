@@ -108,88 +108,107 @@ export default class Register extends Component {
         <div className='form-container'>
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
-                    <label className='form-label'>Name: </label>
                     <input type="text"
                         required
                         className="form-control"
                         value={this.state.name}
                         onChange={this.onChangename}
                     />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label className='form-label'>Name </label>
                 </div>
 
                 <div className="form-group">
-                    <label className='form-label'>Email: </label>
-                    <input type="email"
+                    <input type="text"
                         required
                         className="form-control"
                         value={this.state.email}
                         onChange={this.onChangeEmail}
                     />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label className='form-label'>Email </label>
                 </div>
-
-                <div className="form-group">
-                    <label>Gender: </label>
+                <div className="radio-group">
+                <label className="gender">Gender </label>
+                <div className="form-radio-group">
                     <div className="form-radio">
-                        <input type="radio"
-                            required
-                            name="gender"
-                            value="male"
-                            className='radio'
-                            onClick={this.onClickGender}
-                        />
-                        <label>Male</label>
+                        <label className="form-radio-label">
+                            <input type="radio"
+                                required
+                                name="gender"
+                                value="male"
+                                className='form-radio-field'
+                                onClick={this.onClickGender}
+                            />
+                            <i className="form-radio-button"></i>
+                            <span>Male</span>
+                        </label>
                     </div>
                     <div className="form-radio">
-                        <input type="radio"
-                            value='female'
-                            name="gender"
-                            className='radio'
-                            onClick={this.onClickGender}
-                        />
-                        <label>Female</label>
+                        <label className="form-radio-label">
+                            <input type="radio"
+                                value='female'
+                                name="gender"
+                                className='form-radio-field'
+                                onClick={this.onClickGender}
+                            />
+                            <i className="form-radio-button"></i>
+                            <span>Female</span>
+                        </label>
                     </div>
-                        <div className="form-radio">
-                        <input type="radio"
-                            value='other'
-                            name="gender"
-                            className='radio'
-                            onClick={this.onClickGender}
-                        />
-                        <label>Other</label>
+                    <div className="form-radio">
+                        <label className="form-radio-label">
+                            <input type="radio"
+                                value='other'
+                                name="gender"
+                                className='form-radio-field'
+                                onClick={this.onClickGender}
+                            />
+                            <i className="form-radio-button"></i>
+                            <span>Other</span>
+                        </label>
                     </div>
                 </div>
-
-                <div className="form-group">
-                    <label>Year: </label>
-                    <select ref="userInput"
+                </div>
+                <div className="form-select">
+                    <select
                         required
                         value={this.state.year}
+                        className="form-element-field"
                         onChange={this.onChangeYear}>
                         <option value="Freshman">Freshman</option>
                         <option value="Sophomore">Sophomore</option>
                         <option value="Junior">Junior</option>
                         <option value="Senior">Senior</option>
                     </select>
+                    <div className="form-element-bar"></div>
+                    <label className="form-element-label">Year </label>
                 </div>
 
                 <div className="form-group">
-                    <label className='form-label'>School: </label>
                     <input type="text"
                         required
                         className="form-control"
                         value={this.state.school}
                         onChange={this.onChangeSchool}
                     />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                    <label className='form-label'>School </label>
                 </div>
 
                 <div className="form-group">
-                    <label className='form-label'>Password: </label>
                     <input type="password"
                         required
                         className="form-control"
                         value={this.state.password}
                         onChange={this.onChangePassword}
                     />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                    <label className='form-label'>Password </label>
                 </div>
 
                 <input type="submit" value="Register"/>
