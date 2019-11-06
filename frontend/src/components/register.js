@@ -169,6 +169,7 @@ export default class Register extends Component {
                         <span className="highlight"></span>
                         <span className="bar"></span>
                     <label className='form-label'>Password </label>
+                    <span className='form-hint'>Your password must contain 6 characters minimum </span>
                 </div>
 
                 <div className='reg-log'>
