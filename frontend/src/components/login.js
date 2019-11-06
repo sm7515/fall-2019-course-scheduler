@@ -32,19 +32,29 @@ export default class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+
         const user = {
             name: this.state.name,
-            password: this.state.password,
+            password:this.state.password,
         }
-        
-        axios.post('http://localhost:5000/login',user)
-            .then(res=>{
-                console.log(res)
-                window.location = '/courses';
-            })
-            .catch(err=>{console.log(err)})
-    }
 
+        //console.log(user);
+        axios.post('http://localhost:5000/login', user)
+            .then(res => {
+                console.log(res);
+                if (res.data.length != 0) {
+                    this.setState({
+                        name: '',
+                        password: '',
+                    })
+                    alert(res.data);
+                }
+                else {
+                    window.location = '/courses';
+                }
+            })
+            .catch(err => console.log(err))
+    }
     render(){
     return(
         <div className='form-container-login'>
