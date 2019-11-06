@@ -304,20 +304,11 @@ describe('validate user fields', () => {
       done();
     });
 
-    it('gender should not be null or undefined', (done) => {
-        assert.exists(validUser.gender, 'gender is not defined or null');
-        done();
-    });
-
   it('email should not be null or undefined', (done) => {
     assert.exists(validUser.email, 'email is not defined or null');
     done();
   });
 
-    it('gender should be female, male, or other', (done) => {
-        assert.include(['female','male','other'],validUser.gender.toLowerCase(),'invalid gender');
-        done();
-    });
 
     it('school should not be null or undefined', (done) => {
         assert.exists(validUser.school, 'school is not defined or null');
