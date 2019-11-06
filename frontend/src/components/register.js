@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import axios from 'axios';
 import '../App.css'
 
@@ -57,7 +57,7 @@ export default class Register extends Component {
         this.setState({
             year: e.target.value
         })
-        console.log(this.state.year)
+        console.log(e.target.value)
     }
 
     onChangeEmail(e) {
@@ -82,9 +82,10 @@ export default class Register extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('http://localhost:5000/register', user)
             .then(res => {
-                if (res.data ==='User Exists. Cannot register'){
+              console.log(res);
+                if (res.data.length != 0){
                     this.setState({
                         name: '',
                         password: '',
@@ -93,7 +94,7 @@ export default class Register extends Component {
                         year: '',
                         email: '',
                     })
-                    alert('name already exists. please reenter.')
+                    alert(res.data);
                 }
                 else{
                     window.location = '/courses';
@@ -130,48 +131,7 @@ export default class Register extends Component {
                     <span className="bar"></span>
                     <label className='form-label'>Email </label>
                 </div>
-                <div className="radio-group">
-                <label className="gender">Gender </label>
-                <div className="form-radio-group">
-                    <div className="form-radio">
-                        <label className="form-radio-label">
-                            <input type="radio"
-                                required
-                                name="gender"
-                                value="male"
-                                className='form-radio-field'
-                                onClick={this.onClickGender}
-                            />
-                            <i className="form-radio-button"></i>
-                            <span>Male</span>
-                        </label>
-                    </div>
-                    <div className="form-radio">
-                        <label className="form-radio-label">
-                            <input type="radio"
-                                value='female'
-                                name="gender"
-                                className='form-radio-field'
-                                onClick={this.onClickGender}
-                            />
-                            <i className="form-radio-button"></i>
-                            <span>Female</span>
-                        </label>
-                    </div>
-                    <div className="form-radio">
-                        <label className="form-radio-label">
-                            <input type="radio"
-                                value='other'
-                                name="gender"
-                                className='form-radio-field'
-                                onClick={this.onClickGender}
-                            />
-                            <i className="form-radio-button"></i>
-                            <span>Other</span>
-                        </label>
-                    </div>
-                </div>
-                </div>
+    
                 <div className="form-select">
                     <select
                         required
@@ -209,9 +169,13 @@ export default class Register extends Component {
                         <span className="highlight"></span>
                         <span className="bar"></span>
                     <label className='form-label'>Password </label>
+                    <span className='form-hint'>Your password must contain 6 characters minimum </span>
                 </div>
 
-                <input type="submit" value="Register"/>
+                <div className='reg-log'>
+                    <input type="submit" value="Register"/>
+                    <a href='/login'>login</a>
+                </div>
             </form>
         </div>
         )

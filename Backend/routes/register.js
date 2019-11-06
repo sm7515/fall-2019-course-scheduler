@@ -4,25 +4,30 @@ const User = require('../schema/user_schema'); //imports the user model.
 
 
 router.post("/", function (req, res, next) {
-  //1. Check if register username, password, and email are valid
-  //2. If step 1 is true, post to database
   var error = [];
   const user = req.body;
-  validation(user);
+  validation(user,error);
   if(error.length === 0){
     const user_doc = new User(user);
     user_doc.save( function(err){
       if(err){
-        error.push("Failed to save to database. ");
+        error.push("Field missing. Registration failed.");
       }
-      res.json({error});
+      res.json(error);
     } );
-  };
+  }
+  else{
+    res.json(error);
+  }
 });
 
-function validation(user){
+function validation(user,error){
   //check if user exists
+  if(user.password.length < 6){
+    error.push("Password is not long enough. The min length is 6");
+  }
   User.countDocuments({name: user.name}, function(err, count){
+
     if(err){
       console.log(err);
     }
@@ -30,9 +35,5 @@ function validation(user){
       error.push("Username exists. Please use another one.");
     }
   });
-  //check if the password has at least 6 digits
-  if(user.password.length < 6){
-    error.push("Password is not long enough. The min length is 6");
-  }
 }
 module.exports = router;
