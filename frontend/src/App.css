@@ -23,7 +23,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 50px 0;
+  margin: 100px 0;
 }
 
 .form-group{
@@ -52,7 +52,7 @@ body {
 
 .form-label{
   color:#f2f2f2; 
-  font-weight: bold;
+  font-weight: normal;
   font-size:18px;
   position:absolute;
   pointer-events:none;
@@ -129,7 +129,7 @@ input:focus ~ .highlight {
 
 .gender{
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   padding-left:5px;
   margin-bottom: 10px;
 }
@@ -233,7 +233,7 @@ input:focus ~ .highlight {
   padding-left: 5px;
   z-index: 1;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -367,4 +367,16 @@ input[type="submit"]:hover{
   padding-right: 20px;
   font-weight: bolder;
   border-right: 1px solid white;
+}
+
+.login{
+  text-align: center;
+}
+
+a:link {color: white;text-decoration: none;}
+a:visited {color: #220337;text-decoration: underline;}
+a:hover {color: white;text-decoration: underline;}
+a:active {
+  color: #330662;
+text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
