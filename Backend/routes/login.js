@@ -15,9 +15,9 @@ router.post('/', function(req, res, next) {
       console.log("flag");
       res.json(["User don't exist. "]);
     }
-    else if(user.password !== req.body.password){
+    else if (user.password !== req.body.password) {
       res.json(["Wrong password"]);
-    }else{
+    } else {
       req.session.name = user.name;
       res.send();
     }
