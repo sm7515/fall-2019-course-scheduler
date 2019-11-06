@@ -43,12 +43,11 @@ export default class Login extends Component {
                 window.location = '/courses';
             })
             .catch(err=>{console.log(err)})
-
     }
 
     render(){
     return(
-        <div className='form-container'>
+        <div className='form-container-login'>
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
@@ -72,8 +71,10 @@ export default class Login extends Component {
                     <span className="bar"></span>
                     <label className='form-label'>Password </label>
                 </div>
-                <input type="submit" value="Log in" />
-                <a href='/register'>register</a>
+                <div className='reg-log'>
+                    <input type="submit" value="Log in" />
+                    <a href='/register'>register</a>
+                </div>
             </form>
         </div>
     )}
