@@ -17,10 +17,6 @@ const userSchema = new Schema({
         type: String,
         unique: true
     },
-    gender: {
-        type: String,
-        required: true,
-    },
     school:{
         type: String,
         required: true,

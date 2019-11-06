@@ -5,8 +5,6 @@ let Course = require('../schema/course_schema');
 
 /* GET users listing. */
 router.get('/fetchData', function (req, res, next) {
-
-  //TODO: Fetch data from database
   Course.find({}, function(err, courses){
     if(err){
       console.log(err);
@@ -15,13 +13,10 @@ router.get('/fetchData', function (req, res, next) {
       res.json(courses);
     }
   });
-
-
 });
 
+//api for admin use only 
 router.post('/addData', function (req, res, next) {
-  // console.log(req.body);
-  // var jsonObj = JSON.parse(req.body);
 
   const name = req.body.name;
   const location = req.body.location;
