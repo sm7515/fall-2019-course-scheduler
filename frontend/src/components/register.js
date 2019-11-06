@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import axios from 'axios';
 import '../App.css'
 
@@ -82,22 +82,22 @@ export default class Register extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('http://localhost:5000/register', user)
             .then(res => {
-                if (res.data ==='User Exists. Cannot register'){
-                    this.setState({
-                        name: '',
-                        password: '',
-                        gender: '',
-                        school: '',
-                        year: '',
-                        email: '',
-                    })
-                    alert('name already exists. please reenter.')
-                }
-                else{
+                // if (res.data ==='User Exists. Cannot register'){
+                //     this.setState({
+                //         name: '',
+                //         password: '',
+                //         gender: '',
+                //         school: '',
+                //         year: '',
+                //         email: '',
+                //     })
+                //     alert('name already exists. please reenter.')
+                // }
+               // else{
                     window.location = '/courses';
-                }
+               // }
             })
             .catch(err => console.log(err))
 
@@ -212,6 +212,9 @@ export default class Register extends Component {
                 </div>
 
                 <input type="submit" value="Register"/>
+                <div className='login'>
+                    <a href='/login'>login</a>
+                </div>
             </form>
         </div>
         )
