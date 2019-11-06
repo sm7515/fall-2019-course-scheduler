@@ -2,8 +2,9 @@ var createError = require('http-errors');
 var express = require('express');
 const cors = require('cors');
 const path = require('path');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -46,9 +47,10 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//// TODO: use a more secure secret
+app.use(session({ secret: "temporary secret", cookie: { maxAge: 24*60*60*1000,secure:true }}));//expires in a day
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);

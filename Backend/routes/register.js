@@ -6,8 +6,8 @@ const User = require('../schema/user_schema'); //imports the user model.
 router.post("/", function (req, res, next) {
   //1. Check if register username, password, and email are valid
   //2. If step 1 is true, post to database
-  const user = req.body;
   var error = [];
+  const user = req.body;
   validation(user);
   if(error.length === 0){
     const user_doc = new User(user);
