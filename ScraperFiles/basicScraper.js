@@ -1,7 +1,7 @@
 let axios = require('axios');
 let cheerio = require('cheerio');
 const url = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV";
-const postURL = "http://localhost:3000/database/addData";
+const postURL = "http://localhost:5000/database/addData";
 
 let yearValue = "/1204/";
 let courseValue = process.argv[2];
