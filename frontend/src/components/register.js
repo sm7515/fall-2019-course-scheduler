@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../App.css'
 
 export default class Register extends Component {
     constructor(props) {
@@ -82,109 +83,118 @@ export default class Register extends Component {
         console.log(user);
 
         axios.post('http://localhost:5000/users/add', user)
-            .then(res => console.log(res.data))
+            .then(res => {
+                if (res.data ==='User Exists. Cannot register'){
+                    this.setState({
+                        name: '',
+                        password: '',
+                        gender: '',
+                        school: '',
+                        year: '',
+                        email: '',
+                    })
+                    alert('name already exists. please reenter.')
+                }
+                else{
+                    window.location = '/courses';
+                }
+            })
             .catch(err => console.log(err))
 
-        this.setState({
-            name: '',
-            password: '',
-            gender: '',
-            school: '',
-            year: '',
-            email: '',
-        })
     }
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.onSubmit}>
+        <div className='form-container'>
+            <form onSubmit={this.onSubmit} className='registerForm'>
+                <div className="form-group">
+                    <label className='form-label'>Name: </label>
+                    <input type="text"
+                        required
+                        className="form-control"
+                        value={this.state.name}
+                        onChange={this.onChangename}
+                    />
+                </div>
 
-                    <div className="form-group">
-                        <label>Name: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.name}
-                            onChange={this.onChangename}
-                        />
-                    </div>
+                <div className="form-group">
+                    <label className='form-label'>Email: </label>
+                    <input type="email"
+                        required
+                        className="form-control"
+                        value={this.state.email}
+                        onChange={this.onChangeEmail}
+                    />
+                </div>
 
-                    <div className="form-group">
-                        <label>Email: </label>
-                        <input type="email"
-                            required
-                            className="form-control"
-                            value={this.state.email}
-                            onChange={this.onChangeEmail}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Gender: </label>
+                <div className="form-group">
+                    <label>Gender: </label>
+                    <div className="form-radio">
                         <input type="radio"
                             required
-                            className="form-control"
                             name="gender"
                             value="male"
+                            className='radio'
                             onClick={this.onClickGender}
                         />
                         <label>Male</label>
+                    </div>
+                    <div className="form-radio">
                         <input type="radio"
-                            className="form-control"
                             value='female'
                             name="gender"
+                            className='radio'
                             onClick={this.onClickGender}
                         />
                         <label>Female</label>
+                    </div>
+                        <div className="form-radio">
                         <input type="radio"
-                            className="form-control"
                             value='other'
                             name="gender"
+                            className='radio'
                             onClick={this.onClickGender}
                         />
                         <label>Other</label>
                     </div>
+                </div>
 
-                    <div className="form-group">
-                        <label>Year: </label>
-                        <select ref="userInput"
-                            required
-                            className="form-control"
-                            value={this.state.year}
-                            onChange={this.onChangeYear}>
-                            <option value="Freshman">Freshman</option>
-                            <option value="Sophomore">Sophomore</option>
-                            <option value="Junior">Junior</option>
-                            <option value="Senior">Senior</option>
-                        </select>
-                    </div>
+                <div className="form-group">
+                    <label>Year: </label>
+                    <select ref="userInput"
+                        required
+                        value={this.state.year}
+                        onChange={this.onChangeYear}>
+                        <option value="Freshman">Freshman</option>
+                        <option value="Sophomore">Sophomore</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                    </select>
+                </div>
 
-                    <div className="form-group">
-                        <label>School: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.school}
-                            onChange={this.onChangeSchool}
-                        />
-                    </div>
+                <div className="form-group">
+                    <label className='form-label'>School: </label>
+                    <input type="text"
+                        required
+                        className="form-control"
+                        value={this.state.school}
+                        onChange={this.onChangeSchool}
+                    />
+                </div>
 
-                    <div className="form-group">
-                        <label>Password: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.onChangePassword}
-                        />
-                    </div>
+                <div className="form-group">
+                    <label className='form-label'>Password: </label>
+                    <input type="password"
+                        required
+                        className="form-control"
+                        value={this.state.password}
+                        onChange={this.onChangePassword}
+                    />
+                </div>
 
-                    <div className="form-group">
-                        <input type="submit" value="Register"/>
-                    </div>
-                </form>
-            </div>
+                <input type="submit" value="Register"/>
+            </form>
+        </div>
         )
     }
 }
