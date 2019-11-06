@@ -17,7 +17,7 @@ body {
 }
 
 .form-container-login{
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .registerForm{
@@ -27,7 +27,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 50px 0;
+  margin: 100px 0;
 }
 
 .form-group{
@@ -126,86 +126,10 @@ input:focus ~ .highlight {
   to 	{ width:0; background:transparent; }
 }
 
-.form-radio-group{
-  display: flex;
-  margin: 10px 0 20px 0;
-}
-
-.gender{
-  font-size: 18px;
-  font-weight: normal;
-  padding-left:5px;
-  margin-bottom: 10px;
-}
-
-.form-radio-label{
-  margin-right: 20px;
-  position: relative;
-  cursor: pointer;
-  padding-left: 25px;
-  text-align: left;
-  color: white;
-}
-
-.form-radio-label:hover i {
-  color: #8900e1;
-}
-
-.form-radio-label input {
-  width: auto;
-  opacity: 0.0001;
-  position: absolute;
-  left: 0.25rem;
-  top: 0.25rem;
-  margin: 0;
-  padding: 0;
-}
-
-.form-radio-button {
-  position: absolute;
-  left: 0;
-  cursor: pointer;
-  display: block;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #f2f2f2;
-}
-
-.form-radio-button::before,
-.form-radio-button::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1rem;
-  height: 1rem;
-  transition: transform 0.28s ease, color 0.28s ease;
-  border-radius: 50%;
-  border: 0.125rem solid currentColor;
-  will-change: transform, color;
-}
-
-.form-radio-button::after {
-  transform: scale(0);
-  background-color: white;
-  border-color: none;
-}
-
-.form-radio-field:checked ~ .form-radio-button::after {
-  transform: scale(0.5);
-}
-
-.form-radio-field:checked ~ .form-radio-button::before {
-  color: white;
-}
-
 .form-select {
   position: relative;
-  margin-top:45px;
   margin-bottom:45px;
-  width: 300px;
+  width: 310px;
 }
 
 .form-element-bar {

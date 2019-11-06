@@ -131,48 +131,7 @@ export default class Register extends Component {
                     <span className="bar"></span>
                     <label className='form-label'>Email </label>
                 </div>
-                <div className="radio-group">
-                <label className="gender">Gender </label>
-                <div className="form-radio-group">
-                    <div className="form-radio">
-                        <label className="form-radio-label">
-                            <input type="radio"
-                                required
-                                name="gender"
-                                value="male"
-                                className='form-radio-field'
-                                onClick={this.onClickGender}
-                            />
-                            <i className="form-radio-button"></i>
-                            <span>Male</span>
-                        </label>
-                    </div>
-                    <div className="form-radio">
-                        <label className="form-radio-label">
-                            <input type="radio"
-                                value='female'
-                                name="gender"
-                                className='form-radio-field'
-                                onClick={this.onClickGender}
-                            />
-                            <i className="form-radio-button"></i>
-                            <span>Female</span>
-                        </label>
-                    </div>
-                    <div className="form-radio">
-                        <label className="form-radio-label">
-                            <input type="radio"
-                                value='other'
-                                name="gender"
-                                className='form-radio-field'
-                                onClick={this.onClickGender}
-                            />
-                            <i className="form-radio-button"></i>
-                            <span>Other</span>
-                        </label>
-                    </div>
-                </div>
-                </div>
+    
                 <div className="form-select">
                     <select
                         required
