@@ -12,7 +12,7 @@ describe('Test Routes Of Express Server', () => {
     it("Test / route", (done) => {
         chai.request(server)
             .get('/')
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 done();
             });
@@ -22,7 +22,7 @@ describe('Test Routes Of Express Server', () => {
     it("Test / GET text", (done) => {
         chai.request(server)
             .get('/')
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 expect(res.text).to.equal('This is the root');
                 done();
@@ -33,7 +33,7 @@ describe('Test Routes Of Express Server', () => {
     it("Test users route", (done) => {
         chai.request(server)
             .get('/users')
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 done();
             });
@@ -51,7 +51,7 @@ describe('Test Routes Of Express Server', () => {
             .post('/users/login')
             .type('form')
             .send(obj)
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 (res.body).should.be.a('object');
                 expect(res.body).to.eql(obj)
@@ -66,13 +66,13 @@ describe('Test Routes Of Express Server', () => {
         let obj = {
             'username': "justin",
             'password': "12345",
-            'email' : 'something@gmail.com'
+            'email': 'something@gmail.com'
         }
         chai.request(server)
             .post('/users/register')
             .type('form')
             .send(obj)
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 (res.body).should.be.a('object');
                 expect(res.body).to.eql(obj)
@@ -83,10 +83,10 @@ describe('Test Routes Of Express Server', () => {
     //#6
     it("Test /database GET /fetchdata", (done) => {
 
-        
+
         chai.request(server)
             .get('/database/fetchData')
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 (res.body).should.be.a('object');
                 done();
@@ -100,13 +100,13 @@ describe('Test Routes Of Express Server', () => {
         let obj = {
             'username': "justin",
             'password': "12345",
-            'email' : 'something@gmail.com'
+            'email': 'something@gmail.com'
         }
         chai.request(server)
             .post('/database/addData')
             .type('form')
             .send(obj)
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 (res.body).should.be.a('object');
                 expect(res.body).to.eql(obj)
@@ -119,7 +119,7 @@ describe('Test Routes Of Express Server', () => {
 
         chai.request(server)
             .get('/randomroute')
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(404);
                 done();
             });
@@ -129,13 +129,13 @@ describe('Test Routes Of Express Server', () => {
     it("Test error POST", (done) => {
 
         let obj = {
-            "name" : "12345"
+            "name": "12345"
         }
         chai.request(server)
             .post('/randomroute')
             .type('form')
             .send(obj)
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(404);
                 done();
             });
@@ -148,19 +148,19 @@ describe('Test Routes Of Express Server', () => {
             'username': "justin",
             'school': 'NYU',
             'year': "2017",
-            'date' : '06-28-2019'
+            'date': '06-28-2019'
         }
 
         chai.request(server)
             .post('/users/add')
             .type('form')
             .send(obj)
-            .end((err,res) => {
+            .end((err, res) => {
                 (res).should.have.status(200);
                 console.log(err);
                 done();
             });
     })
 
-    
+
 });

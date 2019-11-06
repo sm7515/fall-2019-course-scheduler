@@ -2,7 +2,7 @@ const assert = require('chai').assert;
 const School = require('../schema/school_schema'); 
 const Course = require('../schema/course_schema');
 const User = require('../schema/user_schema'); //imports the user model.
-const userData = { name: 'Rob', gender: 'Male', school: 'CAS', year: 'Junior', dateCreated:new Date()};
+const userData = { name: 'Rob', password:'1234567',email:'sij@gmail.com',gender: 'Male', school: 'CAS', year: 'Junior', dateCreated:new Date()};
 
 const schoolData = { name: 'CAS',
     location: 'NYC',
@@ -304,10 +304,20 @@ describe('validate user fields', () => {
         done();
     });
 
+    it('password should not be null or undefined', (done) => {
+      assert.exists(validUser.password, 'password is not defined or null');
+      done();
+    });
+
     it('gender should not be null or undefined', (done) => {
         assert.exists(validUser.gender, 'gender is not defined or null');
         done();
     });
+
+  it('email should not be null or undefined', (done) => {
+    assert.exists(validUser.email, 'email is not defined or null');
+    done();
+  });
 
     it('gender should be female, male, or other', (done) => {
         assert.include(['female','male','other'],validUser.gender.toLowerCase(),'invalid gender');

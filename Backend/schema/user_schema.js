@@ -8,8 +8,10 @@ const userSchema = new Schema({
         unique: true,
         trim: true,
     },
-    password: {
-        type: String
+    password:{
+        type: String,
+        required: true,
+        trim: true,
     },
     email: {
         type: String,
@@ -31,8 +33,6 @@ const userSchema = new Schema({
         type:Date,
         required: true,
     }
-}, {
-    timestamps: true,
 });
 
 const User = mongoose.model('User', userSchema);

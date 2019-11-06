@@ -2,8 +2,9 @@ var createError = require('http-errors');
 var express = require('express');
 const cors = require('cors');
 const path = require('path');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -13,7 +14,7 @@ require('dotenv').config();
  * Endpoint routes
  */
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var registerRouter = require('./routes/register');
 var loginRouter = require("./routes/login");
 var databaseRouter = require('./routes/database');
 //=============================================================
@@ -23,6 +24,7 @@ var databaseRouter = require('./routes/database');
  * Database connection
  */
 const dbURI = process.env.ATLAS_URI
+
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}, function(error){
   //Errors here
@@ -45,12 +47,13 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//// TODO: use a more secure secret
+app.use(session({ secret: "temporary secret", cookie: { maxAge: 24*60*60*1000,secure:true }}));//expires in a day
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
-app.use('/users', usersRouter);
+app.use('/register', registerRouter);
 app.use('/database', databaseRouter);
 
 // catch 404 and forward to error handler

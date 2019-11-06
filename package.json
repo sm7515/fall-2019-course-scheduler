@@ -17,10 +17,11 @@
   },
   "homepage": "https://github.com/nyu-software-engineering/fall-2019-mobile-nyu-id#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "crawler": "^1.2.1",
     "express": "^4.17.1",
-    "mongoose": "^5.7.5",
-    "mongodb": "^3.3.3"
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
