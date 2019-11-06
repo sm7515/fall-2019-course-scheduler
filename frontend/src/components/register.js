@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import axios from 'axios';
 import '../App.css'
 
@@ -98,7 +98,7 @@ export default class Register extends Component {
                 }
                 else{
                     window.location = '/courses';
-                }
+               // }
             })
             .catch(err => console.log(err))
 
@@ -213,6 +213,9 @@ export default class Register extends Component {
                 </div>
 
                 <input type="submit" value="Register"/>
+                <div className='login'>
+                    <a href='/login'>login</a>
+                </div>
             </form>
         </div>
         )
