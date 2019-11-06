@@ -24,8 +24,10 @@ var databaseRouter = require('./routes/database');
  */
 const dbURI = process.env.ATLAS_URI
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}, function(error){
+
+mongoose.connect(dbURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}, function(error){
   //Errors here
+  // console.log(error);
 });
 
 mongoose.connection.once('open', ()=>{
