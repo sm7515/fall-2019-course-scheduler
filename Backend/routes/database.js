@@ -6,10 +6,16 @@ let Course = require('../schema/course_schema');
 /* GET users listing. */
 router.get('/fetchData', function (req, res, next) {
 
-  //TODO: Fetch data from database  
-  Course.find()
-    .then(course => res.json(course))
-    .catch(err => res.status(400).json('Error: ' + err))
+  //TODO: Fetch data from database
+  Course.find({}, function(err, courses){
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.json(courses);
+    }
+  });
+
 
 });
 
