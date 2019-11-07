@@ -6,7 +6,7 @@ const path = require('path');
 var logger = require('morgan');
 var session = require('express-session');
 const mongoose = require('mongoose');
-const bcrypt = requrie('bcryptjs');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 
