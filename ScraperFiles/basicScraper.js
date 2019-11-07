@@ -31,8 +31,11 @@ fetchData = () => {
             }
             else
             {
-                postDatabase(jsonObj);
+                // postDatabase(jsonObj);
+                console.log("Should post but edited out to debug program");
             }
+
+            console.log(jsonObj);
 
             return jsonObj;
         }
@@ -91,6 +94,8 @@ parseHTML = (html) => {
         description: "null"
     }
 
+    console.log(right[2].children);
+
     if(left.length === 0 || right.length === 0)
     {
         console.log("Class " + yearValue + courseValue + " not valid");
@@ -101,7 +106,18 @@ parseHTML = (html) => {
     {
         if(left[i].children[0].type === "text")
         {
-            jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
+            //Do one more error check
+            if(right[i].children.length === 0)
+            {
+                jsonObj = getJSON(left[i].children[0].data, "", jsonObj);
+                // console.log("Error at index: " + left[i].children[0].data)
+            }
+            else
+            {
+                // console.log(left[i].children[0].data + " " + right[i].children[0].data);
+                jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
+            }
+            
             // console.log(left[i].children[0].data + ": " + right[i].children[0].data);
         }
     }
