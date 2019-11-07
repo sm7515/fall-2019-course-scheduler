@@ -8,16 +8,14 @@ export default class Register extends Component {
 
         this.onChangename = this.onChangename.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onClickGender = this.onClickGender.bind(this);
         this.onChangeSchool = this.onChangeSchool.bind(this);
-        this.onChangeYear = this.onChangeYear.bind(this);
+        this.onClickYear = this.onClickYear.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             name: '',
             password:'',
-            gender:'',
             school:'',
             year:'',
             email:'',
@@ -39,13 +37,6 @@ export default class Register extends Component {
         console.log(this.state.password)
     }
 
-    onClickGender(e) {
-        this.setState({
-            gender: e.target.value
-        })
-        console.log(e.target.value)
-    }
-
     onChangeSchool(e) {
         this.setState({
             school: e.target.value
@@ -53,7 +44,7 @@ export default class Register extends Component {
         console.log(this.state.school)
     }
 
-    onChangeYear(e) {
+    onClickYear(e) {
         this.setState({
             year: e.target.value
         })
@@ -72,7 +63,6 @@ export default class Register extends Component {
 
         const user = {
             name: this.state.name,
-            gender:this.state.gender,
             year:this.state.year,
             school:this.state.school,
             password:this.state.password,
@@ -89,7 +79,6 @@ export default class Register extends Component {
                     this.setState({
                         name: '',
                         password: '',
-                        gender: '',
                         school: '',
                         year: '',
                         email: '',
@@ -132,20 +121,59 @@ export default class Register extends Component {
                     <label className='form-label'>Email </label>
                 </div>
     
-                <div className="form-select">
-                    <select
-                        required
-                        value={this.state.year}
-                        className="form-element-field"
-                        onChange={this.onChangeYear}>
-                        <option value="Freshman">Freshman</option>
-                        <option value="Sophomore">Sophomore</option>
-                        <option value="Junior">Junior</option>
-                        <option value="Senior">Senior</option>
-                    </select>
-                    <div className="form-element-bar"></div>
-                    <label className="form-element-label">Year </label>
-                </div>
+                    <div className="radio-group">
+                        <div className="form-radio-group">
+                            <div className="form-radio">
+                                <label className="form-radio-label">
+                                    <input type="radio"
+                                        required
+                                        name="year"
+                                        value="male"
+                                        className='form-radio-field'
+                                        onClick={this.onClickGender}
+                                    />
+                                    <i className="form-radio-button"></i>
+                                    <span>Freshman</span>
+                                </label>
+                            </div>
+                            <div className="form-radio">
+                                <label className="form-radio-label">
+                                    <input type="radio"
+                                        value='female'
+                                        name="year"
+                                        className='form-radio-field'
+                                        onClick={this.onClickGender}
+                                    />
+                                    <i className="form-radio-button"></i>
+                                    <span>Sophomore</span>
+                                </label>
+                            </div>
+                            <div className="form-radio">
+                                <label className="form-radio-label">
+                                    <input type="radio"
+                                        value='other'
+                                        name="year"
+                                        className='form-radio-field'
+                                        onClick={this.onClickGender}
+                                    />
+                                    <i className="form-radio-button"></i>
+                                    <span>Junior</span>
+                                </label>
+                            </div>
+                            <div className="form-radio">
+                                <label className="form-radio-label">
+                                    <input type="radio"
+                                        value='other'
+                                        name="year"
+                                        className='form-radio-field'
+                                        onClick={this.onClickGender}
+                                    />
+                                    <i className="form-radio-button"></i>
+                                    <span>Senior</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
                 <div className="form-group">
                     <input type="text"
@@ -169,7 +197,7 @@ export default class Register extends Component {
                         <span className="highlight"></span>
                         <span className="bar"></span>
                     <label className='form-label'>Password </label>
-                    <span className='form-hint'>Your password must contain 6 characters minimum </span>
+                    <p className='form-hint'>Your password must contain 6 characters minimum </p>
                 </div>
 
                 <div className='reg-log'>
