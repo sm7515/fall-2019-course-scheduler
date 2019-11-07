@@ -82,6 +82,7 @@ export default class Register extends Component {
                         school: '',
                         year: '',
                         email: '',
+                        dateCreated:new Date()
                     })
                     alert(res.data);
                 }
@@ -128,9 +129,9 @@ export default class Register extends Component {
                                     <input type="radio"
                                         required
                                         name="year"
-                                        value="male"
+                                        value="Freshman"
                                         className='form-radio-field'
-                                        onClick={this.onClickGender}
+                                        onClick={this.onClickYear}
                                     />
                                     <i className="form-radio-button"></i>
                                     <span>Freshman</span>
@@ -139,10 +140,10 @@ export default class Register extends Component {
                             <div className="form-radio">
                                 <label className="form-radio-label">
                                     <input type="radio"
-                                        value='female'
+                                        value='Sophomore'
                                         name="year"
                                         className='form-radio-field'
-                                        onClick={this.onClickGender}
+                                        onClick={this.onClickYear}
                                     />
                                     <i className="form-radio-button"></i>
                                     <span>Sophomore</span>
@@ -151,10 +152,10 @@ export default class Register extends Component {
                             <div className="form-radio">
                                 <label className="form-radio-label">
                                     <input type="radio"
-                                        value='other'
+                                        value='Junior'
                                         name="year"
                                         className='form-radio-field'
-                                        onClick={this.onClickGender}
+                                        onClick={this.onClickYear}
                                     />
                                     <i className="form-radio-button"></i>
                                     <span>Junior</span>
@@ -163,10 +164,10 @@ export default class Register extends Component {
                             <div className="form-radio">
                                 <label className="form-radio-label">
                                     <input type="radio"
-                                        value='other'
+                                        value='Senior'
                                         name="year"
                                         className='form-radio-field'
-                                        onClick={this.onClickGender}
+                                        onClick={this.onClickYear}
                                     />
                                     <i className="form-radio-button"></i>
                                     <span>Senior</span>
