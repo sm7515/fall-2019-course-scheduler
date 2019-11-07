@@ -102,6 +102,7 @@ export default class Register extends Component {
                     <input type="text"
                         required
                         className="form-control"
+                        placeholder="ddd"
                         value={this.state.name}
                         onChange={this.onChangename}
                     />
@@ -111,15 +112,17 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                    <input type="text"
+                    <input type="email"
                         required
                         className="form-control"
+                        placeholder="dddd"
                         value={this.state.email}
                         onChange={this.onChangeEmail}
                     />
                     <span className="highlight"></span>
                     <span className="bar"></span>
                     <label className='form-label'>Email </label>
+                    <p className='form-hint-email'>please enter an valid email</p>
                 </div>
     
                     <div className="radio-group">
@@ -180,6 +183,7 @@ export default class Register extends Component {
                     <input type="text"
                         required
                         className="form-control"
+                        placeholder="ddd"
                         value={this.state.school}
                         onChange={this.onChangeSchool}
                     />
@@ -192,6 +196,7 @@ export default class Register extends Component {
                     <input type="password"
                         required
                         className="form-control"
+                        placeholder="ddd"
                         value={this.state.password}
                         onChange={this.onChangePassword}
                     />
@@ -200,7 +205,7 @@ export default class Register extends Component {
                     <label className='form-label'>Password </label>
                     <p className='form-hint'>Your password must contain 6 characters minimum </p>
                 </div>
-
+                
                 <div className='reg-log'>
                     <input type="submit" value="Register"/>
                     <a href='/login'>login</a>
