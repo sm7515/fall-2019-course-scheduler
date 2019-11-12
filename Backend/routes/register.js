@@ -1,38 +1,54 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../schema/user_schema'); //imports the user model.
-
+const bcrypt = require('bcryptjs');
+const {ValidationError, PermissionError, DatabaseError, HashError, InvalidInputError}
+ = require('../error/errors');
 
 router.post("/", function (req, res, next) {
-  var error = [];
   const user = req.body;
-  validation(user,error);
-  if(error.length === 0){
-    const user_doc = new User(user);
-    user_doc.save( function(err){
+  try{
+    validation(user,error);
+    bcrypt.hash(user.password, 10, function(err, hash) {
       if(err){
-        error.push("Field missing. Registration failed.");
+        throw new HashError("Hash password error ");
       }
-      res.json(error);
-    } );
+      else{
+        user.password = hash;
+        const user_doc = new User(user);
+        user_doc.save( function(err){
+          if(err){
+            throw new InvalidInputError("Incompatible fields. Please try again. ");
+          }
+          else{
+            res.send("success");
+          }
+        });
+      }
+    });
   }
-  else{
-    res.json(error);
+  catch(error){
+    if(error instanceof InvalidInputError){
+      res.status(400).send(error);
+    }
+    else{
+      res.status(500).send(error);
+    }
+
   }
 });
 
 function validation(user,error){
   //check if user exists
   if(user.password.length < 6){
-    error.push("Password is not long enough. The min length is 6");
+    throw new SError("Password is not long enough. The min length is 6");
   }
   User.countDocuments({name: user.name}, function(err, count){
-
     if(err){
-      console.log(err);
+      throw new Error("Database reading error.");
     }
     if(count != 0){
-      error.push("Username exists. Please use another one.");
+      throw new Error("Username exists. Please try again");
     }
   });
 }
