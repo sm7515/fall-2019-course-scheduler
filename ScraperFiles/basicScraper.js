@@ -3,9 +3,15 @@ let cheerio = require('cheerio');
 const url = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV";
 const postURL = "http://localhost:5000/database/addData";
 
-let yearValue = "/1204/";
+let yearValue = "/1198/";
 let courseValue = process.argv[2];
 let urlNew = url + yearValue + courseValue;
+
+//==============
+//Fields for searching
+
+let topicFlag = true;
+let units = 0;
 
 //======================================================================
 //Functions for scrapping html and inserting into database
@@ -35,7 +41,7 @@ fetchData = () => {
                 console.log("Should post but edited out to debug program");
             }
 
-            console.log(jsonObj);
+            // console.log(jsonObj);
 
             return jsonObj;
         }
@@ -94,7 +100,7 @@ parseHTML = (html) => {
         description: "null"
     }
 
-    console.log(right[2].children);
+    // console.log(right[2].children);
 
     if(left.length === 0 || right.length === 0)
     {
@@ -110,12 +116,13 @@ parseHTML = (html) => {
             if(right[i].children.length === 0)
             {
                 jsonObj = getJSON(left[i].children[0].data, "", jsonObj);
-                // console.log("Error at index: " + left[i].children[0].data)
+                // console.log("Error " + left[i].children[0].data)
             }
             else
             {
                 // console.log(left[i].children[0].data + " " + right[i].children[0].data);
-                jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
+                // jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
+                console.log(left[i].children[0].data + ": " + right[i].children[0].data);
             }
             
             // console.log(left[i].children[0].data + ": " + right[i].children[0].data);
@@ -132,29 +139,57 @@ parseHTML = (html) => {
  * Further formats the raw html and creates a json object
  */
 getJSON = (key, value, jsonObj) => {
-    if(key === "title")
+
+
+    if(key === "title" && jsonObj.name === "null")
     {   
         jsonObj.name = value;
     }
-    else if(key === "Class Number")
+    else if(key === "Class Number" && jsonObj.course_number === "null")
     {
         jsonObj.course_number = value;
     }
-    else if(key === "Room")
+    else if(key === "Room" && jsonObj.location === "null")
     {
         jsonObj.location = value;
     }
-    else if(key === "Meets")
+    else if(key === "Meets" && jsonObj.time === "null")
     {
         jsonObj.time = value;
     }
-    else if(key === "Description")
+    else if(key === "Description" && jsonObj.description === "null")
     {
         jsonObj.description = value;
     }
-    else if(key === "Grading")
+    else if(key === "Topic" && jsonObj.name.includes("Special"))
     {
-        jsonObj.department = value;
+        jsonObj.name = value;
+    }
+    else if(key === "Grading" && jsonObj.department === "null")
+    {
+        jsonObj.school = value;
+    }
+    else if(key === "Notes" && value.length > jsonObj.description.length)
+    {
+        jsonObj.description = value;
+    }
+    else if(key === "Units")
+    {
+        //Has units
+        units = value;
+        console.log(units);
+    }
+    else if(key === "Components" && value != undefined)
+    {
+        if(value == undefined)
+        {
+
+        }
+        else
+        {   
+            console.log(value);
+        }
+        
     }
 
     return jsonObj;
