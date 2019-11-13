@@ -25,4 +25,4 @@ class InvalidInputError extends Error{
   }
 }
 
-module.export = {ValidationError, PermissionError, DatabaseError, HashError,InvalidInputError};
+module.exports = {ValidationError, PermissionError, DatabaseError, HashError, InvalidInputError};

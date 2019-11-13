@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../schema/user_schema');
 const bcrypt = require('bcryptjs');
-const {ValidationError, PermissionError, DatabaseError, HashError}
- = require('../error/errors');
+const {ValidationError, PermissionError, DatabaseError, HashError,InvalidInputError} = require('../errors/error.js');
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
@@ -21,6 +20,7 @@ router.post('/', function(req, res, next) {
       else{
         bcrypt.compare(req.body.password, user.password, function(err, res) {
           if(err){
+            console.log(typeof HashError);
             throw new HashError("Internal hash error");
           }
           if(res === true){
