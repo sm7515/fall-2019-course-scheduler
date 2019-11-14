@@ -3,46 +3,40 @@ var router = express.Router();
 const User = require('../schema/user_schema');
 const bcrypt = require('bcryptjs');
 const {ValidationError, PermissionError, DatabaseError, HashError}
- = require('../error/errors');
+ = require('../errors/error');
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
   if(req.session.id){
+    console.log(req.session.id);
     res.send("already logged in.");
   }
-  try{
+  else{
     User.find({name:req.body.name}, (err, user)=>{
       if(err){
-        throw new DatabaseError("database lookup error");
+        res.status(500).send(new DatabaseError("database lookup error"));
       }
       if(!user){
-        throw new ValidationError("User don't exist.");
+        res.status(401).send(new ValidationError("User don't exist."));
       }
       else{
-        bcrypt.compare(req.body.password, user.password, function(err, res) {
+        bcrypt.compare(req.body.password, user.password, function(err, result) {
           if(err){
-            throw new HashError("Internal hash error");
+            console.log(err);
+            res.status(500).send(new HashError("Internal hash error"));
           }
-          if(res === true){
+          if(result === true){
             req.session.id = user._id;
             res.send();
-          }else{
-              throw new ValidationError('Wrong password');
+          }
+          else{
+                res.status(401).send(new ValidationError('Wrong password'));
           }
         });
       }
     });
-  }
-  catch(error){
-    if(error instanceof ValidationError){
-      res.status(401).send(error);
-    }
-    else{
-      res.status(500).send(error);
-    }
-  }
 
-
+  }
 });
 
 module.exports = router;
