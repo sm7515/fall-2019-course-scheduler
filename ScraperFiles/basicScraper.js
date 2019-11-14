@@ -3,7 +3,7 @@ let cheerio = require('cheerio');
 const url = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV";
 const postURL = "http://localhost:5000/database/addData";
 
-let yearValue = "/1198/";
+let yearValue = "/1204/";
 let courseValue = process.argv[2];
 let urlNew = url + yearValue + courseValue;
 
@@ -41,14 +41,14 @@ fetchData = () => {
                 console.log("Should post but edited out to debug program");
             }
 
-            // console.log(jsonObj);
+            console.log(jsonObj);
 
             return jsonObj;
         }
         else
         {
             //Failed to find a course
-            console.log("Found nothing");
+            console.log("Error: webpage does not exist");
             return null;
         }
     })
@@ -87,6 +87,11 @@ parseHTML = (html) => {
     let right = $("div .pull-right").find("div");
     let left = $("div .pull-left").find(".strong");
 
+    let component = $(".PSTEXT");
+    console.log(component[0].children[0].children[0].children[0].children[0].data);
+
+    
+
     // title = title[0].children[0].data.trim();
     // console.log(title);
 
@@ -97,7 +102,8 @@ parseHTML = (html) => {
         time: "null",
         course_number: "null",
         department: "null",
-        description: "null"
+        description: "null",
+        component: "null"
     }
 
     // console.log(right[2].children);
@@ -107,9 +113,16 @@ parseHTML = (html) => {
         console.log("Class " + yearValue + courseValue + " not valid");
         return null;
     }
+
     jsonObj = getJSON("title", title[0].children[0].data.trim(), jsonObj);
+    
     for(var i = 0; i < left.length; i++)
     {
+        if(left[i].children[0].type === "Components")
+        {
+            console.log(right[i]);
+        }
+
         if(left[i].children[0].type === "text")
         {
             //Do one more error check
@@ -121,13 +134,15 @@ parseHTML = (html) => {
             else
             {
                 // console.log(left[i].children[0].data + " " + right[i].children[0].data);
-                // jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
-                console.log(left[i].children[0].data + ": " + right[i].children[0].data);
+                jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
+                // console.log(left[i].children[0].data + ": " + right[i].children[0].data);
             }
             
             // console.log(left[i].children[0].data + ": " + right[i].children[0].data);
         }
     }
+
+    jsonObj = getJSON("Components",component[0].children[0].children[0].children[0].children[0].data, jsonObj)
     
     // console.log(jsonObj);
     return jsonObj;
@@ -176,8 +191,8 @@ getJSON = (key, value, jsonObj) => {
     else if(key === "Units")
     {
         //Has units
-        units = value;
-        console.log(units);
+        jsonObj.units = Number(value.charAt(0));
+        console.log(typeof units);
     }
     else if(key === "Components" && value != undefined)
     {
@@ -185,9 +200,17 @@ getJSON = (key, value, jsonObj) => {
         {
 
         }
-        else
+        else if(value.includes("Recitation") || value.includes("Lecture"))
         {   
-            console.log(value);
+            if(jsonObj.units === 0)
+            {
+                console.log(jsonObj.units);
+                jsonObj.component = "Recitation";
+            }
+            else
+            {
+                jsonObj.component = "Lecture";
+            }
         }
         
     }
