@@ -3,7 +3,7 @@ var router = express.Router();
 const User = require('../schema/user_schema'); //imports the user model.
 const bcrypt = require('bcryptjs');
 const {ValidationError, PermissionError, DatabaseError, HashError, InvalidInputError}
- = require('../error/errors');
+ = require('../errors/error');
 
 router.post("/", function (req, res, next) {
   const user = req.body;
