@@ -7,48 +7,40 @@ const {ValidationError, PermissionError, DatabaseError, HashError, InvalidInputE
 
 router.post("/", function (req, res, next) {
   const user = req.body;
-  try{
-    validation(user,error);
+  let err = validation(user);
+    if(err){
+      res.status(err.status).send(err);
+    }
     bcrypt.hash(user.password, 10, function(err, hash) {
       if(err){
-        throw new HashError("Hash password error ");
+        res.status(500).send(new HashError("Hash password error "));
       }
       else{
         user.password = hash;
         const user_doc = new User(user);
         user_doc.save( function(err){
           if(err){
-            throw new InvalidInputError("Incompatible fields. Please try again. ");
+            res.status(401).send(new InvalidInputError("Incompatible fields. Please try again. "));
           }
           else{
-            res.send("success");
+              res.send("success");
           }
         });
       }
     });
-  }
-  catch(error){
-    if(error instanceof InvalidInputError){
-      res.status(400).send(error);
-    }
-    else{
-      res.status(500).send(error);
-    }
+  });
 
-  }
-});
-
-function validation(user,error){
+function validation(user){
   //check if user exists
   if(user.password.length < 6){
-    throw new SError("Password is not long enough. The min length is 6");
+    return new InvalidInputError("Password is not long enough. The min length is 6");
   }
   User.countDocuments({name: user.name}, function(err, count){
     if(err){
-      throw new Error("Database reading error.");
+      return new DatabaseError("Database reading error.");
     }
     if(count != 0){
-      throw new Error("Username exists. Please try again");
+      return new InvalidInputError("Username exists. Please try again");
     }
   });
 }
