@@ -7,30 +7,33 @@ const {ValidationError, PermissionError, DatabaseError, HashError}
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
-  if(req.session.id){
-    console.log(req.session.id);
+  if(req.session.user_id){
     res.send("already logged in.");
   }
   else{
-    User.find({name:req.body.name}, (err, user)=>{
+    User.findOne({name:req.body.name}, (err, user)=>{
       if(err){
         res.status(500).send(new DatabaseError("database lookup error"));
       }
       if(!user){
+        console.log("user don't exist");
         res.status(401).send(new ValidationError("User don't exist."));
       }
       else{
+      //  console.log(user);
         bcrypt.compare(req.body.password, user.password, function(err, result) {
+        //  console.log(result);
           if(err){
-            console.log(err);
+          //  console.log(err);
             res.status(500).send(new HashError("Internal hash error"));
           }
           if(result === true){
-            req.session.id = user._id;
+            req.session.user_id = user._id;
             res.send();
           }
           else{
-                res.status(401).send(new ValidationError('Wrong password'));
+              console.log(new ValidationError('Wrong password').message);
+              res.status(401).send(new ValidationError('Wrong password'));
           }
         });
       }
