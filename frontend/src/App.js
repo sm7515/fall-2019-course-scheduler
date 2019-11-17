@@ -4,7 +4,7 @@ import Register from "./components/register"
 import Login from "./components/login"
 import CourseList from "./components/courselist"
 import './App.css';
-import Calendar from './Pages/Calandar';
+import Calendar from './Pages/Calander';
 
 function App() {
 
