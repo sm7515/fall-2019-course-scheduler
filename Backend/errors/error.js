@@ -1,35 +1,30 @@
-class ValidationError extends Error{
+class ValidationError{
   constructor(message){
-    super(message);
     this.status = 401;
     this.message = message;
   }
 }
 
-class PermissionError extends Error{
+class PermissionError{
   constructor(message){
-    super(message);
     this.status = 401;
     this.message = message;
   }
 }
-class DatabaseError extends Error{
+class DatabaseError{
   constructor(message){
-    super(message);
     this.status = 500;
     this.message = message;
   }
 }
-class HashError extends Error{
+class HashError{
   constructor(message){
-    super(message);
     this.status = 500;
     this.message = message;
   }
 }
-class InvalidInputError extends Error{
+class InvalidInputError{
   constructor(message){
-    super(message);
     this.status = 401;
     this.message = message;
   }
