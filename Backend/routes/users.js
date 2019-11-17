@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../schema/User.class'); //imports the user model.
+const User = require('../schema/user_schema'); //imports the user model.
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
