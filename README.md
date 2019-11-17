@@ -1,5 +1,5 @@
-# NYU Scheduler
-
+# NYU Scheduler  
+[![Build Status](https://travis-ci.com/nyu-software-engineering/fall-2019-course-scheduler.svg?branch=master)](https://travis-ci.com/nyu-software-engineering/fall-2019-course-scheduler)  
 **Description**
 
 Our project is to create a more responsive course scheduler from NYU's course selection. The user can create their schedule by selecting a class and having it displayed on a scheduler without having to select the course one at a time.

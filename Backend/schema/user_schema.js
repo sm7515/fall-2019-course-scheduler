@@ -8,9 +8,14 @@ const userSchema = new Schema({
         unique: true,
         trim: true,
     },
-    gender: {
+    password:{
         type: String,
         required: true,
+        trim: true,
+    },
+    email: {
+        type: String,
+        unique: true
     },
     school:{
         type: String,
@@ -20,12 +25,13 @@ const userSchema = new Schema({
         type:String,
         required: true,
     },
+    selected:{//ido of selected courses
+      type:[Schema.ObjectId]
+    },
     dateCreated:{
         type:Date,
         required: true,
     }
-}, {
-    timestamps: true,
 });
 
 const User = mongoose.model('User', userSchema);

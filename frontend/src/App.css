@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body {
+  background:
+    linear-gradient(0deg,rgba(87,6,140,0.9),rgba(87,6,140,0.9)),
+    url('https://img.wallpapersafari.com/desktop/1920/1080/37/80/mHCT7n.jpg');
+  background-size:contain;
+  background-position: center;
+}
+
+.form-container,.form-container-login{
+  margin: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.form-container-login{
+  margin-top: 100px;
+}
+
+.registerForm{
+  font-family: 'Montserrat', sans-serif;
+  color:white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 100px 0;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position:relative; 
+  margin-bottom:45px; 
+}
+
+.form-control{
+  background: none;
+  border-bottom: 1px solid #f2f2f2;
+  border-top:none ;
+  border-left: none;
+  border-right: none;
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  width:300px;
+}
+
+.form-control:focus,.form-control:valid,.form-control:invalid {
+  color: white;
+  outline:none;
+}
+
+.form-radio-group{
+  display: flex;
+  margin: 0 0 50px 0;
+}
+
+.year{
+  font-size: 18px;
+  padding-left:5px;
+  margin-bottom: 20px;
+}
+
+.form-radio-label{
+  margin-right: 20px;
+  position: relative;
+  cursor: pointer;
+  padding-left: 25px;
+  text-align: left;
+  color: white;
+}
+
+.form-radio-label:hover i {
+  color: #8900e1;
+}
+
+.form-radio-label input {
+  width: auto;
+  opacity: 0.0001;
+  position: absolute;
+  left: 0.25rem;
+  top: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.form-radio-button {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+  display: block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #f2f2f2;
+}
+
+.form-radio-button::before,
+.form-radio-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.28s ease, color 0.28s ease;
+  border-radius: 50%;
+  border: 0.125rem solid currentColor;
+  will-change: transform, color;
+}
+
+.form-radio-button::after {
+  transform: scale(0);
+  background-color: white;
+  border-color: none;
+}
+
+.form-radio-field:checked ~ .form-radio-button::after {
+  transform: scale(0.5);
+}
+
+.form-radio-field:checked ~ .form-radio-button::before {
+  color: white;
+}
+
+.form-label{
+  color:#f2f2f2; 
+  font-weight: normal;
+  font-size:18px;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+.form-hint-email{
+  font-size:small;
+  margin-top:10px;
+  display: none;
+  color:#e86c00;
+}
+
+.form-hint{
+  font-size:small;
+  margin-top:10px;
+  display: none;
+}
+
+input::placeholder{
+  color: transparent;
+}
+
+input:focus ~ label, input:valid ~ label, input:invalid:not(:placeholder-shown)~label	{
+  top:-20px;
+  font-size:14px;
+  color: white;
+  font-weight: normal;
+}
+
+input:invalid:not(:placeholder-shown)~label	{
+  color: #e86c00;
+}
+
+.bar 	{ position:relative; display:block; width:315px; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px; 
+  width: 0;
+  bottom:0.5px; 
+  position:absolute;
+  background:white; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+input:invalid:not(:placeholder-shown) ~ .bar:before, input:invalid:not(:placeholder-shown) ~ .bar:after {
+  background:#e86c00; 
+}
+
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:300px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes inputHighlighter {
+	from { background:#8900e1; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#8900e1; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#8900e1; }
+  to 	{ width:0; background:transparent; }
+}
+
+input[type="email"]:invalid:not(:placeholder-shown) ~ .form-hint-email{
+  display: block;
+}
+
+input[type="password"]:invalid:focus:not(:placeholder-shown) ~ .form-hint{
+  display: block;
+}
+
+input[type="password"]:valid:focus:not(:placeholder-shown) ~ .form-hint{
+  display: block;
+}
+
+input[type="password"]:valid:not(:placeholder-shown) ~ .form-hint{
+  display: block;
+}
+
+input[type="submit"] {
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  color:white;
+  letter-spacing: 1px;
+  color:white;
+  background-color: #330662;
+  border-style: none;
+  text-align: center;
+  width: 100%;
+  padding: 20px 50px;
+  margin: 20px 30px 30px 0;
+  outline: none;
+}
+
+input[type="submit"]:hover{
+  font-weight: bold;
+  font-size: 14px;
+  background-color:  #8900e1;
+  transition: 300ms ease;
+}
+
+.course-page{
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  padding: 50px;
+  margin: 30px 20px 30px  20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card{
+  margin: 50px;
+  background-color: rgba(242,242,242,0.5);
+  padding: 40px  50px 40px 50px;
+  border-radius: 25px;
+}
+
+.course-card:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 30px;
+  background-color: rgba(242,242,242,0.6);
+  transition: 300ms ease;
+}
+
+.metaData{
+  display: flex;
+  flex-direction: row;
+}
+
+.metaInfo{
+  margin-right:20px ;
+  padding-right: 20px;
+  font-weight: bolder;
+  border-right: 1px solid white;
+}
+
+a:link {color: white;text-decoration: none;}
+a:visited {color: #220337;text-decoration: underline;}
+a:hover {color: white;text-decoration: underline;}
+a:active {
+  color: #330662;
+text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.reg-log{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}

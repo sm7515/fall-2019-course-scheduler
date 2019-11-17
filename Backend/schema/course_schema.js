@@ -5,7 +5,6 @@ const courseSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         trim: true
     },
     location: {
@@ -22,6 +21,7 @@ const courseSchema = new Schema({
     },
     course_number:{
         type:Number,
+        unique: true,
         required: true,
     },
     department:{
