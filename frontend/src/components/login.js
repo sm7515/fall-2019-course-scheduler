@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Logout from './logout'
 import '../App.css'
 
 export default class Login extends Component {
@@ -41,23 +42,14 @@ export default class Login extends Component {
         //console.log(user);
         axios.post('http://localhost:5000/login', user)
             .then(res => {
-                console.log(res);
-                if (res.data.length != 0) {
-                    this.setState({
-                        name: '',
-                        password: '',
-                    })
-                    alert(res.data);
-                }
-                else {
-                    window.location = '/courses';
-                }
+                window.location = '/courses';
             })
             .catch(err => console.log(err))
     }
     render(){
     return(
         <div className='form-container-login'>
+        <Logout />
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"

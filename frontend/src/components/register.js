@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import Logout from './logout'
 import '../App.css'
 
 export default class Register extends Component {
@@ -71,32 +72,30 @@ export default class Register extends Component {
         }
 
         console.log(user);
-
+        
         axios.post('http://localhost:5000/register', user)
             .then(res => {
-              console.log(res);
-                if (res.data.length != 0){
-                    this.setState({
-                        name: '',
-                        password: '',
-                        school: '',
-                        year: '',
-                        email: '',
-                        dateCreated:new Date()
-                    })
-                    alert(res.data);
-                }
-                else{
-                    window.location = '/courses';
-                }
+                // alert(res.data)
+                window.location = '/courses';
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                alert(err.response.status)
+                this.setState({
+                    name: '',
+                    password: '',
+                    school: '',
+                    year: '',
+                    email: '',
+                    dateCreated: new Date()
+                })
+            })
 
     }
 
     render() {
         return (
         <div className='form-container'>
+        <Logout />
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
