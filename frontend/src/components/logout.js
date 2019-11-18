@@ -6,7 +6,7 @@ export default function Logout() {
     
     return (
         <div className='form-container-logout'>
-            <a>Log out</a>
+            <a href='/'>Log out</a>
         </div>
     )
 }

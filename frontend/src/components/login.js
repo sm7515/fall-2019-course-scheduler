@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Logout from './logout'
 import '../App.css'
 
 export default class Login extends Component {
@@ -58,6 +59,7 @@ export default class Login extends Component {
     render(){
     return(
         <div className='form-container-login'>
+        <Logout />
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
