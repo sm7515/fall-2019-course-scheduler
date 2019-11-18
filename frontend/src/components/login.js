@@ -42,17 +42,7 @@ export default class Login extends Component {
         //console.log(user);
         axios.post('http://localhost:5000/login', user)
             .then(res => {
-                console.log(res);
-                if (res.data.length != 0) {
-                    this.setState({
-                        name: '',
-                        password: '',
-                    })
-                    alert(res.data);
-                }
-                else {
-                    window.location = '/courses';
-                }
+                window.location = '/courses';
             })
             .catch(err => console.log(err))
     }
