@@ -79,7 +79,7 @@ export default class Register extends Component {
                 window.location = '/courses';
             })
             .catch(err => {
-                alert(err.response.status)
+                alert(err.response.data.message)
                 this.setState({
                     name: '',
                     password: '',

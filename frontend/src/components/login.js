@@ -44,7 +44,7 @@ export default class Login extends Component {
             .then(res => {
                 window.location = '/courses';
             })
-            .catch(err => console.log(err))
+            .catch(err => alert( err.response.data.message))
     }
     render(){
     return(
