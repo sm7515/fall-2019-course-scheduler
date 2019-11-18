@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
+import Popup from "reactjs-popup";
+import Calendar from '../Pages/Calandar';
 
 export default function CourseList(){
 
@@ -23,6 +25,11 @@ export default function CourseList(){
 
     return(
         <div className='course-page'>
+		<Popup trigger={<button> Trigger</button>}>
+    		<Calendar classes={{ 
+                root: 'stylised-calendar'
+             }}/>
+ 		 </Popup>
             {courses.map((i,key)=>{
                 return(
                     <div className="course-card">

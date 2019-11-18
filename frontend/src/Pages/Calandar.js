@@ -18,15 +18,16 @@ export default class Calendar extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: appointments
+      data: appointments,
+      classes: props.classes
     };
   }
   render() {
-    const { data } = this.state;
+    const { data, classes } = this.state;
 
     return (
       <MuiThemeProvider theme={theme}>
-        <Paper>
+        <Paper classes={{classes}}>
           <Scheduler data={data}>
             <ViewState currentDate="2018-06-28" />
             <WeekView startDayHour={9} endDayHour={19} />
