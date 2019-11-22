@@ -32,6 +32,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useCreateIndex: true, useUnified
   //Errors here
   // console.log(error);
 });
+
 var store = new MongoDBStore({
   uri: dbURI,
   collection: 'session'
