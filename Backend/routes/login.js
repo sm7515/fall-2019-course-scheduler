@@ -8,7 +8,7 @@ const {ValidationError, PermissionError, DatabaseError, HashError}
 /* GET users listing. */
 router.post('/', function(req, res, next) {
   if(req.session.user_id){
-    res.send("already logged in.");
+    res.status(401).send(new ValidationError("Already logged in."));
   }
   else{
     User.findOne({name:req.body.name}, (err, user)=>{

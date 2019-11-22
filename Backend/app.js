@@ -5,6 +5,7 @@ const path = require('path');
 //var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -31,6 +32,12 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useCreateIndex: true, useUnified
   //Errors here
   // console.log(error);
 });
+var store = new MongoDBStore({
+  uri: dbURI,
+  collection: 'session'
+}, function(err){
+  console.log(err)
+});
 
 mongoose.connection.once('open', ()=>{
 
@@ -51,7 +58,10 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // TODO: use a more secure secret
-app.use(session({ secret: "temporary secret", cookie: { maxAge: 24*60*60*1000,secure:true }}));//expires in a day
+app.use(session({ secret: "temporary secret",
+ cookie: { maxAge: 24*60*60*1000,secure:true },
+ store: store
+}));//expires in a day
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
