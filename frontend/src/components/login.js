@@ -40,11 +40,16 @@ export default class Login extends Component {
         }
 
         //console.log(user);
-        axios.post('http://localhost:5000/login', user)
+        axios({
+          method:"post",
+          url:'http://localhost:5000/login',
+          withCredentials :true,
+          data:user
+        })
             .then(res => {
                 window.location = '/courses';
             })
-            .catch(err => alert( err.response.data.message))
+            .catch(err => console.log(err));
     }
     render(){
     return(

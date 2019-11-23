@@ -10,6 +10,7 @@ router.post("/", function (req, res, next) {
   let err = validation(user);
     if(err){
       res.status(err.status).send(err);
+      return;
     }
     bcrypt.hash(user.password, 10, function(err, hash) {
       if(err){
@@ -20,6 +21,7 @@ router.post("/", function (req, res, next) {
         const user_doc = new User(user);
         user_doc.save( function(err){
           if(err){
+            console.log(err);
             res.status(401).send(new InvalidInputError("Incompatible fields. Please try again. "));
           }
           else{

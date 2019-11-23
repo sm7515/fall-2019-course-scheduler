@@ -71,9 +71,12 @@ export default class Register extends Component {
             dateCreated:this.state.dateCreated
         }
 
-        console.log(user);
-        
-        axios.post('http://localhost:5000/register', user)
+        axios({
+          method:"post",
+          url:'http://localhost:5000/register',
+          withCredentials :true,
+          data:user
+        })
             .then(res => {
                 // alert(res.data)
                 window.location = '/courses';
@@ -123,7 +126,7 @@ export default class Register extends Component {
                     <label className='form-label'>Email </label>
                     <p className='form-hint-email'>please enter an valid email</p>
                 </div>
-    
+
                     <div className="radio-group">
                         <div className="form-radio-group">
                             <div className="form-radio">
@@ -204,7 +207,7 @@ export default class Register extends Component {
                     <label className='form-label'>Password </label>
                     <p className='form-hint'>Your password must contain 6 characters minimum </p>
                 </div>
-                
+
                 <div className='reg-log'>
                     <input type="submit" value="Register"/>
                     <a href='/login'>login</a>
