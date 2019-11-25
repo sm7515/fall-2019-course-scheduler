@@ -3,9 +3,9 @@ let cheerio = require('cheerio');
 const url = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV";
 const postURL = "http://localhost:5000/database/addData";
 
-let yearValue = "/1204/";
-let courseValue = process.argv[2];
-let urlNew = url + yearValue + courseValue;
+// For module exports
+
+var exports = module.exports = {};
 
 //==============
 //Fields for searching
@@ -19,16 +19,22 @@ let units = 0;
 /**
  * This function fetches html from a specific course on nyu mobile course search
  */
-fetchData = () => {
+async function fetchData(yearID, classID)
+{
+
+    let urlNew = url + "/" + yearID + "/" + classID;
+
+    console.log(urlNew);
+
     axios.get(urlNew)
     .then((res) => {
 
         if(res.status == 200)
         {
             //Successfully found course page
-            console.log(`statusCode: ${res.status}`)
+            console.log(`Sucessfully fetched: ${res.status}`)
 
-            let jsonObj = parseHTML(res.data);
+            let jsonObj = parseHTML(res.data, yearID);
 
             if(jsonObj == null)
             {
@@ -37,13 +43,13 @@ fetchData = () => {
             }
             else
             {
-                // postDatabase(jsonObj);
-                console.log("Should post but edited out to debug program");
+                // console.log("Have not posted to database")
+                // console.log(jsonObj);
+                // console.log("\n\n\n\n")
+                
+                postDatabase(jsonObj);
+                return jsonObj;
             }
-
-            console.log(jsonObj);
-
-            return jsonObj;
         }
         else
         {
@@ -77,10 +83,17 @@ postDatabase = (jsonObj) => {
         })
 }
 
+formatDepartment = (departmentStr) =>
+{
+    var index = departmentStr.indexOf(" ");
+
+    return departmentStr.substring(0,index);
+}
+
 /**
  * Formats the raw html from fetchData
  */
-parseHTML = (html) => {
+parseHTML = (html, yearID) => {
     const $ = cheerio.load(html);
 
     let title = $(".primary-head");
@@ -88,29 +101,26 @@ parseHTML = (html) => {
     let left = $("div .pull-left").find(".strong");
 
     let component = $(".PSTEXT");
-    console.log(component[0].children[0].children[0].children[0].children[0].data);
+    let department = $(".page-title");
 
-    
-
-    // title = title[0].children[0].data.trim();
-    // console.log(title);
+    department = formatDepartment(department[0].children[0].data);
 
     jsonObj = {
         name: "null",
         location: "null",
         school: "null",
         time: "null",
+        units: -1,
         course_number: "null",
-        department: "null",
+        department: department,
         description: "null",
-        component: "null"
+        component: "null",
+        year_id: yearID
     }
-
-    // console.log(right[2].children);
 
     if(left.length === 0 || right.length === 0)
     {
-        console.log("Class " + yearValue + courseValue + " not valid");
+        console.log("Class " + yearValue + " " + courseValue + " not valid");
         return null;
     }
 
@@ -118,10 +128,6 @@ parseHTML = (html) => {
     
     for(var i = 0; i < left.length; i++)
     {
-        if(left[i].children[0].type === "Components")
-        {
-            console.log(right[i]);
-        }
 
         if(left[i].children[0].type === "text")
         {
@@ -133,16 +139,17 @@ parseHTML = (html) => {
             }
             else
             {
-                // console.log(left[i].children[0].data + " " + right[i].children[0].data);
                 jsonObj = getJSON(left[i].children[0].data, right[i].children[0].data, jsonObj);
-                // console.log(left[i].children[0].data + ": " + right[i].children[0].data);
             }
             
             // console.log(left[i].children[0].data + ": " + right[i].children[0].data);
         }
     }
 
-    jsonObj = getJSON("Components",component[0].children[0].children[0].children[0].children[0].data, jsonObj)
+    if(component[0] != undefined || component[0].children[0] != undefined || component[0].children[0].children[0] != undefined || component[0].children[0].children[0].children[0] != undefined)
+    {
+        jsonObj = getJSON("Components",component[0].children[0].children[0].children[0].data, jsonObj)
+    }
     
     // console.log(jsonObj);
     return jsonObj;
@@ -192,7 +199,7 @@ getJSON = (key, value, jsonObj) => {
     {
         //Has units
         jsonObj.units = Number(value.charAt(0));
-        console.log(typeof units);
+        // console.log(typeof units);
     }
     else if(key === "Components" && value != undefined)
     {
@@ -204,7 +211,7 @@ getJSON = (key, value, jsonObj) => {
         {   
             if(jsonObj.units === 0)
             {
-                console.log(jsonObj.units);
+                // console.log(jsonObj.units);
                 jsonObj.component = "Recitation";
             }
             else
@@ -212,26 +219,23 @@ getJSON = (key, value, jsonObj) => {
                 jsonObj.component = "Lecture";
             }
         }
+        else if(value.includes("Seminar"))
+        {
+            jsonObj.component = "Seminar";
+        }
         
     }
 
     return jsonObj;
 }
 
-main = () => {
-    if(process.argv[2] === undefined)
-    {
-        console.log("You need to enter arguments for a class number");
-        return 0;
-    }
-    
-    fetchData();
-
-    
-}
 //=======================================================================
 
-main();
+exports.main = function(yearID, classID){
+
+    fetchData(yearID, classID);
+    
+}
 
 
 
