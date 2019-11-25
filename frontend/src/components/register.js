@@ -217,3 +217,30 @@ export default class Register extends Component {
         )
     }
 }
+const emailRegex = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+
+function emailValid(email){
+    return emailRegex.test(email)
+}
+
+function passwordEntered(password){
+    return !(password.length === 0)
+}
+
+function passwordLongEnough(password) {
+    return password.length >= 5
+}
+
+function schoolvalid(school){
+    return school.length >= 1
+
+}
+function SignedIn() {
+    return false;
+}
+
+function nameValid(name){
+    return name.length >= 1
+}
+
+export{emailValid, passwordEntered, passwordLongEnough, schoolvalid, SignedIn, nameValid}
