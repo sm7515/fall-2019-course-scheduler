@@ -110,4 +110,4 @@ function SignedIn() {
     return true;
 }
 export default Login
-export{passwordEntered, passwordLongEnough, nameValid, SignedIn}
+export{passwordEntered, passwordLongEnough, nameValid, SignedIn, emailValid}

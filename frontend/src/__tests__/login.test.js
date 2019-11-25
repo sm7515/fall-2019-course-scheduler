@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Login, {passwordEntered,passwordLongEnough, nameValid, SignedIn} from '../components/login';
+import Login, {passwordEntered,passwordLongEnough, nameValid, SignedIn, emailValid} from '../components/login';
 
 
-const emailRegex = require('email-regex');
+
 
 
 it('name is valid', ()=>{
@@ -17,8 +17,8 @@ it('renders login component', () => {
 });
 
 it('validates email address', () => {
-  emailRegex().test('something@gmail.com');
-  emailRegex().test('tsundere.com');
+  expect(emailValid("something@something.com")).toBeTruthy()
+  expect(emailValid("tsundere")).not.toBeTruthy()
 });
 
 it('is password entered?', () => {
