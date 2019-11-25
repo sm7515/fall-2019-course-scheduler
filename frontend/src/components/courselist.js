@@ -21,11 +21,11 @@ export default function CourseList(){
         query();
     }, query)
 
-    console.log(courses && courses)
+    
 
     return(
         <div className='course-page'>
-		<Popup trigger={<button> Trigger</button>}>
+		<Popup trigger={<button> Calandar</button>}>
     		<Calendar classes={{ 
                 root: 'stylised-calendar'
              }}/>
