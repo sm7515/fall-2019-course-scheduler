@@ -25,16 +25,22 @@ router.post('/addData', function (req, res, next) {
   const course_number = Number(req.body.course_number);
   const department = req.body.department;
   const description = req.body.description;
+  const component = req.body.component;
+  const units = req.body.units;
 
   const courseObj = {
     name,
     location,
     school,
+    units,
     time,
     course_number,
     department,
-    description
+    description,
+    component
   }
+
+  console.log(courseObj);
 
   const newCourse = new Course(courseObj);
 

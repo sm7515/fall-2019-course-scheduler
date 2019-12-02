@@ -3,7 +3,7 @@ import axios from 'axios';
 import Logout from './logout'
 import '../App.css'
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -41,12 +41,18 @@ export default class Login extends Component {
         }
 
         //console.log(user);
-        axios.post('http://localhost:5000/login', user)
+        axios({
+          method:"post",
+          url:'http://localhost:5000/login',
+          withCredentials :true,
+          data:user
+        })
             .then(res => {
                 window.location = '/courses';
             })
-            .catch(err => alert( err.response.data.message))
+            .catch(err => console.log(err));
     }
+    
     render(){
     return(
         <div className='form-container-login'>
@@ -84,3 +90,25 @@ export default class Login extends Component {
         </div>
     )}
 }
+const emailRegex = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+
+function emailValid(email){
+    return emailRegex.test(email)
+}
+
+function passwordEntered(password){
+    return !(password.length === 0)
+}
+
+function passwordLongEnough(password) {
+    return password.length >= 5
+}
+
+function nameValid(name){
+    return name.length >= 1
+}
+function SignedIn() {
+    return true;
+}
+export default Login
+export{passwordEntered, passwordLongEnough, nameValid, SignedIn, emailValid}

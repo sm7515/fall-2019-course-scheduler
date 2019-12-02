@@ -71,9 +71,12 @@ export default class Register extends Component {
             dateCreated:this.state.dateCreated
         }
 
-        console.log(user);
-        
-        axios.post('http://localhost:5000/register', user)
+        axios({
+          method:"post",
+          url:'http://localhost:5000/register',
+          withCredentials :true,
+          data:user
+        })
             .then(res => {
                 // alert(res.data)
                 window.location = '/courses';
@@ -123,7 +126,7 @@ export default class Register extends Component {
                     <label className='form-label'>Email </label>
                     <p className='form-hint-email'>please enter an valid email</p>
                 </div>
-    
+
                     <div className="radio-group">
                         <div className="form-radio-group">
                             <div className="form-radio">
@@ -204,7 +207,7 @@ export default class Register extends Component {
                     <label className='form-label'>Password </label>
                     <p className='form-hint'>Your password must contain 6 characters minimum </p>
                 </div>
-                
+
                 <div className='reg-log'>
                     <input type="submit" value="Register"/>
                     <a href='/login'>login</a>
@@ -214,3 +217,30 @@ export default class Register extends Component {
         )
     }
 }
+const emailRegex = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+
+function emailValid(email){
+    return emailRegex.test(email)
+}
+
+function passwordEntered(password){
+    return !(password.length === 0)
+}
+
+function passwordLongEnough(password) {
+    return password.length >= 5
+}
+
+function schoolvalid(school){
+    return school.length >= 1
+
+}
+function SignedIn() {
+    return false;
+}
+
+function nameValid(name){
+    return name.length >= 1
+}
+
+export{emailValid, passwordEntered, passwordLongEnough, schoolvalid, SignedIn, nameValid}

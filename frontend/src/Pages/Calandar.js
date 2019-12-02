@@ -40,9 +40,7 @@ export default class Calendar extends React.PureComponent {
       <MuiThemeProvider theme={theme}>
         <Paper classes={{classes}}>
           <Scheduler data={data}>
-            <ViewState currentDate="2018-06-28" />
-            <EditingState onCommitChanges={this.onCommitChanges}/>
-            <IntegratedEditing />
+            <ViewState currentDate="2019-11-30" />
             <WeekView startDayHour={9} endDayHour={19} />
             <Appointments />
           </Scheduler>

@@ -15,6 +15,10 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
+    units:{
+        type: Number,
+        required:true
+    },
     time: {
         type:String,
         required: true,
@@ -32,6 +36,10 @@ const courseSchema = new Schema({
     description:{
         type:String,
         required: true,
+    },
+    component:{
+        type:String,
+        required:true
     }
 }, {
     timestamps: true,
