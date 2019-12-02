@@ -46,4 +46,36 @@ function validation(user){
     }
   });
 }
+
+const Admin=(()=>{
+  let admin;
+
+  const info={
+    name:"admin",
+    password:"1234567"
+  }
+
+  function Admin() {
+    new User(info);
+  }
+
+  function createAdmin() {
+    admin=new Admin();
+    return admin;
+  }
+
+  return {
+    getAdmin: () => {
+      if (!admin)
+        admin = createAdmin();
+      return admin;
+    }
+  }
+})()
+
+const admin1 = Admin.getAdmin();
+const admin2 = Admin.getAdmin();
+
+console.log(admin1 === admin2) // true
+
 module.exports = router;
