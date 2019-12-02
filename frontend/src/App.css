@@ -289,6 +289,7 @@ input[type="submit"]:hover{
   margin-top: 30px;
   background-color: rgba(242,242,242,0.6);
   transition: 300ms ease;
+  cursor: pointer;
 }
 
 .metaData{
@@ -323,4 +324,20 @@ text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: fixed;
   right: 20px;
   top: 20px;
+}
+
+.contain
+{
+  display:flex;
+}
+
+.searchComp
+{
+  flex: 1;
+}
+
+.calenderComp
+{
+  position: relative;
+  flex:1;
 }
