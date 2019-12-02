@@ -19,7 +19,7 @@ let units = 0;
 /**
  * This function fetches html from a specific course on nyu mobile course search
  */
-async function fetchData(yearID, classID)
+async function fetchData(yearID, classID, department)
 {
 
     let urlNew = url + "/" + yearID + "/" + classID;
@@ -34,7 +34,7 @@ async function fetchData(yearID, classID)
             //Successfully found course page
             console.log(`Sucessfully fetched: ${res.status}`)
 
-            let jsonObj = parseHTML(res.data, yearID);
+            let jsonObj = parseHTML(res.data, yearID, department, classID);
 
             if(jsonObj == null)
             {
@@ -93,7 +93,7 @@ formatDepartment = (departmentStr) =>
 /**
  * Formats the raw html from fetchData
  */
-parseHTML = (html, yearID) => {
+parseHTML = (html, yearID, departmentFullName, classID) => {
     const $ = cheerio.load(html);
 
     let title = $(".primary-head");
@@ -112,7 +112,7 @@ parseHTML = (html, yearID) => {
         time: "null",
         units: -1,
         course_number: "null",
-        department: department,
+        department: department + " (" + departmentFullName + ")",
         description: "null",
         component: "null",
         year_id: yearID
@@ -120,7 +120,7 @@ parseHTML = (html, yearID) => {
 
     if(left.length === 0 || right.length === 0)
     {
-        console.log("Class " + yearValue + " " + courseValue + " not valid");
+        console.log("Class " + yearID + " " + classID + " not valid");
         return null;
     }
 
@@ -146,7 +146,7 @@ parseHTML = (html, yearID) => {
         }
     }
 
-    if(component[0] != undefined || component[0].children[0] != undefined || component[0].children[0].children[0] != undefined || component[0].children[0].children[0].children[0] != undefined)
+    if(component[0] != undefined && component[0].children != undefined && component[0].children[0].children != undefined && component[0].children[0].children[0].children != undefined)
     {
         jsonObj = getJSON("Components",component[0].children[0].children[0].children[0].data, jsonObj)
     }
@@ -231,9 +231,9 @@ getJSON = (key, value, jsonObj) => {
 
 //=======================================================================
 
-exports.main = function(yearID, classID){
+exports.main = function(yearID, classID, department){
 
-    fetchData(yearID, classID);
+    fetchData(yearID, classID, department);
     
 }
 
