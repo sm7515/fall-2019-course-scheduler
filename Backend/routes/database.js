@@ -15,7 +15,7 @@ router.get('/fetchData', function (req, res, next) {
   });
 });
 
-//api for admin use only 
+//api for admin use only
 router.post('/addData', function (req, res, next) {
 
   const name = req.body.name;
@@ -48,5 +48,26 @@ router.post('/addData', function (req, res, next) {
     .then(() => res.json('User added'))
     .catch(err => res.status(400).json('Error: ' + err))
 });
+
+class Recitation{
+  constructor(name, time){
+    this.name = name
+    this.time = time
+  }
+}
+class Lecture{
+  constructor(name,time){
+    this.name = name;
+    this.time = time;
+  }
+}
+class CourseFactory{
+  getClass(isRec, name, time){
+    if(isRec){
+      return new Recitation(name,time)
+    }
+    return new Lecture(name, time)
+  }
+}
 
 module.exports = router;
