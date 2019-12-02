@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import Paper from "@material-ui/core/Paper";
-import { ViewState } from "@devexpress/dx-react-scheduler";
+import { ViewState, EditingState,IntegratedEditing} from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
   WeekView,
@@ -21,7 +21,18 @@ export default class Calendar extends React.PureComponent {
       data: appointments,
       classes: props.classes
     };
+    this.onCommitChanges=this.onCommitChanges.bind(this);
   }
+
+  onCommitChanges({added,changed,deleted}){
+    this.setState((state)=>{
+      let {data}=state;
+      if(added){
+        
+      }
+    })
+  }
+  
   render() {
     const { data, classes } = this.state;
 
@@ -30,6 +41,8 @@ export default class Calendar extends React.PureComponent {
         <Paper classes={{classes}}>
           <Scheduler data={data}>
             <ViewState currentDate="2018-06-28" />
+            <EditingState onCommitChanges={this.onCommitChanges}/>
+            <IntegratedEditing />
             <WeekView startDayHour={9} endDayHour={19} />
             <Appointments />
           </Scheduler>

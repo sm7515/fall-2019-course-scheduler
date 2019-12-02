@@ -7,6 +7,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
+
         this.onChangename = this.onChangename.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
