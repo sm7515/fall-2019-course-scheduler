@@ -12,6 +12,7 @@ function App() {
     <Router>
       <div className="container">
         <Route path="/" exact component={CourseList} />
+        <Route path="/courses" exact component={CourseList} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/calender" component={Calendar} />
