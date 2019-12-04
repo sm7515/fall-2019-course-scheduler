@@ -11,10 +11,9 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Route path="/" exact component={Register} />
+        <Route path="/" exact component={CourseList} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/courses" component={CourseList} />
         <Route path="/calender" component={Calendar} />
       </div>
     </Router>
