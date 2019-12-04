@@ -68,7 +68,7 @@ export default class CourseList extends React.Component {
             {showCalendar ? "Hide Calendar" : "Show Calendar"}
           </button>
           <div className='form-container-logout'>
-                <a href='/'>Log In</a>
+                <a href='/login'>Log In</a>
           </div>
           <div className="contain">
             <div className="searchComp">
