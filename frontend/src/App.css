@@ -8,7 +8,7 @@ body {
     ),
     url("https://img.wallpapersafari.com/desktop/1920/1080/37/80/mHCT7n.jpg");
   background-size: contain;
-  background-position: center;
+  background-position: fixed;
 }
 
 .form-container,
