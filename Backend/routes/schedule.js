@@ -3,10 +3,26 @@ const User = require('../schema/user_schema');
 const Course = require('../schema/course_schema')
 const {ValidationError, PermissionError, DatabaseError, HashError, InvalidInputError}
  = require('../errors/error');
-/**
- * user adds a class to the schedule
- * @name add a class to the current schedule
- */
+
+router.delete('/deleteCourse', function(req, res,next){
+  let error
+  course_id = req.body.course_id
+  if(!req.session.user_id){
+    error = new PermissionError('You need to log in before you delete a class')
+    res.status(error.status).send(error)
+  }
+  else{
+    User.findOneAndUpdate({'_id':req.session.user_id}, {"$pullAll":{'selected':[course_id]} }, function(err,data){
+      if(err){
+        error = new DatabaseError('failed to delete the course from user profile')
+        res.status(error).send(error)
+      }
+      else{
+        res.status(200).send('successfully delete the course!')
+      }
+    } )
+  }
+})
 router.post('/add', function(req, res, next){
   //if user is not logged in, error
   let error
