@@ -7,6 +7,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
+mongoose.Promise = Promise
 require('dotenv').config();
 
 //=============================================================
