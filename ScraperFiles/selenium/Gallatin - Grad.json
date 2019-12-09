@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Core",
+    "yearId": 1204,
+    "classIds": [
+      19954,
+      6178,
+      6179,
+      6180,
+      6188,
+      6187,
+      6181
+    ]
+  },
+  {
+    "name": "Electives",
+    "yearId": 1204,
+    "classIds": [
+      20115,
+      6270,
+      20157,
+      6272,
+      19955,
+      6275,
+      20125
+    ]
+  },
+  {
+    "name": "Individualized Projects",
+    "yearId": 1204,
+    "classIds": [
+      6132,
+      6137,
+      6154,
+      6282,
+      6283,
+      6284,
+      6285,
+      6286,
+      6176,
+      6186
+    ]
+  },
+  {
+    "name": "Scholarly Communities",
+    "yearId": 1204,
+    "classIds": [
+      6277
+    ]
+  }
+]
