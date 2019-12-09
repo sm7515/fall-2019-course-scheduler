@@ -13,14 +13,21 @@ let collegeArray = [];
   // Get Year
   await driver.get('https://m.albert.nyu.edu/app/catalog/classSearch/1204');
 
+  sleep.sleep(1);
+  const college = await driver.findElement(By.id("search-acad-group"));
+  college.sendKeys("w");
+  sleep.sleep(1);
+
   // Get college list
   const collegeName = await driver.findElement(By.name("acad_group")).getText();
   parseColleges(collegeName);
 
+  console.log(collegeArray);
+
   // Uncheck open classes only
   await driver.findElement(By.className("search-check")).click();
 
-  for(let z = 1; z < collegeArray.length; z++)
+  for(let z = 31; z < collegeArray.length+1; z++)
   {
     // Get College
     const college = await driver.findElement(By.id("search-acad-group"));
@@ -51,7 +58,7 @@ let collegeArray = [];
         classIds: []
       }
 
-      sleep.sleep(8);
+      sleep.sleep(9);
 
       let results = await driver.findElement(By.id("search-results"));
       results = await driver.findElements(By.className("section-content"))

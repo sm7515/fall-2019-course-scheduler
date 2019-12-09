@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Credit Analysis Diploma",
+    "yearId": 1204,
+    "classIds": [
+      2331,
+      2332,
+      2333,
+      2334
+    ]
+  },
+  {
+    "name": "Paralegal",
+    "yearId": 1204,
+    "classIds": [
+      2335,
+      2336
+    ]
+  }
+]
