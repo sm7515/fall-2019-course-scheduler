@@ -25,10 +25,9 @@ const userSchema = new Schema({
         type:String,
         required: true,
     },
-    selected:[{//ido of selected courses
-      type:Schema.ObjectId,
-      ref: 'Course'
-    }],
+    selected:{//ido of selected courses
+      type:[Schema.ObjectId]
+    },
     dateCreated:{
         type:Date,
         required: true,
