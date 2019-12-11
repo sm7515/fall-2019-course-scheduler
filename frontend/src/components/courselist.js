@@ -3,29 +3,45 @@ import axios from "axios";
 import Card from "./Card";
 import Popup from "reactjs-popup";
 import Calendar from "../Pages/Calandar";
+import { appointments } from "../data/data";
+import { CalendarData } from "../Pages/CalendarDatasource";
+import moment from "moment";
 
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
   // const [searchQuery] = useState("");
-
+  list = new CalendarData();
+  DaysEnum = { Mo: 1, Tu: 2, Wed: 3, Th: 4, Fr: 5, Sa: 6, Su: 7 };
+  moment = moment();
+  m = null;
   state = {
     courses: [],
     setCourse: [],
     searchQuery: "",
-    showCalendar: true
+    showCalendar: true,
+    data: []
   };
-
+  constructor(props) {
+    super();
+  }
   componentDidMount() {
     this.query();
-  }
+    let rows = this.list.getAll();
 
+    this.setState(prevState => {
+      var joined = this.state.data.concat(rows);
+      return { data: joined };
+    });
+  }
+  componentDidUpdate() {
+    console.log(" ======= ", this.state);
+  }
   query = function() {
     axios
       .get("http://localhost:5000/database/fetchData")
       .then(res => {
-        console.log(res.data);
+        console.log("db data", res.data);
         this.setState({ courses: res.data });
-
         return res;
       })
       .catch(err => console.log(err));
@@ -50,13 +66,59 @@ export default class CourseList extends React.Component {
   };
 
   addToCalender = nameTimeObj => {
-    // nameTimeObj is an object with course name and course time
-    console.log(nameTimeObj);
-    alert(JSON.stringify(nameTimeObj));
+    debugger;
+    console.log("addTocalendar", nameTimeObj);
+    let calData = {};
+
+    var res = nameTimeObj.time.split("-");
+    let weekName = res[0].substr(0, 2);
+    console.log("wee", weekName);
+    console.log("wee", this.DaysEnum[weekName]);
+    let startTime = res[0].substr(2, res[0].length);
+    let endTime = res[1];
+
+    calData.title = nameTimeObj.name;
+
+    let startDateMoment = moment().day(this.DaysEnum[weekName]);
+    var seconds = startTime.split(":")[1];
+    var minutes = startTime.split(":")[0];
+    let startDate1 = moment(startTime.trim(), ["h:mm A"]);
+
+    // let startDate = startDateMoment.moment(startTime, "HH:mm");
+    startDateMoment.hour(startDate1.get("hour"));
+    startDateMoment.minute(startDate1.get("minute"));
+    let startDate = startDateMoment.toDate();
+    /*   .add(seconds, "seconds")
+      .add(minutes, "minutes")
+      .format("LT"); */
+    console.log("startDate", startDate);
+
+    calData.startDate = startDate;
+    //let endDate = moment(endTime, "HH:mm");
+    let endDateMoment = moment().day(this.DaysEnum[weekName]);
+    let endDate1 = moment(endTime.trim(), ["h:mm A"]);
+
+    endDateMoment.hour(endDate1.get("hour"));
+    endDateMoment.minute(endDate1.get("minute"));
+    let endDate = endDateMoment.toDate();
+    /*  .add(seconds, "seconds")
+      .add(minutes, "minutes")
+      .format("LT"); */
+    console.log("startDate", endDate);
+
+    calData.endDate = endDate; //.toDate();
+    calData.id = nameTimeObj.id;
+    calData.location = nameTimeObj.location;
+    let newData = this.list.addElement(calData);
+    this.setState({ data: newData });
+    console.log("newData record", newData);
+    // alert(JSON.stringify(calData));
+    this.setState({ state: this.state });
   };
 
+  exports = { CourseList };
   render() {
-    const { showCalendar } = this.state;
+    const { showCalendar, data } = this.state;
 
     return (
       <>
@@ -67,8 +129,8 @@ export default class CourseList extends React.Component {
           >
             {showCalendar ? "Hide Calendar" : "Show Calendar"}
           </button>
-          <div className='form-container-logout'>
-                <a href='/login'>Log In</a>
+          <div className="form-container-logout">
+            <a href="/login">Log In</a>
           </div>
           <div className="contain">
             <div className="searchComp">
@@ -84,6 +146,7 @@ export default class CourseList extends React.Component {
                 </label>
               </form>
               {this.state.courses.map((i, key) => {
+                console.log("zz ", i);
                 if (
                   this.state.searchQuery.length > 3 &&
                   i.name.includes(this.state.searchQuery)
@@ -92,6 +155,7 @@ export default class CourseList extends React.Component {
                     <Card
                       name={i.name}
                       time={i.time}
+                      id={i._id}
                       location={i.location}
                       department={i.department}
                       description={i.description}
@@ -108,6 +172,7 @@ export default class CourseList extends React.Component {
                   classes={{
                     root: "stylised-calendar"
                   }}
+                  data={this.state.data}
                 />
               ) : null}
             </div>
