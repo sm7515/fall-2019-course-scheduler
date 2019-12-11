@@ -19,10 +19,11 @@ export default class CourseList extends React.Component {
     setCourse: [],
     searchQuery: "",
     showCalendar: true,
-    data: []
+    data: [],
+    addedData: {}
   };
   constructor(props) {
-    super();
+    super(props);
   }
   componentDidMount() {
     this.query();
@@ -33,9 +34,7 @@ export default class CourseList extends React.Component {
       return { data: joined };
     });
   }
-  componentDidUpdate() {
-    console.log(" ======= ", this.state);
-  }
+  componentDidUpdate() {}
   query = function() {
     axios
       .get("http://localhost:5000/database/fetchData")
@@ -66,14 +65,13 @@ export default class CourseList extends React.Component {
   };
 
   addToCalender = nameTimeObj => {
-    debugger;
     console.log("addTocalendar", nameTimeObj);
     let calData = {};
 
     var res = nameTimeObj.time.split("-");
     let weekName = res[0].substr(0, 2);
-    console.log("wee", weekName);
-    console.log("wee", this.DaysEnum[weekName]);
+    console.log( weekName);
+    console.log(this.DaysEnum[weekName]);
     let startTime = res[0].substr(2, res[0].length);
     let endTime = res[1];
 
@@ -84,14 +82,9 @@ export default class CourseList extends React.Component {
     var minutes = startTime.split(":")[0];
     let startDate1 = moment(startTime.trim(), ["h:mm A"]);
 
-    // let startDate = startDateMoment.moment(startTime, "HH:mm");
     startDateMoment.hour(startDate1.get("hour"));
     startDateMoment.minute(startDate1.get("minute"));
     let startDate = startDateMoment.toDate();
-    /*   .add(seconds, "seconds")
-      .add(minutes, "minutes")
-      .format("LT"); */
-    console.log("startDate", startDate);
 
     calData.startDate = startDate;
     //let endDate = moment(endTime, "HH:mm");
@@ -101,21 +94,19 @@ export default class CourseList extends React.Component {
     endDateMoment.hour(endDate1.get("hour"));
     endDateMoment.minute(endDate1.get("minute"));
     let endDate = endDateMoment.toDate();
-    /*  .add(seconds, "seconds")
-      .add(minutes, "minutes")
-      .format("LT"); */
-    console.log("startDate", endDate);
 
     calData.endDate = endDate; //.toDate();
     calData.id = nameTimeObj.id;
     calData.location = nameTimeObj.location;
-    let newData = this.list.addElement(calData);
-    this.setState({ data: newData });
-    console.log("newData record", newData);
-    // alert(JSON.stringify(calData));
-    this.setState({ state: this.state });
+    calData.allData = false;
+
+    this.setState({ addedData: calData });
   };
 
+  onAddElement = calData => {
+    let newData = this.list.addElement(calData);
+    this.setState({ data: newData });
+  };
   exports = { CourseList };
   render() {
     const { showCalendar, data } = this.state;
@@ -146,13 +137,14 @@ export default class CourseList extends React.Component {
                 </label>
               </form>
               {this.state.courses.map((i, key) => {
-                console.log("zz ", i);
+                console.log( i);
                 if (
                   this.state.searchQuery.length > 3 &&
                   i.name.includes(this.state.searchQuery)
                 ) {
                   return (
                     <Card
+                      key
                       name={i.name}
                       time={i.time}
                       id={i._id}
@@ -168,12 +160,7 @@ export default class CourseList extends React.Component {
 
             <div className="calenderComp">
               {showCalendar ? (
-                <Calendar
-                  classes={{
-                    root: "stylised-calendar"
-                  }}
-                  data={this.state.data}
-                />
+                <Calendar addedData={this.state.addedData} />
               ) : null}
             </div>
           </div>

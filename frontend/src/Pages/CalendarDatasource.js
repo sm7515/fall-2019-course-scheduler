@@ -9,7 +9,7 @@ export class CalendarData {
 
   addElement(object) {
     var found = this.data.find(function(el) {
-      return el.title == object.title;
+      return el.id == object.id;
     });
     console.log("addelement found", found);
 

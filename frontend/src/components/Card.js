@@ -15,7 +15,8 @@ class Card extends React.Component {
           this.props.clickComponent({
             name: this.props.name,
             id: this.props.id,
-            time: this.props.time
+            time: this.props.time,
+            location: this.props.location
           })
         }
       >

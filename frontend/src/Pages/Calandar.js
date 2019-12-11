@@ -17,17 +17,22 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
+import { CalendarData } from "../Pages/CalendarDatasource";
 
 const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
 
 export default class Calendar extends React.PureComponent {
+  list = new CalendarData();
+
   constructor(props) {
     super(props);
+    let rows = this.list.getAll();
 
     this.state = {
-      data: this.props.data,
+      data: rows,
       classes: props.classes,
       currentDate: new Date(),
+      addedAppointment: {},
       appointmentChanges: {},
       editingAppointmentId: undefined
     };
@@ -36,17 +41,22 @@ export default class Calendar extends React.PureComponent {
     this.changeEditingAppointmentId = this.changeEditingAppointmentId.bind(
       this
     );
+    this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
   }
+  componentDidMount() {
+    let rows = this.list.getAll();
 
+    this.setState({ data: rows });
+  }
   commitChanges({ added, changed, deleted }) {
-    console.log("added, changed, deleted", added, changed, deleted);
     this.setState(state => {
       let { data } = state;
-      console.log("data in state", data);
       if (added) {
-        const startingAddedId =
-          data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
+        let newdata = [...data, ...added];
+        const idPositions = newdata.map(el => el.id);
+        data = newdata.filter((item, pos, arr) => {
+          return idPositions.indexOf(item.id) == pos;
+        });
       }
       if (changed) {
         data = data.map(appointment =>
@@ -61,6 +71,10 @@ export default class Calendar extends React.PureComponent {
       return { data: data };
     });
   }
+  changeAddedAppointment(addedAppointment) {
+    this.setState({ addedAppointment });
+    this.changeEditingAppointmentId(undefined);
+  }
   changeAppointmentChanges(appointmentChanges) {
     this.setState({ appointmentChanges });
   }
@@ -69,7 +83,13 @@ export default class Calendar extends React.PureComponent {
     this.setState({ editingAppointmentId });
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ data: nextProps.data });
+    let addedAppointment = nextProps.addedData;
+    if (Object.keys(addedAppointment).length !== 0) {
+      let addedData = [];
+      addedData.push(nextProps.addedData);
+
+      this.commitChanges({ added: addedData });
+    }
   }
   render() {
     const {
@@ -77,6 +97,7 @@ export default class Calendar extends React.PureComponent {
       data,
       classes,
       appointmentChanges,
+      addedAppointment,
       editingAppointmentId
     } = this.state;
     return (
@@ -84,7 +105,15 @@ export default class Calendar extends React.PureComponent {
         <Paper classes={{ classes }}>
           <Scheduler data={data} onAppointmentClick={this.handleEvent}>
             <ViewState defaultCurrentDate={currentDate} />
-            <EditingState onCommitChanges={this.commitChanges} />
+            <EditingState
+              onCommitChanges={this.commitChanges}
+              addedAppointment={addedAppointment}
+              onAddedAppointmentChange={this.changeAddedAppointment}
+              appointmentChanges={appointmentChanges}
+              onAppointmentChangesChange={this.changeAppointmentChanges}
+              editingAppointmentId={editingAppointmentId}
+              onEditingAppointmentIdChange={this.changeEditingAppointmentId}
+            />
             <IntegratedEditing />
             <WeekView startDayHour={9} endDayHour={19} />
             <ConfirmationDialog />
