@@ -3,6 +3,9 @@ import axios from 'axios';
 import Logout from './logout'
 import '../App.css'
 
+import Cookies from 'js-cookie'
+
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -47,9 +50,20 @@ class Login extends Component {
           data:user
         })
             .then(res => {
+                // let cookieObj = res;
+                
+                // alert(res.data);
+                console.log(res.data);
+
+                Cookies.set('login', res.data);
+
                 window.location = '/courses';
+                
             })
-            .catch(err => console.log(err));
+            .catch((err) => {
+                console.log(err);
+            });
+    
     }
     
     render(){

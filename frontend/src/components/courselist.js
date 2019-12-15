@@ -7,6 +7,8 @@ import { appointments } from "../data/data";
 import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
 
+import Cookies from 'js-cookie';
+
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
   // const [searchQuery] = useState("");
@@ -20,31 +22,53 @@ export default class CourseList extends React.Component {
     searchQuery: "",
     showCalendar: true,
     data: [],
-    addedData: {}
+    addedData: {},
+    auth: false,
+    userInfo: {}
   };
+
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
+
+  componentDidMount = () => {
     this.query();
+    this.setLoggedIn();
     let rows = this.list.getAll();
+
 
     this.setState(prevState => {
       var joined = this.state.data.concat(rows);
       return { data: joined };
     });
   }
+
   componentDidUpdate() {}
+
   query = function() {
     axios
       .get("http://localhost:5000/database/fetchData")
       .then(res => {
-        console.log("db data", res.data);
+        // console.log("db data", res.data);
         this.setState({ courses: res.data });
         return res;
       })
       .catch(err => console.log(err));
   };
+
+  setLoggedIn = function(){
+    // Determine if user is logged in
+    
+    if(Cookies.get("login") != undefined)
+    {
+      let obj = Cookies.get("login");
+      this.setState({auth: true, userInfo: obj}, () => {
+        console.log(this.state.userInfo);
+      });
+
+      // alert("logged in");
+    }
+  }
 
   // useEffect(()=>{
   //     query();
@@ -57,6 +81,27 @@ export default class CourseList extends React.Component {
             }}/>
         </Popup>
      */
+
+  clickLogout = () =>{
+
+    //Delete session in backend, delete cookie, and redirect to / page.
+
+    axios({
+      method:"get",
+      url:'http://localhost:5000/logout',
+      withCredentials :true
+    })
+        .then(res => {
+            // alert("Sucessful Logout")
+            Cookies.remove("login");
+            window.location = '/';
+        
+            return res;
+        })
+        .catch(err => console.log(err));
+  }
+
+  
 
   search = event => {
     this.setState({ searchQuery: event.target.value });
@@ -121,7 +166,7 @@ export default class CourseList extends React.Component {
             {showCalendar ? "Hide Calendar" : "Show Calendar"}
           </button>
           <div className="form-container-logout">
-            <a href="/login">Log In</a>
+            {this.state.auth ? <a onClick={this.clickLogout} href ="#">Log Out</a> : <a href="/login">Log In</a>}
           </div>
           <div className="contain">
             <div className="searchComp">
@@ -137,7 +182,7 @@ export default class CourseList extends React.Component {
                 </label>
               </form>
               {this.state.courses.map((i, key) => {
-                console.log( i);
+                // console.log( i);
                 if (
                   this.state.searchQuery.length > 3 &&
                   i.name.includes(this.state.searchQuery)
