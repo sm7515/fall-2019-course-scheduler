@@ -5,11 +5,14 @@ const bcrypt = require('bcryptjs');
 const {ValidationError, PermissionError, DatabaseError, HashError}
  = require('../errors/error');
 
+ let sessionArray = [];
+
 /* GET users listing. */
 router.post('/', function(req, res, next) {
 //  console.log(req.session);
 //  res.set('Access-Control-Allow-Origin', req.headers.origin);
   if(req.session.user_id){
+    // console.log("Here 1");
     res.status(401).send(new ValidationError("Already logged in."));
   }
   else{
@@ -31,6 +34,7 @@ router.post('/', function(req, res, next) {
           }
           if(result === true){
             req.session.user_id = user._id;
+ 
             res.send();
           }
           else{
@@ -43,5 +47,30 @@ router.post('/', function(req, res, next) {
 
   }
 });
+
+// router.post("/logout", (req,res,next)=>{
+
+//   if(req.session.user_id){
+//     req.session.destroy();
+//     res.status(200).send("successfully log out");
+//   }
+//   else{
+//     let err = new PermissionError("User is not logged in");
+//     res.status(err.status).send(err);
+//   }
+// })
+
+// function destroyID(id)
+// {
+//   for(var i = 0; i < sessionArray.length; i++)
+//   {
+//     if(sessionArray[i]['id'] == id)
+//     {
+//       console.log("found id")
+//       sessionArray[i]['session'].destory();
+      
+//     }
+//   }
+// }
 
 module.exports = router;

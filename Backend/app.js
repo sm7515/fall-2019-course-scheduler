@@ -2,7 +2,7 @@ var createError = require("http-errors");
 var express = require("express");
 const cors = require("cors");
 const path = require("path");
-//var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 var logger = require("morgan");
 var session = require("express-session");
 var MongoDBStore = require("connect-mongodb-session")(session);
@@ -30,9 +30,12 @@ const dbURI = process.env.ATLAS_URI;
 mongoose.connect(
   dbURI,
   { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
-  function(error) {
+  function(err) {
     //Errors here
-    console.log(error);
+    if(err)
+    {
+      console.log(err);
+    }
   }
 );
 
@@ -42,7 +45,11 @@ var store = new MongoDBStore(
     collection: "session"
   },
   function(err) {
-    console.log(err);
+    if(err)
+    {
+      console.log(err);
+    }
+    
   }
 );
 
@@ -70,7 +77,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: "temporary secret",
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    cookie: { maxAge: 24 * 60 * 60 * 1000, secure: false },
     store: store,
     resave: false,
     saveUninitialized: true
