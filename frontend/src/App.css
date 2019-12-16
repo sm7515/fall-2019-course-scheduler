@@ -366,6 +366,15 @@ a:active {
   top: 20px;
 }
 
+.course-page{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 50px;
+  height: 100%;
+}
+
 .contain {
   display: flex;
 }

@@ -8,7 +8,6 @@ import {
 } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
-  DayView,
   WeekView,
   Appointments,
   AppointmentForm,
@@ -18,6 +17,8 @@ import {
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { CalendarData } from "../Pages/CalendarDatasource";
+
+import "../Calendar.css";
 
 const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
 
@@ -115,7 +116,7 @@ export default class Calendar extends React.PureComponent {
               onEditingAppointmentIdChange={this.changeEditingAppointmentId}
             />
             <IntegratedEditing />
-            <WeekView startDayHour={9} endDayHour={19} />
+            <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={30}/>
             <ConfirmationDialog />
             <Appointments />
             <AppointmentTooltip showOpenButton showDeleteButton />
