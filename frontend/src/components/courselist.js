@@ -96,8 +96,8 @@ export default class CourseList extends React.Component {
   }
 
   search = event => {
-    this.setState({ searchQuery: event.target.value });
-    // console.log(this.state.searchQuery);
+    this.setState({ searchQuery: event.currentTarget.value });
+    console.log(this.state.searchQuery);
     this.render();
   };
 
@@ -169,17 +169,19 @@ export default class CourseList extends React.Component {
           </div>
           <div className="contain">
             <div className="searchComp">
-              <form>
-                <label>
-                  Search:
+              <form className="search-form">
+                <div className="form-group">
                   <input
                     type="text"
-                    name=""
                     value={this.state.searchQuery}
                     onChange={this.search}
+                    className="form-control"
                   ></input>
-                </label>
-              </form>
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  <label className='form-label'>Search</label>
+              </div>
+            </form>
               {this.state.courses.map((i, key) => {
                 //console.log("index", i);
                 if (

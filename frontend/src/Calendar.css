@@ -71,20 +71,8 @@
     background-color: white  !important;
 }
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-text{
-    font-family: "Montserrat", sans-serif !important;
-    color: #fff;
-    height: 36px;
-    padding: 4px 28px;
-    margin-left: 24px;
-    background-color: #8900e1 !important;
-}
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-text:hover{
-    background-color: rgba(137, 0, 225,0.7) !important;
-}
-
-.MuiTypography-body1,input{
+.MuiTypography-body1,input,.MuiGrid-root{
     font-family: "Montserrat", sans-serif !important; 
 }
 
@@ -92,12 +80,10 @@
 border-bottom: 2px solid #8900e1 !important;
 }
 
-input{
-    background-color: none !important;
-}
 
-.MuiDialogTitle-root.Layout-title-456,.Layout-title-709{
+.MuiDialogTitle-root,.MuiDialogActions-root{
     font-family: "Montserrat", sans-serif !important; 
+    background-color: white;
 }
 
 .MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary{
@@ -112,4 +98,26 @@ input{
 }
 .MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:hover{
     background-color: rgba(137, 0, 225,0.1) !important;
+}
+
+.Cell-today-187,.Appointment-appointment-215{
+    background:rgba(232, 108, 0,0.8) !important;
+}
+
+.Appointment-appointment-215{
+  font-family: "Montserrat", sans-serif !important;
+  left: 39% !important;
+  border-radius: 0px !important;
+}
+
+.MuiButtonBase-root.MuiIconButton-root{
+color: #d6d6d6 !important;
+}
+
+.Content-lens-258{
+    color:rgba(232, 108, 0,0.8) !important;
+}
+
+.Content-content-254{
+  font-family: "Montserrat", sans-serif !important;
 }
