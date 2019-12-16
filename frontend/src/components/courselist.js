@@ -7,13 +7,11 @@ import { appointments } from "../data/data";
 import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
 
-import Cookies from 'js-cookie';
-
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
   // const [searchQuery] = useState("");
   list = new CalendarData();
-  DaysEnum = { Mo: 1, Tu: 2, Wed: 3, Th: 4, Fr: 5, Sa: 6, Su: 7 };
+  DaysEnum = { Mo: 1, Tu: 2, We: 3, Th: 4, Fr: 5, Sa: 6, Su: 7 };
   moment = moment();
   m = null;
   state = {
@@ -22,53 +20,31 @@ export default class CourseList extends React.Component {
     searchQuery: "",
     showCalendar: true,
     data: [],
-    addedData: {},
-    auth: false,
-    userInfo: {}
+    addedData: {}
   };
-
   constructor(props) {
     super(props);
   }
-
-  componentDidMount = () => {
+  componentDidMount() {
     this.query();
-    this.setLoggedIn();
     let rows = this.list.getAll();
-
 
     this.setState(prevState => {
       var joined = this.state.data.concat(rows);
       return { data: joined };
     });
   }
-
   componentDidUpdate() {}
-
   query = function() {
     axios
       .get("http://localhost:5000/database/fetchData")
       .then(res => {
-        // console.log("db data", res.data);
+        console.log("db data", res.data);
         this.setState({ courses: res.data });
         return res;
       })
       .catch(err => console.log(err));
   };
-
-  setLoggedIn = function(){
-    // Determine if user is logged in
-    
-    if(Cookies.get("login") != undefined)
-    {
-      let obj = Cookies.get("login");
-      this.setState({auth: true, userInfo: obj}, () => {
-        console.log(this.state.userInfo);
-      });
-
-      // alert("logged in");
-    }
-  }
 
   // useEffect(()=>{
   //     query();
@@ -82,28 +58,6 @@ export default class CourseList extends React.Component {
         </Popup>
      */
 
-  clickLogout = () =>{
-
-    //Delete session in backend, delete cookie, and redirect to / page.
-
-    axios({
-      method:"get",
-      url:'http://localhost:5000/logout',
-      withCredentials :true,
-    })
-        .then(res => {
-            // alert("Sucessful Logout")
-            localStorage.setItem('userID', null);
-            Cookies.remove("login");
-            window.location = '/';
-        console.log(res.data)
-            return res;
-        })
-        .catch(err => console.log(err));
-  }
-
-  
-
   search = event => {
     this.setState({ searchQuery: event.target.value });
     // console.log(this.state.searchQuery);
@@ -112,41 +66,54 @@ export default class CourseList extends React.Component {
 
   addToCalender = nameTimeObj => {
     console.log("addTocalendar", nameTimeObj);
-    let calData = {};
+    let calDatas = [];
 
     var res = nameTimeObj.time.split("-");
-    let weekName = res[0].substr(0, 2);
-    console.log( weekName);
-    console.log(this.DaysEnum[weekName]);
-    let startTime = res[0].substr(2, res[0].length);
-    let endTime = res[1];
+    let weekTime = res[0].split(" ");
 
-    calData.title = nameTimeObj.name;
+    let weekName = weekTime[0];
+    let weekNames = weekName.match(/.{2}/g);
+    console.log("weekarray", weekName);
+    console.log("weekarray1 =", weekNames);
+    weekNames.map(name => {
+      let calData = {};
 
-    let startDateMoment = moment().day(this.DaysEnum[weekName]);
-    var seconds = startTime.split(":")[1];
-    var minutes = startTime.split(":")[0];
-    let startDate1 = moment(startTime.trim(), ["h:mm A"]);
+      console.log("week name is  =", name);
+      let startTime = weekTime[1].trim();
+      let endTime = res[1];
+      calData.title = nameTimeObj.name;
 
-    startDateMoment.hour(startDate1.get("hour"));
-    startDateMoment.minute(startDate1.get("minute"));
-    let startDate = startDateMoment.toDate();
+      let startDateMoment = moment().day(this.DaysEnum[name]);
 
-    calData.startDate = startDate;
-    //let endDate = moment(endTime, "HH:mm");
-    let endDateMoment = moment().day(this.DaysEnum[weekName]);
-    let endDate1 = moment(endTime.trim(), ["h:mm A"]);
+      let startDate1 = moment(startTime.trim(), ["h:mm A"]);
 
-    endDateMoment.hour(endDate1.get("hour"));
-    endDateMoment.minute(endDate1.get("minute"));
-    let endDate = endDateMoment.toDate();
+      startDateMoment.hour(startDate1.get("hour"));
+      startDateMoment.minute(startDate1.get("minute"));
+      startDateMoment.second(0);
+      startDateMoment.millisecond(0);
+      let startDate = startDateMoment.toDate();
 
-    calData.endDate = endDate; //.toDate();
-    calData.id = nameTimeObj.id;
-    calData.location = nameTimeObj.location;
-    calData.allData = false;
+      calData.startDate = startDate;
+      //let endDate = moment(endTime, "HH:mm");
+      let endDateMoment = moment().day(this.DaysEnum[name]);
+      let endDate1 = moment(endTime.trim(), ["h:mm A"]);
 
-    this.setState({ addedData: calData });
+      endDateMoment.hour(endDate1.get("hour"));
+      endDateMoment.minute(endDate1.get("minute"));
+      endDateMoment.second(0);
+      endDateMoment.millisecond(0);
+      let endDate = endDateMoment.toDate();
+
+      calData.endDate = endDate; //.toDate();
+      calData.id = nameTimeObj.id;
+      calData.location = nameTimeObj.location;
+      calData.allData = false;
+      calDatas.push(calData);
+    });
+
+    console.log("final data", calDatas);
+
+    this.setState({ addedData: calDatas });
   };
 
   onAddElement = calData => {
@@ -158,6 +125,7 @@ export default class CourseList extends React.Component {
     const { showCalendar, data } = this.state;
 
     return (
+      <>
         <div className="course-page">
           <button
             onClick={() => this.setState({ showCalendar: !showCalendar })}
@@ -166,7 +134,7 @@ export default class CourseList extends React.Component {
             {showCalendar ? "Hide Calendar" : "Show Calendar"}
           </button>
           <div className="form-container-logout">
-            {this.state.auth ? <a onClick={this.clickLogout} href ="#">Log Out</a> : <a href="/login">Log In</a>}
+            <a href="/login">Log In</a>
           </div>
           <div className="contain">
             <div className="searchComp">
@@ -182,7 +150,7 @@ export default class CourseList extends React.Component {
                 </label>
               </form>
               {this.state.courses.map((i, key) => {
-                // console.log( i);
+                //console.log("index", i);
                 if (
                   this.state.searchQuery.length > 3 &&
                   i.name.includes(this.state.searchQuery)
@@ -210,6 +178,7 @@ export default class CourseList extends React.Component {
             </div>
           </div>
         </div>
+      </>
     );
   }
 }
