@@ -7,6 +7,8 @@ import { appointments } from "../data/data";
 import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
 
+import Cookies from 'js-cookie';
+
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
   // const [searchQuery] = useState("");
