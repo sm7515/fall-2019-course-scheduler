@@ -29,6 +29,14 @@
 .Cell-cell-184{
     width: 151.5px !important;
 }
+
+
+.MuiSvgIcon-root{
+    color: white !important;
+}
+.MuiSvgIcon-root{
+    color: white !important;
+}
 .Cell-dayOfWeek-185 {
     color: white !important;
     margin: 0;
@@ -80,9 +88,21 @@
     background-color: #8900e1 !important;
 }
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-text:hover{
-    background-color: rgba(137, 0, 225,0.7) !important;
+.Layout-title-277{
+   
+    background-color: white  !important;
 }
+
+.MuiDialogActions-root{
+
+    background-color: white  !important;
+}
+
+.MuiDialogTitle-root{
+
+    background-color: white  !important;
+}
+
 
 .MuiTypography-body1,input{
     font-family: "Montserrat", sans-serif !important; 
