@@ -68,12 +68,12 @@ export default class Calendar extends React.PureComponent {
       if (added) {
         let newdata = [...data, ...added];
         const duplicatePositions = newdata.map(el => el.startDate);
-        console.log("kiran duplicatePositions= ", duplicatePositions);
+        console.log("duplicatePositions= ", duplicatePositions);
         let idPositions = new Set();
         idPositions = this.filterUniqueDates(duplicatePositions);
 
         // let idPositions = [...new Set(duplicatePositions)];
-        console.log("kiran idPositions= ", idPositions);
+        console.log("idPositions= ", idPositions);
 
         data = newdata.filter((item, pos, arr) => {
           console.log("item = ", item);
