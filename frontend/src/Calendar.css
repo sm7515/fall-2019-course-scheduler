@@ -26,7 +26,9 @@
     color: white !important;
     table-layout: fixed;
 }
-
+.Cell-cell-184{
+    width: 151.5px !important;
+}
 .Cell-dayOfWeek-185 {
     color: white !important;
     margin: 0;
@@ -53,6 +55,7 @@
 .Cell-cell-210{
     border-bottom: 1px solid rgba(224, 224, 224, 1) !important;
     border-right: 1px solid rgba(224, 224, 224, 1) !important;
+    width: 150px !important;
 }
 
 .Cell-cell-210:hover{

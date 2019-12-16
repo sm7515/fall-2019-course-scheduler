@@ -116,7 +116,7 @@ export default class Calendar extends React.PureComponent {
               onEditingAppointmentIdChange={this.changeEditingAppointmentId}
             />
             <IntegratedEditing />
-            <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={30}/>
+            <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={60}/>
             <ConfirmationDialog />
             <Appointments />
             <AppointmentTooltip showOpenButton showDeleteButton />
