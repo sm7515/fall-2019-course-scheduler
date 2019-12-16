@@ -1,0 +1,115 @@
+.MuiPaper-root {
+    background-color:transparent !important;
+}
+
+.MuiPaper-elevation1{
+    box-shadow: none !important;
+}
+
+.Label-text-205 {
+    color:white !important;
+    font-size: 16px !important;
+  font-family: "Montserrat", sans-serif !important;
+    font-weight: 400;
+    line-height: 1.66;
+    white-space: normal !important;
+    letter-spacing: 0.03333em;
+}
+
+.VerticalViewLayout-stickyHeader-67 {
+    top: 0;
+    font-family: "Montserrat", sans-serif !important;
+    z-index: 1;
+    overflow: visible;
+    position: sticky;
+    background:   none !important;
+    color: white !important;
+    table-layout: fixed;
+}
+.Cell-cell-184{
+    width: 151.5px !important;
+}
+.Cell-dayOfWeek-185 {
+    color: white !important;
+    margin: 0;
+    font-size: 0.75rem;
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 400;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+}
+
+.Cell-dayOfMonth-186 {
+    color: white !important;
+    font-size: 2.125rem;
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.00735em;
+}
+
+.MuiTable-root.TicksLayout-table-207.Layout-ticks-203,.DayScaleEmptyCell-emptyCell-174{
+    display: none !important;
+}
+
+.Cell-cell-210{
+    border-bottom: 1px solid rgba(224, 224, 224, 1) !important;
+    border-right: 1px solid rgba(224, 224, 224, 1) !important;
+    width: 150px !important;
+}
+
+.Cell-cell-210:hover{
+    background-color: rgba(137, 0, 225,0.3) !important;
+}
+
+.Cell-cell-210:focus{
+    background-color: rgba(232, 108, 0,0.7) !important;
+}
+
+.OverlayBase-absolutePosition-31{
+    font-family: "Montserrat", sans-serif !important;
+    background-color: white  !important;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text{
+    font-family: "Montserrat", sans-serif !important;
+    color: #fff;
+    height: 36px;
+    padding: 4px 28px;
+    margin-left: 24px;
+    background-color: #8900e1 !important;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text:hover{
+    background-color: rgba(137, 0, 225,0.7) !important;
+}
+
+.MuiTypography-body1,input{
+    font-family: "Montserrat", sans-serif !important; 
+}
+
+.MuiFilledInput-underline:after,.MuiFilledInput-underline::before{
+border-bottom: 2px solid #8900e1 !important;
+}
+
+input{
+    background-color: none !important;
+}
+
+.MuiDialogTitle-root.Layout-title-456,.Layout-title-709{
+    font-family: "Montserrat", sans-serif !important; 
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary{
+    background-color: transparent !important;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary .MuiButton-label{
+    color:#8900e1 !important ;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary{
+    background-color: transparent;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:hover{
+    background-color: rgba(137, 0, 225,0.1) !important;
+}

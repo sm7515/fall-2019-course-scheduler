@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
       }
       if(!user){
         console.log("user don't exist");
-        res.status(401).send(new ValidationError("User don't exist."));
+        res.status(401).send(new ValidationError("User doesn't exist."));
       }
       else{
       //  console.log(user);

@@ -159,12 +159,6 @@ export default class CourseList extends React.Component {
 
     return (
         <div className="course-page">
-          <button
-            onClick={() => this.setState({ showCalendar: !showCalendar })}
-            className="showButton"
-          >
-            {showCalendar ? "Hide Calendar" : "Show Calendar"}
-          </button>
           <div className="form-container-logout">
             {this.state.auth ? <a onClick={this.clickLogout} href ="#">Log Out</a> : <a href="/login">Log In</a>}
           </div>
@@ -204,11 +198,22 @@ export default class CourseList extends React.Component {
             </div>
 
             <div className="calenderComp">
+{              
+              // <button
+              //   onClick={() => this.setState({ showCalendar: !showCalendar })}
+              //   className="showButton"
+              // >
+              //   {showCalendar ? "Hide Calendar" : "Show Calendar"}
+              // </button>
+}
               {showCalendar ? (
                 <Calendar addedData={this.state.addedData} />
               ) : null}
             </div>
           </div>
+          <footer>
+                &copy; 2019. NYU course scheduler.
+          </footer>
         </div>
     );
   }

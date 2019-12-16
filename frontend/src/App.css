@@ -360,10 +360,51 @@ a:active {
   width: 100%;
 }
 
+.error-section{
+  width: 100%;
+  padding: 30px 0;
+  background-color: rgba(232, 108, 0,0.7);
+  position: absolute;
+  text-align: center;
+  color: white;
+  bottom: 20%;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+}
+
+.error-section-register{
+    width: 100%;
+  padding: 30px 0;
+  background-color: rgba(232, 108, 0,0.7);
+  position: absolute;
+  text-align: center;
+  color: white;
+  bottom: 5%;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+}
+
 .form-container-logout {
+  background-color: rgb(242, 242, 242,0.7);
+  width: 100%;
+  top: 0;
+  text-align: right;
+  padding: 30px 150px 30px 0;
   position: fixed;
-  right: 20px;
-  top: 20px;
+  z-index: 2;
+}
+
+.form-container-logout a{
+  color: #220337;
+}
+
+.course-page{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 50px 100px 50px;
+  height: 100%;
 }
 
 .contain {
@@ -382,4 +423,14 @@ a:active {
   margin-left: auto;
   position: relative;
   flex: 1;
+}
+
+footer{
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  background-color: rgba(34, 3, 55,0.7);
+  text-align: center;
+  width: 100%;
+  padding: 30px 0 30px 0;
 }
