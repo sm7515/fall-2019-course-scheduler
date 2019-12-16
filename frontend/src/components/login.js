@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Logout from './logout'
 import '../App.css'
+
+import Cookies from 'js-cookie'
 
 class Login extends Component {
     constructor(props) {
@@ -47,15 +48,25 @@ class Login extends Component {
           data:user
         })
             .then(res => {
+                // let cookieObj = res;
+
+                // alert(res.data);
+                console.log(res.data);
+                localStorage.setItem('userID', res.data);
+                Cookies.set('login', res.data);
+
                 window.location = '/courses';
+
             })
-            .catch(err => console.log(err));
+            .catch((err) => {
+                console.log(err);
+            });
     }
     
     render(){
     return(
         <div className='form-container-login'>
-        <Logout />
+        
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
