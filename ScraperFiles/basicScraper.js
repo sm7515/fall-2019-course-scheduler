@@ -19,14 +19,14 @@ let units = 0;
 /**
  * This function fetches html from a specific course on nyu mobile course search
  */
-async function fetchData(yearID, classID, department)
+async function fetchData(yearID, classID, department, school)
 {
 
     let urlNew = url + "/" + yearID + "/" + classID;
 
     console.log(urlNew);
 
-    axios.get(urlNew)
+    await axios.get(urlNew)
     .then((res) => {
 
         if(res.status == 200)
@@ -34,7 +34,7 @@ async function fetchData(yearID, classID, department)
             //Successfully found course page
             console.log(`Sucessfully fetched: ${res.status}`)
 
-            let jsonObj = parseHTML(res.data, yearID, department, classID);
+            let jsonObj = parseHTML(res.data, yearID, department, classID, school);
 
             if(jsonObj == null)
             {
@@ -66,8 +66,8 @@ async function fetchData(yearID, classID, department)
 /**
  * After fetching and formatting data, the data is sent to server database with API endpoints
  */
-postDatabase = (jsonObj) => {
-    axios.post(postURL, jsonObj)
+async function postDatabase(jsonObj) {
+    await axios.post(postURL, jsonObj)
         .then(function(res){
             if(res.status === 200)
             {
@@ -83,7 +83,7 @@ postDatabase = (jsonObj) => {
         })
 }
 
-formatDepartment = (departmentStr) =>
+async function formatDepartment(departmentStr)
 {
     var index = departmentStr.indexOf(" ");
 
@@ -93,7 +93,7 @@ formatDepartment = (departmentStr) =>
 /**
  * Formats the raw html from fetchData
  */
-parseHTML = (html, yearID, departmentFullName, classID) => {
+parseHTML = (html, yearID, departmentFullName, classID, school) => {
     const $ = cheerio.load(html);
 
     let title = $(".primary-head");
@@ -108,7 +108,7 @@ parseHTML = (html, yearID, departmentFullName, classID) => {
     jsonObj = {
         name: "null",
         location: "null",
-        school: "null",
+        school: school,
         time: "null",
         units: -1,
         course_number: "null",
@@ -231,10 +231,8 @@ getJSON = (key, value, jsonObj) => {
 
 //=======================================================================
 
-exports.main = function(yearID, classID, department){
-
-    fetchData(yearID, classID, department);
-    
+exports.main = async function(yearID, classID, department, school){
+    await fetchData(yearID, classID, department, school);   
 }
 
 

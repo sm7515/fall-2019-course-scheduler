@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Basic Sciences",
+    "yearId": 1204,
+    "classIds": [
+      24689,
+      24688,
+      20592,
+      20593,
+      24690,
+      20594,
+      24691,
+      24692
+    ]
+  },
+  {
+    "name": "Basic Sciences",
+    "yearId": 1204,
+    "classIds": [
+      24687,
+      20595
+    ]
+  },
+  {
+    "name": "Basic Sciences",
+    "yearId": 1204,
+    "classIds": [
+      24448,
+      24450,
+      24449
+    ]
+  },
+  {
+    "name": "Behavioral Sciences",
+    "yearId": 1204,
+    "classIds": [
+      20596,
+      20601,
+      20602,
+      20603
+    ]
+  },
+  {
+    "name": "Behavioral Sciences",
+    "yearId": 1204,
+    "classIds": [
+      20598,
+      24133
+    ]
+  },
+  {
+    "name": "Biomaterials",
+    "yearId": 1204,
+    "classIds": [
+      24433,
+      24432,
+      24439,
+      24437,
+      24443,
+      24444,
+      24445,
+      24446,
+      24447
+    ]
+  },
+  {
+    "name": "Clinical Sciences",
+    "yearId": 1204,
+    "classIds": [
+      20599,
+      24134,
+      24135,
+      24662
+    ]
+  },
+  {
+    "name": "Clinical Sciences",
+    "yearId": 1204,
+    "classIds": [
+      20600
+    ]
+  },
+  {
+    "name": "Clinical Sciences",
+    "yearId": 1204,
+    "classIds": [
+      24149,
+      24147,
+      24122,
+      24146,
+      24148
+    ]
+  },
+  {
+    "name": "Diagnostic Sciences",
+    "yearId": 1204,
+    "classIds": [
+      24136
+    ]
+  },
+  {
+    "name": "Diagnostic Sciences",
+    "yearId": 1204,
+    "classIds": [
+      24137
+    ]
+  },
+  {
+    "name": "Preclinical Skills",
+    "yearId": 1204,
+    "classIds": [
+      24138
+    ]
+  },
+  {
+    "name": "Preclinical Skills",
+    "yearId": 1204,
+    "classIds": [
+      24139
+    ]
+  },
+  {
+    "name": "Preclinical Skills",
+    "yearId": 1204,
+    "classIds": [
+      24140,
+      24141
+    ]
+  }
+]
