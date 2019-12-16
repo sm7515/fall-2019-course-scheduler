@@ -34,8 +34,8 @@ router.post('/', function(req, res, next) {
           }
           if(result === true){
             req.session.user_id = user._id;
- 
-            res.send();
+            console.log("session", req.session)
+            res.send(req.session.user_id);
           }
           else{
             //  console.log(new ValidationError('Wrong password').message);

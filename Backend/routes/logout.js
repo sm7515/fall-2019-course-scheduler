@@ -5,6 +5,7 @@ const {ValidationError, PermissionError, DatabaseError, HashError}
  = require('../errors/error');
 
 router.get("/", (req,res,next)=>{
+  console.log(req)
 
   if(req.session.user_id){
     req.session.destroy();

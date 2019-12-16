@@ -89,13 +89,14 @@ export default class CourseList extends React.Component {
     axios({
       method:"get",
       url:'http://localhost:5000/logout',
-      withCredentials :true
+      withCredentials :true,
     })
         .then(res => {
             // alert("Sucessful Logout")
+            localStorage.setItem('userID', null);
             Cookies.remove("login");
             window.location = '/';
-        
+        console.log(res.data)
             return res;
         })
         .catch(err => console.log(err));
@@ -157,7 +158,6 @@ export default class CourseList extends React.Component {
     const { showCalendar, data } = this.state;
 
     return (
-      <>
         <div className="course-page">
           <button
             onClick={() => this.setState({ showCalendar: !showCalendar })}
@@ -210,7 +210,6 @@ export default class CourseList extends React.Component {
             </div>
           </div>
         </div>
-      </>
     );
   }
 }

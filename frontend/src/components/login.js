@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Logout from './logout'
 import '../App.css'
 
 import Cookies from 'js-cookie'
@@ -9,6 +8,7 @@ import Cookies from 'js-cookie'
 class Login extends Component {
     constructor(props) {
         super(props);
+
 
         this.onChangename = this.onChangename.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -54,7 +54,7 @@ class Login extends Component {
                 
                 // alert(res.data);
                 console.log(res.data);
-
+                localStorage.setItem('userID', res.data);
                 Cookies.set('login', res.data);
 
                 window.location = '/courses';
@@ -69,7 +69,6 @@ class Login extends Component {
     render(){
     return(
         <div className='form-container-login'>
-        <Logout />
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
