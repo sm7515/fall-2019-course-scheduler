@@ -7,7 +7,6 @@ import './App.css';
 import Calendar from './Pages/Calandar';
 
 import Cookies from 'js-cookie'
-
 function App() {
 
   return (
@@ -47,7 +46,5 @@ function authenticate()
     return true;
   }
 }
-
-
 
 export default App;

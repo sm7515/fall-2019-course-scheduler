@@ -79,7 +79,7 @@ export default class Register extends Component {
         })
             .then(res => {
                 // alert(res.data)
-                window.location = '/login';
+                window.location = '/courses';
             })
             .catch(err => {
                 this.setState({ err: err.response.data.message })
@@ -98,6 +98,7 @@ export default class Register extends Component {
     render() {
         return (
         <div className='form-container'>
+        
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"

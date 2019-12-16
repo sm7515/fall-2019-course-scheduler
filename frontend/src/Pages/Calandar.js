@@ -49,14 +49,40 @@ export default class Calendar extends React.PureComponent {
 
     this.setState({ data: rows });
   }
+  filterUniqueDates(data) {
+    const lookup = new Set();
+
+    return data.filter(date => {
+      const serialised = date.getTime();
+      if (lookup.has(serialised)) {
+        return false;
+      } else {
+        lookup.add(serialised);
+        return true;
+      }
+    });
+  }
+
   commitChanges({ added, changed, deleted }) {
     this.setState(state => {
       let { data } = state;
       if (added) {
         let newdata = [...data, ...added];
-        const idPositions = newdata.map(el => el.id);
+        const duplicatePositions = newdata.map(el => el.startDate);
+        console.log("duplicatePositions= ", duplicatePositions);
+        let idPositions = new Set();
+        idPositions = this.filterUniqueDates(duplicatePositions);
+
+        // let idPositions = [...new Set(duplicatePositions)];
+        console.log("idPositions= ", idPositions);
+
         data = newdata.filter((item, pos, arr) => {
-          return idPositions.indexOf(item.id) == pos;
+          console.log("item = ", item);
+          console.log("pos = ", pos);
+          console.log("arr = ", arr);
+          console.log("indexOf = ", idPositions.indexOf(item.startDate));
+
+          return idPositions.indexOf(item.startDate) == pos;
         });
       }
       if (changed) {
@@ -87,7 +113,7 @@ export default class Calendar extends React.PureComponent {
     let addedAppointment = nextProps.addedData;
     if (Object.keys(addedAppointment).length !== 0) {
       let addedData = [];
-      addedData.push(nextProps.addedData);
+      addedData = [...nextProps.addedData];
 
       this.commitChanges({ added: addedData });
     }
