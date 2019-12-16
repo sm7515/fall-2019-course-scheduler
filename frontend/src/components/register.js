@@ -19,7 +19,8 @@ export default class Register extends Component {
             school:'',
             year:'',
             email:'',
-            dateCreated: new Date()
+            dateCreated: new Date(),
+            err:''
         }
     }
 
@@ -81,7 +82,7 @@ export default class Register extends Component {
                 window.location = '/login';
             })
             .catch(err => {
-                alert(err.response.data.message)
+                this.setState({ err: err.response.data.message })
                 this.setState({
                     name: '',
                     password: '',
@@ -211,6 +212,9 @@ export default class Register extends Component {
                     <a href='/login'>login</a>
                 </div>
             </form>
+                <div className={this.state.err != '' && "error-section-register"}>
+                    {this.state.err != '' && this.state.err}
+                </div>
         </div>
         )
     }

@@ -211,6 +211,9 @@ export default class CourseList extends React.Component {
               ) : null}
             </div>
           </div>
+          <footer>
+                &copy; 2019. NYU course scheduler.
+          </footer>
         </div>
     );
   }

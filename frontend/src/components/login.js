@@ -17,6 +17,7 @@ class Login extends Component {
         this.state = {
             name: '',
             password: '',
+            err:""
         }
     }
 
@@ -61,7 +62,9 @@ class Login extends Component {
                 
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err.response.data.message);
+                this.setState({ err: err.response.data.message})
+                console.log(this.state.err)
             });
     
     }
@@ -99,6 +102,9 @@ class Login extends Component {
                     <a href='/register'>register</a>
                 </div>
             </form>
+            <div className={this.state.err != ''&&"error-section"}>
+                {this.state.err!=''&&this.state.err}
+            </div>
         </div>
     )}
 }
