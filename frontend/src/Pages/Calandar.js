@@ -231,7 +231,7 @@ export default class Calendar extends React.PureComponent {
         //this.structureCourses();
 
         let result = res.data;
-        console.log("kiran result", result);
+        console.log("result", result);
 
         result.map(item => {
           let res = this.addToCalender(item);
@@ -258,9 +258,9 @@ export default class Calendar extends React.PureComponent {
   }
 
   commitChanges({ added, changed, deleted }) {
-    console.log("kiran added", added);
-    console.log("kiran changed", changed);
-    console.log("kiran deleted", deleted);
+    console.log("added", added);
+    console.log("changed", changed);
+    console.log("deleted", deleted);
 
     this.setState(state => {
       let { data } = state;
