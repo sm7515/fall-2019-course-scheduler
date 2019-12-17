@@ -3,7 +3,7 @@ export const collegeList = [
   "Coll of Global Public Health-UGRD",
   "College of Arts and Science"
 
-  /*
+  
   'Coll of Global Public Health - Grad',
   'Coll of Global Public Health-UGRD',
   'College of Arts and Science',
@@ -33,5 +33,5 @@ export const collegeList = [
   'Tandon - Undergrad',
   'Tisch - Grad',
   'Tisch - Undergrad',
-  'Wagner - Grad' */
+  'Wagner - Grad' 
 ];
