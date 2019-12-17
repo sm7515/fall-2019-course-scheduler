@@ -8,9 +8,12 @@ import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
 import DropdownCollege from "./DropdownCollege";
 import DropdownDepartment from "./DropdownDepartment";
-import { departmentList } from "../data/departmentList";
 
-import Cookies from "js-cookie";
+import {departmentList} from "../data/departmentList";
+import { VerticleButton as ScrollUpButton }  from "react-scroll-up-button"; 
+
+import Cookies from 'js-cookie';
+import zIndex from "@material-ui/core/styles/zIndex";
 
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
@@ -309,7 +312,20 @@ export default class CourseList extends React.Component {
               ) : null}
             </div>
           </div>
-          <footer>&copy; 2019. NYU course scheduler.</footer>
+          <ScrollUpButton
+            StopPosition={0}
+            ShowAtPosition={150}
+            EasingType='easeOutCubic'
+            AnimationDuration={500}
+            ContainerClassName='ScrollUpButton__Container'
+            TransitionClassName='ScrollUpButton__Toggled'
+            style={{
+              outline: "none", backgroundColor: "none", zIndex: "5", opacity: "0.5", bottom: "100px",fontSize:"12px"}}
+            ToggledStyle={{ opacity: "0.5",right:"0",fontSize:"12px"}}
+          />
+          <footer>
+                &copy; 2019. NYU course scheduler.
+          </footer>
         </div>
       </>
     );
