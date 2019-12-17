@@ -50,7 +50,9 @@ const Appointment = ({
         backgroundColor: '#e86c00',
         borderRadius: '0',
         fontFamily: "Montserrat, sans-serif",
-        width:"112px"
+        width:"112px",
+        overflow:"visible",
+        textOverflow:"unset "
       }}
     >
       {children}
@@ -69,10 +71,10 @@ const style = ({ palette }) => ({
     borderBottom:"1px solid rgba(224, 224, 224, 1) !important",
     borderRight:"1px solid rgba(224, 224, 224, 1)",
     "&:hover":{
-      backgroundColor: "rgba(137, 0, 225,0.3)",
+      backgroundColor: "rgba(137, 0, 225,0.3) !important",
     },
     "&:focus":{
-      backgroundColor: "rgba(232, 108, 0,0.7)",
+      backgroundColor: "rgba(232, 108, 0,0.7) !important",
     }
   }
 });

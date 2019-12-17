@@ -316,8 +316,8 @@ input[type="submit"]:hover {
 }
 
 .course-card:hover {
-  background-color: rgba(242, 242, 242, 0.5);
-  transition: 300ms ease;
+  background-color: rgba(232, 108, 0,0.8);
+  transition: 100ms ease-in;
   cursor: pointer;
 }
 
