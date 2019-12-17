@@ -8,9 +8,9 @@ import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
 import DropdownCollege from "./DropdownCollege";
 import DropdownDepartment from "./DropdownDepartment";
-import {departmentList} from "../data/departmentList";
+import { departmentList } from "../data/departmentList";
 
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
@@ -45,7 +45,7 @@ export default class CourseList extends React.Component {
       var joined = this.state.data.concat(rows);
       return { data: joined };
     });
-  }
+  };
   componentDidUpdate() {}
   query = function() {
     axios
@@ -58,20 +58,19 @@ export default class CourseList extends React.Component {
       })
       .catch(err => console.log(err));
   };
-  
-  setLoggedIn = function(){
+
+  setLoggedIn = function() {
     // Determine if user is logged in
 
-    if(Cookies.get("login") != undefined)
-    {
+    if (Cookies.get("login") != undefined) {
       let obj = Cookies.get("login");
-      this.setState({auth: true, userInfo: obj}, () => {
+      this.setState({ auth: true, userInfo: obj }, () => {
         console.log(this.state.userInfo);
       });
 
       // alert("logged in");
     }
-  }
+  };
   // useEffect(()=>{
   //     query();
   // }, query)
@@ -83,25 +82,24 @@ export default class CourseList extends React.Component {
             }}/>
         </Popup>
      */
- clickLogout = () =>{
-
+  clickLogout = () => {
     //Delete session in backend, delete cookie, and redirect to / page.
 
     axios({
-      method:"get",
-      url:'http://localhost:5000/logout',
-      withCredentials :true,
+      method: "get",
+      url: "http://localhost:5000/logout",
+      withCredentials: true
     })
-        .then(res => {
-            // alert("Sucessful Logout")
-            localStorage.setItem('userID', null);
-            Cookies.remove("login");
-            window.location = '/';
-        console.log(res.data)
-            return res;
-        })
-        .catch(err => console.log(err));
-  }
+      .then(res => {
+        // alert("Sucessful Logout")
+        localStorage.setItem("userID", null);
+        Cookies.remove("login");
+        window.location = "/";
+        console.log(res.data);
+        return res;
+      })
+      .catch(err => console.log(err));
+  };
 
   search = event => {
     this.setState({ searchQuery: event.currentTarget.value });
@@ -167,75 +165,75 @@ export default class CourseList extends React.Component {
   };
 
   selectCollege = data => {
-
     console.log(data.college);
-    
-    this.setState({college: data.college}, () => {
+
+    this.setState({ college: data.college }, () => {
       this.forceUpdate();
-    })
-  }
+    });
+  };
 
-  selectDepartment = (data) => {
-
-
-    this.setState({department: data.department}, () => {
-      
+  selectDepartment = data => {
+    console.log("this.state.structuredCourses", this.state.structuredCourses);
+    this.setState({ department: data.department }, () => {
       let selectedCourses = [];
       // console.log(this.state.college);
-      for(var i = 0; i < this.state.structuredCourses[this.state.college][this.state.department].length; i++)
-      {
-        selectedCourses.push(this.state.structuredCourses[this.state.college][this.state.department][i]);
+      for (
+        var i = 0;
+        i <
+        this.state.structuredCourses[this.state.college][this.state.department]
+          .length;
+        i++
+      ) {
+        selectedCourses.push(
+          this.state.structuredCourses[this.state.college][
+            this.state.department
+          ][i]
+        );
       }
 
-      this.setState({selectedCourses: selectedCourses});
-
+      this.setState({ selectedCourses: selectedCourses });
     });
-  }
+  };
 
   structureCourses = () => {
     let courses = this.state.courses;
+    var collegeObj = {};
 
-    var collegeObj = {
-
-    }
-
-    for(var i = 0; i < departmentList.length; i++)
-    {
+    for (var i = 0; i < departmentList.length; i++) {
       var collegeName = departmentList[i].college;
 
       collegeObj[collegeName] = [];
-      for(var j = 1; j < departmentList[i].department.length; j++)
-      {
+      for (var j = 1; j < departmentList[i].department.length; j++) {
         var departmentName = departmentList[i].department[j];
 
         collegeObj[collegeName][departmentName] = [];
       }
     }
 
-    for(var i = 0; i < courses.length; i++)
-    {
+    for (var i = 0; i < courses.length; i++) {
       courses[i].department = this.removeDepartmentError(courses[i].department);
       // console.log(collegeObj[courses[i].school][courses[i].department]);
       // debugger;
-      if(collegeObj[courses[i].school] != undefined && collegeObj[courses[i].school][courses[i].department] != undefined)
-      {
+      if (
+        collegeObj[courses[i].school] != undefined &&
+        collegeObj[courses[i].school][courses[i].department] != undefined
+      ) {
         collegeObj[courses[i].school][courses[i].department].push(courses[i]);
       }
     }
 
-   
     console.log(collegeObj);
 
-    this.setState({courses: courses});
-    this.setState({structuredCourses: collegeObj});
-  }
+    this.setState({ courses: courses });
+    this.setState({ structuredCourses: collegeObj });
+  };
 
-  removeDepartmentError = (str) => {
-    str = str.replace("(","");
-    str = str.replace(")","");
-    str = str.replace("[object Promise]","");
-    return str.replace(" ","");
-  }
+  removeDepartmentError = str => {
+    str = str.replace("(", "");
+    str = str.replace(")", "");
+    str = str.replace("[object Promise]", "");
+    return str.replace(" ", "");
+  };
 
   exports = { CourseList };
   render() {
@@ -245,12 +243,25 @@ export default class CourseList extends React.Component {
       <>
         <div className="course-page">
           <div className="form-container-logout">
-            {this.state.auth ? <a onClick={this.clickLogout} href ="#">Log Out</a> : <a href="/login">Log In</a>}
+            {this.state.auth ? (
+              <a onClick={this.clickLogout} href="#">
+                Log Out
+              </a>
+            ) : (
+              <a href="/login">Log In</a>
+            )}
           </div>
           <div className="contain">
             <div className="searchComp">
-            <DropdownCollege clickComp = {this.selectCollege} college = {this.state.college}></DropdownCollege>
-              <DropdownDepartment clickComp = {this.selectDepartment} department = {this.state.department} college = {this.state.college}></DropdownDepartment>
+              <DropdownCollege
+                clickComp={this.selectCollege}
+                college={this.state.college}
+              ></DropdownCollege>
+              <DropdownDepartment
+                clickComp={this.selectDepartment}
+                department={this.state.department}
+                college={this.state.college}
+              ></DropdownDepartment>
               <div className="form-group">
                 <input
                   type="text"
@@ -262,10 +273,12 @@ export default class CourseList extends React.Component {
                 <span className="highlight"></span>
                 <span className="bar"></span>
               </div>
-              {this.state.selectedCourses.map((i, key) => {
-                //console.log("index", i);
+              {this.state.courses.map((i, key) => {
+                console.log("index", i);
+                //if (this.state.courses.length > 0) {
                 if (
-                  this.state.selectedCourses.length > 0
+                  this.state.searchQuery.length > 3 &&
+                  i.name.includes(this.state.searchQuery)
                 ) {
                   return (
                     <Card
@@ -284,22 +297,20 @@ export default class CourseList extends React.Component {
             </div>
 
             <div className="calenderComp">
-{              
-              // <button
-              //   onClick={() => this.setState({ showCalendar: !showCalendar })}
-              //   className="showButton"
-              // >
-              //   {showCalendar ? "Hide Calendar" : "Show Calendar"}
-              // </button>
-}
+              {
+                // <button
+                //   onClick={() => this.setState({ showCalendar: !showCalendar })}
+                //   className="showButton"
+                // >
+                //   {showCalendar ? "Hide Calendar" : "Show Calendar"}
+                // </button>
+              }
               {showCalendar ? (
                 <Calendar addedData={this.state.addedData} />
               ) : null}
             </div>
           </div>
-          <footer>
-                &copy; 2019. NYU course scheduler.
-          </footer>
+          <footer>&copy; 2019. NYU course scheduler.</footer>
         </div>
       </>
     );
