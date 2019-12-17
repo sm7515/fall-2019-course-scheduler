@@ -33,7 +33,10 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     },
     typography:{
-      fontFamily: ["Montserrat,sans-serif"]
+      fontFamily: "Montserrat,sans-serif"
+    },
+    text:{
+      fontFamily: "Montserrat,sans-serif"
     }
   }
   });
@@ -206,7 +209,7 @@ export default class Calendar extends React.PureComponent {
             <Appointments
               appointmentComponent={Appointment}
             />
-            <AppointmentTooltip showOpenButton showDeleteButton contentComponent={Content} />
+            <AppointmentTooltip showDeleteButton contentComponent={Content} />
             <AppointmentForm />
           </Scheduler>
         </Paper>

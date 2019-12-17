@@ -121,3 +121,11 @@ color: #d6d6d6 !important;
 .Content-content-254{
   font-family: "Montserrat", sans-serif !important;
 }
+
+.MuiSvgIcon-root{
+        color:rgba(232, 108, 0,0.8) !important;
+}
+
+.MuiList-root{
+    background-color: white !important;
+}
