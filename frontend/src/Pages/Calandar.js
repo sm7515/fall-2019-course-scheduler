@@ -11,7 +11,6 @@ import {
   Appointments,
   AppointmentForm,
   AppointmentTooltip,
-  ConfirmationDialog
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -51,8 +50,7 @@ const Appointment = ({
         backgroundColor: '#e86c00',
         borderRadius: '0',
         fontFamily: "Montserrat, sans-serif",
-        left:"40%",
-        width:"150px"
+        width:"112px"
       }}
     >
       {children}
@@ -66,6 +64,16 @@ const style = ({ palette }) => ({
   textCenter: {
     textAlign: 'center',
     fontFamily:"Montserrat, sans-serif",
+  },
+  todayCell: {
+    borderBottom:"1px solid rgba(224, 224, 224, 1) !important",
+    borderRight:"1px solid rgba(224, 224, 224, 1)",
+    "&:hover":{
+      backgroundColor: "rgba(137, 0, 225,0.3)",
+    },
+    "&:focus":{
+      backgroundColor: "rgba(232, 108, 0,0.7)",
+    }
   }
 });
 
@@ -83,6 +91,13 @@ const Content = withStyles(style, { name: 'Content' })(({
       </Grid>
     </AppointmentTooltip.Content>
   ));
+
+
+const TimeTableCellBase = ({ classes, ...restProps }) => {
+  const { startDate } = restProps;
+  return <WeekView.TimeTableCell {...restProps} className={classes.todayCell} />;
+};
+const TimeTableCell = withStyles(style, { name: 'TimeTableCell' })(TimeTableCellBase);
 
 export default class Calendar extends React.PureComponent {
   list = new CalendarData();
@@ -204,8 +219,8 @@ export default class Calendar extends React.PureComponent {
               onEditingAppointmentIdChange={this.changeEditingAppointmentId}
             />
             <IntegratedEditing />
-            <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={60}/>
-            <ConfirmationDialog />
+            <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={30}
+              timeTableCellComponent={TimeTableCell}/>
             <Appointments
               appointmentComponent={Appointment}
             />

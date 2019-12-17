@@ -311,7 +311,7 @@ input[type="submit"]:hover {
 
 .course-card {
     background-color: rgba(34, 3, 55,0.7);
-  margin: 50px 30px 50px 0;
+  margin: 10px 30px 10px 0;
   padding: 10px 50px;
 }
 
@@ -319,6 +319,13 @@ input[type="submit"]:hover {
   background-color: rgba(242, 242, 242, 0.5);
   transition: 300ms ease;
   cursor: pointer;
+}
+
+.course-card .description{
+  height: 100px;
+    display: block;
+      overflow: scroll;
+  width:500px;
 }
 
 .metaData {
@@ -329,8 +336,9 @@ input[type="submit"]:hover {
 .metaInfo {
   margin-right: 20px;
   padding-right: 20px;
-  font-weight: bolder;
   border-right: 1px solid white;
+  text-overflow: ellipsis;
+  font-size: 14px;
 }
 
 a:link {
@@ -414,6 +422,71 @@ a:active {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.dropdown .button{
+  background-color: rgba(34, 3, 55,0.7) ;
+  width: 500px;
+  padding: 10px 50px;
+  cursor: "pointer"
+}
+
+.dropdown .button:hover{
+  background-color: rgba(242, 242, 242, 0.5);
+}
+
+.dropdown .button:active{
+  background-color: rgba(34, 3, 55,0.7) ;
+}
+
+.dropdown{
+  border-bottom: 1px solid white;
+}
+
+.each-college,.each-department{
+  padding: 3px 10px;
+}
+
+.each-college:hover,.each-department:hover{
+  background-color: rgba(34, 3, 55,0.7) ;
+  padding: 5px 10px;
+  font-weight: bolder;
+}
+.each-college:active,.each-department:active{
+  background-color: rgba(242, 242, 242, 0.5);
+  padding: 5px 10px;
+}
+
+.searchComp .form-control, .searchComp .bar,.searchComp .highlight{
+  width: 500px;
+}
+
+.searchComp .bar{
+  width: 600px;
+}
+
+.searchComp .form-control:focus ~.highlight{
+  animation: inputHighlighter2 0.3s ease;
+}
+
+@keyframes inputHighlighter2 {
+  from {
+    background: rgba(242, 242, 242, 0.5);
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+.searchComp .form-control{
+  background-color: rgba(34, 3, 55,0.7) ;
+  padding: 10px 50px;
+}
+.searchComp .form-control::placeholder{
+  display: inline;
+  color: white;
+  opacity: 0.2;
 }
 
 .calenderComp {

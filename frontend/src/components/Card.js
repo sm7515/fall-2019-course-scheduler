@@ -26,7 +26,7 @@ class Card extends React.Component {
           <p className="metaInfo">{this.props.time}</p>
           <p className="metaInfo">{this.props.location}</p>
         </div>
-        <p>{this.props.description}</p>
+        <p className="description">{this.props.description}</p>
       </div>
     );
   }
