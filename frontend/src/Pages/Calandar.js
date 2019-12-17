@@ -156,7 +156,7 @@ export default class Calendar extends React.PureComponent {
     });
   };
   deleteScheduler = function(body) {
-    debugger;
+    // debugger;
     axios
       .delete("http://localhost:5000/schedule/deleteCourse", {
         data: body,
@@ -222,7 +222,6 @@ export default class Calendar extends React.PureComponent {
   };
   componentDidMount() {
     let rows = [];
-    debugger;
 
     this.query()
       .then(res => {
@@ -258,9 +257,9 @@ export default class Calendar extends React.PureComponent {
   }
 
   commitChanges({ added, changed, deleted }) {
-    console.log("added", added);
-    console.log("changed", changed);
-    console.log("deleted", deleted);
+    // console.log("added", added);
+    // console.log("changed", changed);
+    // console.log("deleted", deleted);
 
     this.setState(state => {
       let { data } = state;
@@ -283,10 +282,10 @@ export default class Calendar extends React.PureComponent {
         console.log("idPositions= ", idPositions);
 
         data = newdata.filter((item, pos, arr) => {
-          console.log("item = ", item);
-          console.log("pos = ", pos);
-          console.log("arr = ", arr);
-          console.log("indexOf = ", idPositions.indexOf(item.startDate));
+          // console.log("item = ", item);
+          // console.log("pos = ", pos);
+          // console.log("arr = ", arr);
+          // console.log("indexOf = ", idPositions.indexOf(item.startDate));
 
           return idPositions.indexOf(item.startDate) == pos;
         });
