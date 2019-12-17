@@ -62,7 +62,7 @@ class DropdownCollege extends React.Component
 
     render() {
         return (
-            <div  className="dropdown" style = {{background:"black",width:"200px", cursor: "pointer"}} >
+            <div  className="dropdown department" >
              <div className="button" onClick={this.showDropdownMenu}> {this.state.selected} </div>
     
               {this.state.display ? (<ul>
@@ -71,7 +71,7 @@ class DropdownCollege extends React.Component
                     if(key != 0)
                     {
                         return(
-                        <div key onClick ={() => {
+                        <div className="each-department" key onClick ={() => {
                             this.props.clickComp({
                             department: this.state.options[key],
                             })

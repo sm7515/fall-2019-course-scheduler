@@ -251,17 +251,17 @@ export default class CourseList extends React.Component {
             <div className="searchComp">
             <DropdownCollege clickComp = {this.selectCollege} college = {this.state.college}></DropdownCollege>
               <DropdownDepartment clickComp = {this.selectDepartment} department = {this.state.department} college = {this.state.college}></DropdownDepartment>
-              <form>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    value={this.state.searchQuery}
-                    onChange={this.search}
-                    className="form-control"
-                  ></input>
-                  <label className='form-label'>Search </label>
-                </div>
-              </form>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={this.state.searchQuery}
+                  onChange={this.search}
+                  className="form-control"
+                  placeholder="search ..."
+                ></input>
+                <span className="highlight"></span>
+                <span className="bar"></span>
+              </div>
               {this.state.selectedCourses.map((i, key) => {
                 //console.log("index", i);
                 if (
