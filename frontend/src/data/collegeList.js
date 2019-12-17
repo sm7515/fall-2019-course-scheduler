@@ -1,9 +1,7 @@
 export const collegeList = [
   "Coll of Global Public Health - Grad",
   "Coll of Global Public Health-UGRD",
-  "College of Arts and Science"
-
-  
+  "College of Arts and Science",
   'Coll of Global Public Health - Grad',
   'Coll of Global Public Health-UGRD',
   'College of Arts and Science',
