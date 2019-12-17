@@ -273,12 +273,11 @@ export default class CourseList extends React.Component {
                 <span className="highlight"></span>
                 <span className="bar"></span>
               </div>
-              {this.state.courses.map((i, key) => {
-                console.log("index", i);
+               {this.state.selectedCourses.map((i,key) => {
+               // console.log("index", i);
                 //if (this.state.courses.length > 0) {
                 if (
-                  this.state.searchQuery.length > 3 &&
-                  i.name.includes(this.state.searchQuery)
+                  this.state.selectedCourses.length>0
                 ) {
                   return (
                     <Card
