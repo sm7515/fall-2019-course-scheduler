@@ -26,6 +26,7 @@ export default class CourseList extends React.Component {
     courses: [],
     structuredCourses: [],
     selectedCourses: [],
+    selectedCoursesAll: [],
     setCourse: [],
     searchQuery: "",
     showCalendar: true,
@@ -34,10 +35,12 @@ export default class CourseList extends React.Component {
     auth: false,
     userInfo: {},
     college: "Enter College",
-    department: "Enter Department"
+    department: "Enter Department",
+    
   };
   constructor(props) {
     super(props);
+    this.cardRef = React.createRef();
   }
   componentDidMount = () => {
     this.query();
@@ -105,61 +108,85 @@ export default class CourseList extends React.Component {
   };
 
   search = event => {
-    this.setState({ searchQuery: event.currentTarget.value });
-    console.log(this.state.searchQuery);
-    this.render();
+    this.setState({ searchQuery: event.currentTarget.value },() => {
+      // console.log(this.state.searchQuery);
+
+      let newSelectedCourses = [];
+      for(var i = 0; i < this.state.selectedCoursesAll.length; i++)
+      {
+        if(this.state.selectedCoursesAll[i].name.includes(this.state.searchQuery))
+        {
+          newSelectedCourses.push(this.state.selectedCoursesAll[i]);
+        }
+      }
+
+      this.setState({selectedCourses: newSelectedCourses}, () => {
+        this.forceUpdate();
+      })
+    });
+
   };
 
   addToCalender = nameTimeObj => {
-    console.log("addTocalendar", nameTimeObj);
-    let calDatas = [];
+    // console.log("addTocalendar", nameTimeObj);
 
-    var res = nameTimeObj.time.split("-");
-    let weekTime = res[0].split(" ");
+    //Check if it is valid string
+    if(!nameTimeObj.time.includes("Room"))
+    {
+        let calDatas = [];
 
-    let weekName = weekTime[0];
-    let weekNames = weekName.match(/.{2}/g);
-    console.log("weekarray", weekName);
-    console.log("weekarray1 =", weekNames);
-    weekNames.map(name => {
-      let calData = {};
+      var res = nameTimeObj.time.split("-");
+      let weekTime = res[0].split(" ");
 
-      console.log("week name is  =", name);
-      let startTime = weekTime[1].trim();
-      let endTime = res[1];
-      calData.title = nameTimeObj.name;
+      let weekName = weekTime[0];
+      let weekNames = weekName.match(/.{2}/g);
+      console.log("weekarray", weekName);
+      console.log("weekarray1 =", weekNames);
+      weekNames.map(name => {
+        let calData = {};
 
-      let startDateMoment = moment().day(this.DaysEnum[name]);
+        console.log("week name is  =", name);
+        let startTime = weekTime[1].trim();
+        let endTime = res[1];
+        calData.title = nameTimeObj.name;
 
-      let startDate1 = moment(startTime.trim(), ["h:mm A"]);
+        let startDateMoment = moment().day(this.DaysEnum[name]);
 
-      startDateMoment.hour(startDate1.get("hour"));
-      startDateMoment.minute(startDate1.get("minute"));
-      startDateMoment.second(0);
-      startDateMoment.millisecond(0);
-      let startDate = startDateMoment.toDate();
+        let startDate1 = moment(startTime.trim(), ["h:mm A"]);
 
-      calData.startDate = startDate;
-      //let endDate = moment(endTime, "HH:mm");
-      let endDateMoment = moment().day(this.DaysEnum[name]);
-      let endDate1 = moment(endTime.trim(), ["h:mm A"]);
+        startDateMoment.hour(startDate1.get("hour"));
+        startDateMoment.minute(startDate1.get("minute"));
+        startDateMoment.second(0);
+        startDateMoment.millisecond(0);
+        let startDate = startDateMoment.toDate();
 
-      endDateMoment.hour(endDate1.get("hour"));
-      endDateMoment.minute(endDate1.get("minute"));
-      endDateMoment.second(0);
-      endDateMoment.millisecond(0);
-      let endDate = endDateMoment.toDate();
+        calData.startDate = startDate;
+        //let endDate = moment(endTime, "HH:mm");
+        let endDateMoment = moment().day(this.DaysEnum[name]);
+        let endDate1 = moment(endTime.trim(), ["h:mm A"]);
 
-      calData.endDate = endDate; //.toDate();
-      calData.id = nameTimeObj.id;
-      calData.location = nameTimeObj.location;
-      calData.allData = false;
-      calDatas.push(calData);
-    });
+        endDateMoment.hour(endDate1.get("hour"));
+        endDateMoment.minute(endDate1.get("minute"));
+        endDateMoment.second(0);
+        endDateMoment.millisecond(0);
+        let endDate = endDateMoment.toDate();
 
-    console.log("final data", calDatas);
+        calData.endDate = endDate; //.toDate();
+        calData.id = nameTimeObj.id;
+        calData.location = nameTimeObj.location;
+        calData.allData = false;
+        calDatas.push(calData);
+      });
 
-    this.setState({ addedData: calDatas });
+      console.log("final data", calDatas);
+
+      this.setState({ addedData: calDatas });
+    }
+    else
+    {
+      alert("Time error");
+    }
+    
   };
 
   onAddElement = calData => {
@@ -168,7 +195,12 @@ export default class CourseList extends React.Component {
   };
 
   selectCollege = data => {
-    console.log(data.college);
+    // console.log(data.college);
+
+    this.setState({selectedCourses: [] }, ()=>{
+      console.log(this.state.selectedCourses);
+      this.render();
+    })
 
     this.setState({ college: data.college }, () => {
       this.forceUpdate();
@@ -176,7 +208,13 @@ export default class CourseList extends React.Component {
   };
 
   selectDepartment = data => {
-    console.log("this.state.structuredCourses", this.state.structuredCourses);
+    // console.log("this.state.structuredCourses", this.state.structuredCourses);
+
+    this.setState({selectedCourses: [] }, ()=>{
+      console.log(this.state.selectedCourses);
+      this.render();
+    })
+
     this.setState({ department: data.department }, () => {
       let selectedCourses = [];
       // console.log(this.state.college);
@@ -194,7 +232,7 @@ export default class CourseList extends React.Component {
         );
       }
 
-      this.setState({ selectedCourses: selectedCourses });
+      this.setState({ selectedCourses: selectedCourses, selectedCoursesAll: selectedCourses });
     });
   };
 
@@ -238,6 +276,7 @@ export default class CourseList extends React.Component {
     return str.replace(" ", "");
   };
 
+
   exports = { CourseList };
   render() {
     const { showCalendar, data } = this.state;
@@ -276,6 +315,7 @@ export default class CourseList extends React.Component {
                 <span className="highlight"></span>
                 <span className="bar"></span>
               </div>
+              <div ref = {this.cardRef}>
                {this.state.selectedCourses.map((i,key) => {
                // console.log("index", i);
                 //if (this.state.courses.length > 0) {
@@ -296,6 +336,7 @@ export default class CourseList extends React.Component {
                   );
                 }
               })}
+              </div>
             </div>
 
             <div className="calenderComp">
