@@ -79,37 +79,8 @@
     background-color: white  !important;
 }
 
-<<<<<<< HEAD
 
 .MuiTypography-body1,input,.MuiGrid-root{
-=======
-.MuiButtonBase-root.MuiButton-root.MuiButton-text{
-    font-family: "Montserrat", sans-serif !important;
-    color: #fff;
-    height: 36px;
-    padding: 4px 28px;
-    margin-left: 24px;
-    background-color: #8900e1 !important;
-}
-
-.Layout-title-277{
-   
-    background-color: white  !important;
-}
-
-.MuiDialogActions-root{
-
-    background-color: white  !important;
-}
-
-.MuiDialogTitle-root{
-
-    background-color: white  !important;
-}
-
-
-.MuiTypography-body1,input{
->>>>>>> 88d45c7aaf1256f98f37daf2a2f647c9833c8c04
     font-family: "Montserrat", sans-serif !important; 
 }
 
