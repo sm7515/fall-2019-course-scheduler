@@ -6,6 +6,9 @@ import Calendar from "../Pages/Calandar";
 import { appointments } from "../data/data";
 import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
+import DropdownCollege from "./DropdownCollege";
+import DropdownDepartment from "./DropdownDepartment";
+import {departmentList} from "../data/departmentList";
 
 import Cookies from 'js-cookie';
 
@@ -18,13 +21,17 @@ export default class CourseList extends React.Component {
   m = null;
   state = {
     courses: [],
+    structuredCourses: [],
+    selectedCourses: [],
     setCourse: [],
     searchQuery: "",
     showCalendar: true,
     data: [],
     addedData: {},
     auth: false,
-    userInfo: {}
+    userInfo: {},
+    college: "Enter College",
+    department: "Enter Department"
   };
   constructor(props) {
     super(props);
@@ -46,6 +53,7 @@ export default class CourseList extends React.Component {
       .then(res => {
         console.log("db data", res.data);
         this.setState({ courses: res.data });
+        this.structureCourses();
         return res;
       })
       .catch(err => console.log(err));
@@ -157,6 +165,78 @@ export default class CourseList extends React.Component {
     let newData = this.list.addElement(calData);
     this.setState({ data: newData });
   };
+
+  selectCollege = data => {
+
+    console.log(data.college);
+    
+    this.setState({college: data.college}, () => {
+      this.forceUpdate();
+    })
+  }
+
+  selectDepartment = (data) => {
+
+
+    this.setState({department: data.department}, () => {
+      
+      let selectedCourses = [];
+      // console.log(this.state.college);
+      for(var i = 0; i < this.state.structuredCourses[this.state.college][this.state.department].length; i++)
+      {
+        selectedCourses.push(this.state.structuredCourses[this.state.college][this.state.department][i]);
+      }
+
+      this.setState({selectedCourses: selectedCourses});
+
+    });
+  }
+
+  structureCourses = () => {
+    let courses = this.state.courses;
+
+    var collegeObj = {
+
+    }
+
+    for(var i = 0; i < departmentList.length; i++)
+    {
+      var collegeName = departmentList[i].college;
+
+      collegeObj[collegeName] = [];
+      for(var j = 1; j < departmentList[i].department.length; j++)
+      {
+        var departmentName = departmentList[i].department[j];
+
+        collegeObj[collegeName][departmentName] = [];
+      }
+    }
+
+    for(var i = 0; i < courses.length; i++)
+    {
+      courses[i].department = this.removeDepartmentError(courses[i].department);
+      // console.log(collegeObj[courses[i].school][courses[i].department]);
+      // debugger;
+      if(collegeObj[courses[i].school] != undefined && collegeObj[courses[i].school][courses[i].department] != undefined)
+      {
+        collegeObj[courses[i].school][courses[i].department].push(courses[i]);
+      }
+    }
+
+   
+    console.log(collegeObj);
+
+    this.setState({courses: courses});
+    this.setState({structuredCourses: collegeObj});
+  }
+
+  removeDepartmentError = (str) => {
+    str = str.replace("(","");
+    str = str.replace(")","");
+    str = str.replace("[object Promise]","");
+    return str.replace(" ","");
+  }
+
   exports = { CourseList };
   render() {
     const { showCalendar, data } = this.state;
@@ -169,7 +249,9 @@ export default class CourseList extends React.Component {
           </div>
           <div className="contain">
             <div className="searchComp">
-              <form className="search-form">
+            <DropdownCollege clickComp = {this.selectCollege} college = {this.state.college}></DropdownCollege>
+              <DropdownDepartment clickComp = {this.selectDepartment} department = {this.state.department} college = {this.state.college}></DropdownDepartment>
+              <form>
                 <div className="form-group">
                   <input
                     type="text"
@@ -177,16 +259,13 @@ export default class CourseList extends React.Component {
                     onChange={this.search}
                     className="form-control"
                   ></input>
-                  <span className="highlight"></span>
-                  <span className="bar"></span>
-                  <label className='form-label'>Search</label>
-              </div>
-            </form>
-              {this.state.courses.map((i, key) => {
+                  <label className='form-label'>Search </label>
+                </div>
+              </form>
+              {this.state.selectedCourses.map((i, key) => {
                 //console.log("index", i);
                 if (
-                  this.state.searchQuery.length > 3 &&
-                  i.name.includes(this.state.searchQuery)
+                  this.state.selectedCourses.length > 0
                 ) {
                   return (
                     <Card
