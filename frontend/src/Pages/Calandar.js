@@ -23,7 +23,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       light: '#e86c00',
-      main: '#57068c',
+      main: '#e86c00',
       contrastText: '#fff',
     },
     secondary: {
@@ -76,6 +76,9 @@ const style = ({ palette }) => ({
     "&:focus":{
       backgroundColor: "rgba(232, 108, 0,0.7) !important",
     }
+  },
+  today:{
+    color:"rgba(232, 108, 0,0.7) !important"
   }
 });
 
@@ -94,9 +97,16 @@ const Content = withStyles(style, { name: 'Content' })(({
     </AppointmentTooltip.Content>
   ));
 
+const DayScaleCellBase = ({ classes, ...restProps }) => {
+  const { today } = restProps;
+  if (today) {
+    return <WeekView.DayScaleCell {...restProps} className={classes.today} />;
+  }
+   return <WeekView.DayScaleCell {...restProps} />;
+};
 
+const DayScaleCell = withStyles(style, { name: 'DayScaleCell' })(DayScaleCellBase);
 const TimeTableCellBase = ({ classes, ...restProps }) => {
-  const { startDate } = restProps;
   return <WeekView.TimeTableCell {...restProps} className={classes.todayCell} />;
 };
 const TimeTableCell = withStyles(style, { name: 'TimeTableCell' })(TimeTableCellBase);
@@ -222,7 +232,8 @@ export default class Calendar extends React.PureComponent {
             />
             <IntegratedEditing />
             <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={30}
-              timeTableCellComponent={TimeTableCell}/>
+              timeTableCellComponent={TimeTableCell}
+              dayScaleCellComponent={DayScaleCell}/>
             <Appointments
               appointmentComponent={Appointment}
             />
