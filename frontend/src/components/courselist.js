@@ -104,8 +104,8 @@ export default class CourseList extends React.Component {
   }
 
   search = event => {
-    this.setState({ searchQuery: event.target.value });
-    // console.log(this.state.searchQuery);
+    this.setState({ searchQuery: event.currentTarget.value });
+    console.log(this.state.searchQuery);
     this.render();
   };
 
@@ -252,15 +252,15 @@ export default class CourseList extends React.Component {
             <DropdownCollege clickComp = {this.selectCollege} college = {this.state.college}></DropdownCollege>
               <DropdownDepartment clickComp = {this.selectDepartment} department = {this.state.department} college = {this.state.college}></DropdownDepartment>
               <form>
-                <label>
-                  Search:
+                <div className="form-group">
                   <input
                     type="text"
-                    name=""
                     value={this.state.searchQuery}
                     onChange={this.search}
+                    className="form-control"
                   ></input>
-                </label>
+                  <label className='form-label'>Search </label>
+                </div>
               </form>
               {this.state.selectedCourses.map((i, key) => {
                 //console.log("index", i);

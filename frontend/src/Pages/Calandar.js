@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 import Paper from "@material-ui/core/Paper";
 import {
   ViewState,
@@ -14,13 +13,76 @@ import {
   AppointmentTooltip,
   ConfirmationDialog
 } from "@devexpress/dx-react-scheduler-material-ui";
+import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
 import { CalendarData } from "../Pages/CalendarDatasource";
-
+import Grid from '@material-ui/core/Grid';
+import Room from '@material-ui/icons/Room';
 import "../Calendar.css";
 
-const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#e86c00',
+      main: '#57068c',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#e86c00',
+      main: '#57068c',
+      contrastText: '#fff',
+    },
+    typography:{
+      fontFamily: "Montserrat,sans-serif"
+    },
+    text:{
+      fontFamily: "Montserrat,sans-serif"
+    }
+  }
+  });
+
+const Appointment = ({
+  children, style, ...restProps
+}) => (
+    <Appointments.Appointment
+      {...restProps}
+      style={{
+        ...style,
+        backgroundColor: '#e86c00',
+        borderRadius: '0',
+        fontFamily: "Montserrat, sans-serif",
+        left:"40%",
+        width:"150px"
+      }}
+    >
+      {children}
+    </Appointments.Appointment>
+  );
+
+const style = ({ palette }) => ({
+  icon: {
+    color: palette.primary.main,
+  },
+  textCenter: {
+    textAlign: 'center',
+    fontFamily:"Montserrat, sans-serif",
+  }
+});
+
+const Content = withStyles(style, { name: 'Content' })(({
+  children, appointmentData, classes, ...restProps
+}) => (
+    <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData} >
+      <Grid container alignItems="center">
+        <Grid item xs={2} className={classes.textCenter}>
+          <Room className={classes.icon} />
+        </Grid>
+        <Grid item xs={10}>
+          <span>{appointmentData.location}</span>
+        </Grid>
+      </Grid>
+    </AppointmentTooltip.Content>
+  ));
 
 export default class Calendar extends React.PureComponent {
   list = new CalendarData();
@@ -144,8 +206,10 @@ export default class Calendar extends React.PureComponent {
             <IntegratedEditing />
             <WeekView startDayHour={8} endDayHour={22} excludedDays={[0, 6]} cellDuration={60}/>
             <ConfirmationDialog />
-            <Appointments />
-            <AppointmentTooltip showOpenButton showDeleteButton />
+            <Appointments
+              appointmentComponent={Appointment}
+            />
+            <AppointmentTooltip showDeleteButton contentComponent={Content} />
             <AppointmentForm />
           </Scheduler>
         </Paper>
