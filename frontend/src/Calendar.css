@@ -30,26 +30,7 @@ table,tr,td,tbody,.MuiGrid-grid-xs-auto {
     box-shadow: none !important;
 }
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-text{
-    font-family: "Montserrat", sans-serif !important;
-    color: #fff;
-    height: 36px;
-    padding: 4px 28px;
-    margin-left: 24px;
-    background-color: #8900e1 !important;
-}
-.MuiDialogActions-root{
-
-    background-color: white  !important;
-}
-
-.MuiDialogTitle-root{
-
-    background-color: white  !important;
-}
-
-
-.MuiTypography-body1,input{
+.MuiTypography-body1,input,.MuiGrid-root{
     font-family: "Montserrat", sans-serif !important; 
 }
 
