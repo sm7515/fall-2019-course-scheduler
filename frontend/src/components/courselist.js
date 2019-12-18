@@ -91,10 +91,10 @@ export default class CourseList extends React.Component {
      */
   clickLogout = () => {
     //Delete session in backend, delete cookie, and redirect to / page.
-    
+
     axios({
       method: "get",
-      url: `http://localhost:5000/logout?query=${localStorage.getItem("userID")}`,
+      url: `http://35.243.213.6/logout?query=${localStorage.getItem("userID")}`,
       withCredentials: true,
     })
       .then(res => {
