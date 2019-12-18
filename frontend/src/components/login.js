@@ -44,7 +44,7 @@ class Login extends Component {
         //console.log(user);
         axios({
           method:"post",
-          url:'http://localhost:5000/login',
+          url:'http://'+process.env.BACKEND_URL+'/login',
           withCredentials :true,
           data:user
         })
@@ -65,7 +65,7 @@ class Login extends Component {
                 console.log(this.state.err)
             });
     }
-    
+
     render(){
     return(
         <div className='form-container-login'>
