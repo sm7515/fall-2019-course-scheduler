@@ -37,7 +37,7 @@ export default class CourseList extends React.Component {
   componentDidUpdate() {}
   query = function() {
     axios
-      .get("http://localhost:5000/database/fetchData")
+      .get("http://"+process.env.BACKEND_URL+"/database/fetchData")
       .then(res => {
         console.log("db data", res.data);
         this.setState({ courses: res.data });
@@ -52,7 +52,7 @@ export default class CourseList extends React.Component {
 
   /**
      *  <Popup trigger={<button> Calandar</button>}>
-            <Calendar classes={{ 
+            <Calendar classes={{
                 root: 'stylised-calendar'
             }}/>
         </Popup>
