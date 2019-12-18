@@ -59,6 +59,12 @@ mongoose.connection.once("open", () => {
 //=============================================================
 
 var app = express();
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://34.73.234.214/"
+  })
+);
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
