@@ -146,19 +146,19 @@ export default class Calendar extends React.PureComponent {
   query = function() {
     return axios({
       method: "get",
-      url: "http://localhost:5000/schedule/viewschedule/",
+      url: "http://35.243.213.6/schedule/viewschedule/",
       withCredentials: true
     });
   };
   saveScheduler = function(body) {
-    return axios.post("http://localhost:5000/schedule/add", body, {
+    return axios.post("http://35.243.213.6/schedule/add", body, {
       withCredentials: true
     });
   };
   deleteScheduler = function(body) {
     // debugger;
     axios
-      .delete("http://localhost:5000/schedule/deleteCourse", {
+      .delete("http://35.243.213.6/schedule/deleteCourse", {
         data: body,
         withCredentials: true
       })
