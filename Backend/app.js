@@ -49,7 +49,7 @@ var store = new MongoDBStore(
     {
       console.log(err);
     }
-    
+
   }
 );
 
@@ -62,7 +62,7 @@ var app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000"
+    origin: ["http://localhost:3000","http://34.73.234.214/"
   })
 );
 // view engine setup
