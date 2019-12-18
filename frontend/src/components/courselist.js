@@ -6,34 +6,52 @@ import Calendar from "../Pages/Calandar";
 import { appointments } from "../data/data";
 import { CalendarData } from "../Pages/CalendarDatasource";
 import moment from "moment";
+import DropdownCollege from "./DropdownCollege";
+import DropdownDepartment from "./DropdownDepartment";
+
+import {departmentList} from "../data/departmentList";
+import { VerticleButton as ScrollUpButton }  from "react-scroll-up-button"; 
+
+import Cookies from 'js-cookie';
+import zIndex from "@material-ui/core/styles/zIndex";
 
 export default class CourseList extends React.Component {
   // const [courses,setCourse]=useState([]);
   // const [searchQuery] = useState("");
   list = new CalendarData();
-  DaysEnum = { Mo: 1, Tu: 2, Wed: 3, Th: 4, Fr: 5, Sa: 6, Su: 7 };
+  DaysEnum = { Mo: 1, Tu: 2, We: 3, Th: 4, Fr: 5, Sa: 6, Su: 7 };
   moment = moment();
   m = null;
   state = {
     courses: [],
+    structuredCourses: [],
+    selectedCourses: [],
+    selectedCoursesAll: [],
     setCourse: [],
     searchQuery: "",
     showCalendar: true,
     data: [],
-    addedData: {}
+    addedData: {},
+    auth: false,
+    userInfo: {},
+    college: "Enter College",
+    department: "Enter Department",
+    
   };
   constructor(props) {
     super(props);
+    this.cardRef = React.createRef();
   }
-  componentDidMount() {
+  componentDidMount = () => {
     this.query();
+    this.setLoggedIn();
     let rows = this.list.getAll();
 
     this.setState(prevState => {
       var joined = this.state.data.concat(rows);
       return { data: joined };
     });
-  }
+  };
   componentDidUpdate() {}
   query = function() {
     axios
@@ -41,11 +59,24 @@ export default class CourseList extends React.Component {
       .then(res => {
         console.log("db data", res.data);
         this.setState({ courses: res.data });
+        this.structureCourses();
         return res;
       })
       .catch(err => console.log(err));
   };
 
+  setLoggedIn = function() {
+    // Determine if user is logged in
+
+    if (Cookies.get("login") != undefined) {
+      let obj = Cookies.get("login");
+      this.setState({ auth: true, userInfo: obj }, () => {
+        console.log(this.state.userInfo);
+      });
+
+      // alert("logged in");
+    }
+  };
   // useEffect(()=>{
   //     query();
   // }, query)
@@ -57,56 +88,195 @@ export default class CourseList extends React.Component {
             }}/>
         </Popup>
      */
+  clickLogout = () => {
+    //Delete session in backend, delete cookie, and redirect to / page.
+
+    axios({
+      method: "get",
+      url: "http://localhost:5000/logout",
+      withCredentials: true
+    })
+      .then(res => {
+        // alert("Sucessful Logout")
+        localStorage.setItem("userID", null);
+        Cookies.remove("login");
+        window.location = "/";
+        console.log(res.data);
+        return res;
+      })
+      .catch(err => console.log(err));
+  };
 
   search = event => {
-    this.setState({ searchQuery: event.target.value });
-    // console.log(this.state.searchQuery);
-    this.render();
+    this.setState({ searchQuery: event.currentTarget.value },() => {
+      // console.log(this.state.searchQuery);
+
+      let newSelectedCourses = [];
+      for(var i = 0; i < this.state.selectedCoursesAll.length; i++)
+      {
+        if(this.state.selectedCoursesAll[i].name.includes(this.state.searchQuery))
+        {
+          newSelectedCourses.push(this.state.selectedCoursesAll[i]);
+        }
+      }
+
+      this.setState({selectedCourses: newSelectedCourses}, () => {
+        this.forceUpdate();
+      })
+    });
+
   };
 
   addToCalender = nameTimeObj => {
-    console.log("addTocalendar", nameTimeObj);
-    let calData = {};
+    // console.log("addTocalendar", nameTimeObj);
 
-    var res = nameTimeObj.time.split("-");
-    let weekName = res[0].substr(0, 2);
-    console.log( weekName);
-    console.log(this.DaysEnum[weekName]);
-    let startTime = res[0].substr(2, res[0].length);
-    let endTime = res[1];
+    //Check if it is valid string
+    if(!nameTimeObj.time.includes("Room"))
+    {
+        let calDatas = [];
 
-    calData.title = nameTimeObj.name;
+      var res = nameTimeObj.time.split("-");
+      let weekTime = res[0].split(" ");
 
-    let startDateMoment = moment().day(this.DaysEnum[weekName]);
-    var seconds = startTime.split(":")[1];
-    var minutes = startTime.split(":")[0];
-    let startDate1 = moment(startTime.trim(), ["h:mm A"]);
+      let weekName = weekTime[0];
+      let weekNames = weekName.match(/.{2}/g);
+      console.log("weekarray", weekName);
+      console.log("weekarray1 =", weekNames);
+      weekNames.map(name => {
+        let calData = {};
 
-    startDateMoment.hour(startDate1.get("hour"));
-    startDateMoment.minute(startDate1.get("minute"));
-    let startDate = startDateMoment.toDate();
+        console.log("week name is  =", name);
+        let startTime = weekTime[1].trim();
+        let endTime = res[1];
+        calData.title = nameTimeObj.name;
 
-    calData.startDate = startDate;
-    //let endDate = moment(endTime, "HH:mm");
-    let endDateMoment = moment().day(this.DaysEnum[weekName]);
-    let endDate1 = moment(endTime.trim(), ["h:mm A"]);
+        let startDateMoment = moment().day(this.DaysEnum[name]);
 
-    endDateMoment.hour(endDate1.get("hour"));
-    endDateMoment.minute(endDate1.get("minute"));
-    let endDate = endDateMoment.toDate();
+        let startDate1 = moment(startTime.trim(), ["h:mm A"]);
 
-    calData.endDate = endDate; //.toDate();
-    calData.id = nameTimeObj.id;
-    calData.location = nameTimeObj.location;
-    calData.allData = false;
+        startDateMoment.hour(startDate1.get("hour"));
+        startDateMoment.minute(startDate1.get("minute"));
+        startDateMoment.second(0);
+        startDateMoment.millisecond(0);
+        let startDate = startDateMoment.toDate();
 
-    this.setState({ addedData: calData });
+        calData.startDate = startDate;
+        //let endDate = moment(endTime, "HH:mm");
+        let endDateMoment = moment().day(this.DaysEnum[name]);
+        let endDate1 = moment(endTime.trim(), ["h:mm A"]);
+
+        endDateMoment.hour(endDate1.get("hour"));
+        endDateMoment.minute(endDate1.get("minute"));
+        endDateMoment.second(0);
+        endDateMoment.millisecond(0);
+        let endDate = endDateMoment.toDate();
+
+        calData.endDate = endDate; //.toDate();
+        calData.id = nameTimeObj.id;
+        calData.location = nameTimeObj.location;
+        calData.allData = false;
+        calDatas.push(calData);
+      });
+
+      console.log("final data", calDatas);
+
+      this.setState({ addedData: calDatas });
+    }
+    else
+    {
+      alert("Time error");
+    }
+    
   };
 
   onAddElement = calData => {
     let newData = this.list.addElement(calData);
     this.setState({ data: newData });
   };
+
+  selectCollege = data => {
+    // console.log(data.college);
+
+    this.setState({selectedCourses: [] }, ()=>{
+      console.log(this.state.selectedCourses);
+      this.render();
+    })
+
+    this.setState({ college: data.college }, () => {
+      this.forceUpdate();
+    });
+  };
+
+  selectDepartment = data => {
+    // console.log("this.state.structuredCourses", this.state.structuredCourses);
+
+    this.setState({selectedCourses: [] }, ()=>{
+      console.log(this.state.selectedCourses);
+      this.render();
+    })
+
+    this.setState({ department: data.department }, () => {
+      let selectedCourses = [];
+      // console.log(this.state.college);
+      for (
+        var i = 0;
+        i <
+        this.state.structuredCourses[this.state.college][this.state.department]
+          .length;
+        i++
+      ) {
+        selectedCourses.push(
+          this.state.structuredCourses[this.state.college][
+            this.state.department
+          ][i]
+        );
+      }
+
+      this.setState({ selectedCourses: selectedCourses, selectedCoursesAll: selectedCourses });
+    });
+  };
+
+  structureCourses = () => {
+    let courses = this.state.courses;
+    var collegeObj = {};
+
+    for (var i = 0; i < departmentList.length; i++) {
+      var collegeName = departmentList[i].college;
+
+      collegeObj[collegeName] = [];
+      for (var j = 1; j < departmentList[i].department.length; j++) {
+        var departmentName = departmentList[i].department[j];
+
+        collegeObj[collegeName][departmentName] = [];
+      }
+    }
+
+    for (var i = 0; i < courses.length; i++) {
+      courses[i].department = this.removeDepartmentError(courses[i].department);
+      // console.log(collegeObj[courses[i].school][courses[i].department]);
+      // debugger;
+      if (
+        collegeObj[courses[i].school] != undefined &&
+        collegeObj[courses[i].school][courses[i].department] != undefined
+      ) {
+        collegeObj[courses[i].school][courses[i].department].push(courses[i]);
+      }
+    }
+
+    console.log(collegeObj);
+
+    this.setState({ courses: courses });
+    this.setState({ structuredCourses: collegeObj });
+  };
+
+  removeDepartmentError = str => {
+    str = str.replace("(", "");
+    str = str.replace(")", "");
+    str = str.replace("[object Promise]", "");
+    return str.replace(" ", "");
+  };
+
+
   exports = { CourseList };
   render() {
     const { showCalendar, data } = this.state;
@@ -114,33 +284,43 @@ export default class CourseList extends React.Component {
     return (
       <>
         <div className="course-page">
-          <button
-            onClick={() => this.setState({ showCalendar: !showCalendar })}
-            className="showButton"
-          >
-            {showCalendar ? "Hide Calendar" : "Show Calendar"}
-          </button>
           <div className="form-container-logout">
-            <a href="/login">Log In</a>
+            {this.state.auth ? (
+              <a onClick={this.clickLogout} href="#">
+                Log Out
+              </a>
+            ) : (
+              <a href="/login">Log In</a>
+            )}
           </div>
           <div className="contain">
             <div className="searchComp">
-              <form>
-                <label>
-                  Search:
-                  <input
-                    type="text"
-                    name=""
-                    value={this.state.searchQuery}
-                    onChange={this.search}
-                  ></input>
-                </label>
-              </form>
-              {this.state.courses.map((i, key) => {
-                console.log( i);
+              <DropdownCollege
+                clickComp={this.selectCollege}
+                college={this.state.college}
+              ></DropdownCollege>
+              <DropdownDepartment
+                clickComp={this.selectDepartment}
+                department={this.state.department}
+                college={this.state.college}
+              ></DropdownDepartment>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={this.state.searchQuery}
+                  onChange={this.search}
+                  className="form-control"
+                  placeholder="search ..."
+                ></input>
+                <span className="highlight"></span>
+                <span className="bar"></span>
+              </div>
+              <div ref = {this.cardRef}>
+               {this.state.selectedCourses.map((i,key) => {
+               // console.log("index", i);
+                //if (this.state.courses.length > 0) {
                 if (
-                  this.state.searchQuery.length > 3 &&
-                  i.name.includes(this.state.searchQuery)
+                  this.state.selectedCourses.length>0
                 ) {
                   return (
                     <Card
@@ -156,14 +336,37 @@ export default class CourseList extends React.Component {
                   );
                 }
               })}
+              </div>
             </div>
 
             <div className="calenderComp">
+              {
+                // <button
+                //   onClick={() => this.setState({ showCalendar: !showCalendar })}
+                //   className="showButton"
+                // >
+                //   {showCalendar ? "Hide Calendar" : "Show Calendar"}
+                // </button>
+              }
               {showCalendar ? (
                 <Calendar addedData={this.state.addedData} />
               ) : null}
             </div>
           </div>
+          <ScrollUpButton
+            StopPosition={0}
+            ShowAtPosition={150}
+            EasingType='easeOutCubic'
+            AnimationDuration={500}
+            ContainerClassName='ScrollUpButton__Container'
+            TransitionClassName='ScrollUpButton__Toggled'
+            style={{
+              outline: "none", backgroundColor: "none", zIndex: "5", opacity: "0.5", bottom: "100px",fontSize:"12px"}}
+            ToggledStyle={{ opacity: "0.5",right:"0",fontSize:"12px"}}
+          />
+          <footer>
+                &copy; 2019. NYU course scheduler.
+          </footer>
         </div>
       </>
     );

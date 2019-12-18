@@ -7,7 +7,7 @@ class ValidationError{
 
 class PermissionError{
   constructor(message){
-    this.status = 401;
+    this.status = 402;
     this.message = message;
   }
 }
@@ -25,7 +25,7 @@ class HashError{
 }
 class InvalidInputError{
   constructor(message){
-    this.status = 401;
+    this.status = 403;
     this.message = message;
   }
 }

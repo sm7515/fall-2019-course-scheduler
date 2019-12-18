@@ -1,0 +1,61 @@
+span,div,p{
+    font-family: "Montserrat", sans-serif !important;
+}
+table,tr,td,tbody,.MuiGrid-grid-xs-auto {
+    background-color: transparent !important;
+}
+
+.MuiTableRow-root span,.MuiTableRow-root div,.MuiTableRow-root p {
+    color: white !important;
+}
+
+.MuiGrid-root.MuiGrid-container span{
+    color: white !important;
+    font-size: 12px !important;
+}
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-10 span{
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.VerticalViewLayout{
+    display: none !important;
+}
+
+.MuiPaper-root {
+    background-color:transparent !important;
+}
+
+.MuiPaper-elevation1{
+    box-shadow: none !important;
+}
+
+.MuiTypography-body1,input,.MuiGrid-root{
+    font-family: "Montserrat", sans-serif !important; 
+}
+
+.MuiFilledInput-underline:after,.MuiFilledInput-underline::before{
+border-bottom: 2px solid #8900e1 !important;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary{
+    background-color: transparent !important;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary .MuiButton-label{
+    color:#8900e1 !important ;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary{
+    background-color: transparent;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:hover{
+    background-color: rgba(137, 0, 225,0.1) !important;
+}
+
+.MuiSvgIcon-root{
+        color:rgba(232, 108, 0,0.8) !important;
+}
+
+.MuiList-root{
+    background-color: white !important;
+}

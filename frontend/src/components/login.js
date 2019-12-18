@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Logout from './logout'
 import '../App.css'
+
+import Cookies from 'js-cookie'
 
 class Login extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class Login extends Component {
         this.state = {
             name: '',
             password: '',
+            err:""
         }
     }
 
@@ -47,15 +49,27 @@ class Login extends Component {
           data:user
         })
             .then(res => {
+                // let cookieObj = res;
+
+                // alert(res.data);
+                console.log(res.data);
+                localStorage.setItem('userID', res.data);
+                Cookies.set('login', res.data);
+
                 window.location = '/courses';
+
             })
-            .catch(err => console.log(err));
+            .catch((err) => {
+                // console.log(err.response.data.message);
+                this.setState({ err: err.response.data.message})
+                console.log(this.state.err)
+            });
     }
 
     render(){
     return(
         <div className='form-container-login'>
-        <Logout />
+        
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
@@ -86,6 +100,9 @@ class Login extends Component {
                     <a href='/register'>register</a>
                 </div>
             </form>
+            <div className={this.state.err != ''&&"error-section"}>
+                {this.state.err!=''&&this.state.err}
+            </div>
         </div>
     )}
 }
