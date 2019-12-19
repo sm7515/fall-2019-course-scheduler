@@ -83,7 +83,7 @@ export default class CourseList extends React.Component {
 
   /**
      *  <Popup trigger={<button> Calandar</button>}>
-            <Calendar classes={{
+            <Calendar classes={{ 
                 root: 'stylised-calendar'
             }}/>
         </Popup>
