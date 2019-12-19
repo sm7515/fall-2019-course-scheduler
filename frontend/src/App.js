@@ -35,7 +35,7 @@ function authenticate()
 {
   let obj = {};
   console.log(Cookies.get("login"));
-  if(Cookies.get("login") == undefined)
+  if (localStorage.getItem("userID"))
   {
     // alert("Not logged in")
     return false;

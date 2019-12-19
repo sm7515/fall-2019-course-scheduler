@@ -10,7 +10,7 @@ import DropdownCollege from "./DropdownCollege";
 import DropdownDepartment from "./DropdownDepartment";
 
 import {departmentList} from "../data/departmentList";
-import { VerticleButton as ScrollUpButton }  from "react-scroll-up-button"; 
+import { VerticleButton as ScrollUpButton }  from "react-scroll-up-button";
 
 import Cookies from 'js-cookie';
 import zIndex from "@material-ui/core/styles/zIndex";
@@ -36,11 +36,12 @@ export default class CourseList extends React.Component {
     userInfo: {},
     college: "Enter College",
     department: "Enter Department",
-    
+
   };
   constructor(props) {
     super(props);
     this.cardRef = React.createRef();
+    this.clickLogout=this.clickLogout.bind(this);
   }
   componentDidMount = () => {
     this.query();
@@ -55,7 +56,7 @@ export default class CourseList extends React.Component {
   componentDidUpdate() {}
   query = function() {
     axios
-      .get("http://localhost:5000/database/fetchData")
+      .get("http://"+'35.243.213.6'+"/database/fetchData")
       .then(res => {
         console.log("db data", res.data);
         this.setState({ courses: res.data });
@@ -83,7 +84,7 @@ export default class CourseList extends React.Component {
 
   /**
      *  <Popup trigger={<button> Calandar</button>}>
-            <Calendar classes={{ 
+            <Calendar classes={{
                 root: 'stylised-calendar'
             }}/>
         </Popup>
@@ -93,16 +94,17 @@ export default class CourseList extends React.Component {
 
     axios({
       method: "get",
-      url: "http://localhost:5000/logout",
-      withCredentials: true
+      url: `http://35.243.213.6/logout?query=${localStorage.getItem("userID")}`,
+      withCredentials: true,
     })
       .then(res => {
         // alert("Sucessful Logout")
         localStorage.setItem("userID", null);
         Cookies.remove("login");
+        this.setState({auth:false});
         window.location = "/";
         console.log(res.data);
-        return res;
+        // return res;
       })
       .catch(err => console.log(err));
   };
@@ -186,7 +188,7 @@ export default class CourseList extends React.Component {
     {
       alert("Time error");
     }
-    
+
   };
 
   onAddElement = calData => {
@@ -286,7 +288,7 @@ export default class CourseList extends React.Component {
         <div className="course-page">
           <div className="form-container-logout">
             {this.state.auth ? (
-              <a onClick={this.clickLogout} href="#">
+              <a onClick={this.clickLogout} href="/#">
                 Log Out
               </a>
             ) : (

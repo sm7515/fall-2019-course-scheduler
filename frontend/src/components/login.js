@@ -44,7 +44,7 @@ class Login extends Component {
         //console.log(user);
         axios({
           method:"post",
-          url:'http://localhost:5000/login',
+          url:'http://'+'35.243.213.6'+'/login',
           withCredentials :true,
           data:user
         })
@@ -61,15 +61,16 @@ class Login extends Component {
             })
             .catch((err) => {
                 // console.log(err.response.data.message);
+                console.log(process.env)
                 this.setState({ err: err.response.data.message})
                 console.log(this.state.err)
             });
     }
-    
+
     render(){
     return(
         <div className='form-container-login'>
-        
+
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"

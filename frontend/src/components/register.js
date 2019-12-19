@@ -73,7 +73,7 @@ export default class Register extends Component {
 
         axios({
           method:"post",
-          url:'http://localhost:5000/register',
+          url:'http://'+'35.243.213.6'+'/register',
           withCredentials :true,
           data:user
         })
@@ -98,7 +98,7 @@ export default class Register extends Component {
     render() {
         return (
         <div className='form-container'>
-        
+
             <form onSubmit={this.onSubmit} className='registerForm'>
                 <div className="form-group">
                     <input type="text"
