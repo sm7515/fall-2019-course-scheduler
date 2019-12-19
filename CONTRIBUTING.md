@@ -41,4 +41,9 @@
 * To run the app:
 	* Create a .ENV file with the following information
 		* ATLAS_URI=mongodb+srv://test:scheduleNYU@clusterone-d3dzh.mongodb.net/test?retryWrites=true&amp;w=majority
-  NODE_ENV=development
+		* NODE_ENV=development
+	* Do npm install in both the backend folder and the frontend folder
+	* npm start in both the backend folder and the frontend folder
+	* The address for the app is localhost:3000
+	
+ 
