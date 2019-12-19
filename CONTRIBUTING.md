@@ -41,4 +41,4 @@
 * To run the app:
 	* Create a .ENV file with the following information
 		* ATLAS_URI=mongodb+srv://test:scheduleNYU@clusterone-d3dzh.mongodb.net/test?retryWrites=true&amp;w=majority
-NODE_ENV=development
+  NODE_ENV=development
