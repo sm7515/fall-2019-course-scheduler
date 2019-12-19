@@ -62,7 +62,7 @@ var app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "http://34.73.234.214"
+    origin: "http://localhost:3000"
   })
 );
 // view engine setup
