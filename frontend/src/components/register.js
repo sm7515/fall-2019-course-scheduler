@@ -73,7 +73,7 @@ export default class Register extends Component {
 
         axios({
           method:"post",
-          url:'http://'+'35.243.213.6'+'/register',
+          url:'http://localhost:5000/register',
           withCredentials :true,
           data:user
         })
