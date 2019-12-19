@@ -56,7 +56,7 @@ export default class CourseList extends React.Component {
   componentDidUpdate() {}
   query = function() {
     axios
-      .get("http://"+'35.243.213.6'+"/database/fetchData")
+      .get("http://localhost:5000/database/fetchData")
       .then(res => {
         console.log("db data", res.data);
         this.setState({ courses: res.data });
@@ -94,7 +94,7 @@ export default class CourseList extends React.Component {
 
     axios({
       method: "get",
-      url: `http://35.243.213.6/logout?query=${localStorage.getItem("userID")}`,
+      url: `http://localhost:5000/logout?query=${localStorage.getItem("userID")}`,
       withCredentials: true,
     })
       .then(res => {
