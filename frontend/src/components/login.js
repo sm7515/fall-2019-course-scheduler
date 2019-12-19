@@ -44,7 +44,7 @@ class Login extends Component {
         //console.log(user);
         axios({
           method:"post",
-          url:'http://'+'35.243.213.6'+'/login',
+          url:'http://localhost:5000/login',
           withCredentials :true,
           data:user
         })
