@@ -41,7 +41,6 @@ export default class CourseList extends React.Component {
   constructor(props) {
     super(props);
     this.cardRef = React.createRef();
-    this.clickLogout=this.clickLogout.bind(this);
   }
   componentDidMount = () => {
     this.query();
@@ -94,17 +93,16 @@ export default class CourseList extends React.Component {
 
     axios({
       method: "get",
-      url: `http://35.243.213.6/logout?query=${localStorage.getItem("userID")}`,
-      withCredentials: true,
+      url: "http://"+'35.243.213.6'+"/logout",
+      withCredentials: true
     })
       .then(res => {
         // alert("Sucessful Logout")
         localStorage.setItem("userID", null);
         Cookies.remove("login");
-        this.setState({auth:false});
         window.location = "/";
         console.log(res.data);
-        // return res;
+        return res;
       })
       .catch(err => console.log(err));
   };
@@ -288,7 +286,7 @@ export default class CourseList extends React.Component {
         <div className="course-page">
           <div className="form-container-logout">
             {this.state.auth ? (
-              <a onClick={this.clickLogout} href="/#">
+              <a onClick={this.clickLogout} href="#">
                 Log Out
               </a>
             ) : (
