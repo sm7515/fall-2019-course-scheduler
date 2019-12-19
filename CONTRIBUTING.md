@@ -35,3 +35,10 @@
 * When done, put the task to the peer reveiw section in the task board
 * At least one team member should take a look at it before marking it as done
 * Commiting changes to branches and then making pull request to merge to the master branch
+
+### Setup
+
+* To run the app:
+	* Create a .ENV file with the following information
+		* ATLAS_URI=mongodb+srv://test:scheduleNYU@clusterone-d3dzh.mongodb.net/test?retryWrites=true&amp;w=majority
+NODE_ENV=development
