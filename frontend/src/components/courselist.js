@@ -55,7 +55,7 @@ export default class CourseList extends React.Component {
   componentDidUpdate() {}
   query = function() {
     axios
-      .get("http://"+process.env.BACKEND_URL+"/database/fetchData")
+      .get("http://localhost:5000/database/fetchData")
       .then(res => {
         console.log("db data", res.data);
         this.setState({ courses: res.data });
