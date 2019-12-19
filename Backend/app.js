@@ -49,7 +49,7 @@ var store = new MongoDBStore(
     {
       console.log(err);
     }
-    
+
   }
 );
 

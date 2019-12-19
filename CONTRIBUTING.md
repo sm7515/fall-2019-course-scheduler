@@ -36,6 +36,7 @@
 * At least one team member should take a look at it before marking it as done
 * Commiting changes to branches and then making pull request to merge to the master branch
 
+<<<<<<< HEAD
 ### To run the app:
 	* Create a .ENV file under Backend folder with the following information
 		* ATLAS_URI=mongodb+srv://test:scheduleNYU@clusterone-d3dzh.mongodb.net/test?retryWrites=true&amp;w=majority
@@ -43,3 +44,16 @@
 	* npm install in both the backend folder and the frontend folder
 	* npm start in both the Backend folder and the frontend folder
 	* The address for the app is localhost:3000
+=======
+### Setup
+
+* To run the app:
+	* Create a .ENV file with the following information
+		* ATLAS_URI=mongodb+srv://test:scheduleNYU@clusterone-d3dzh.mongodb.net/test?retryWrites=true&amp;w=majority
+		* NODE_ENV=development
+	* Do npm install in both the backend folder and the frontend folder
+	* npm start in both the backend folder and the frontend folder
+	* The address for the app is localhost:3000
+	
+ 
+>>>>>>> master
