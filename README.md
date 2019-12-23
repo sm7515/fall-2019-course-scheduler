@@ -19,4 +19,4 @@ No build exists at this time
 
 **Demo**
 
-[](demo.gif)
+[demo](./demo.gif)
